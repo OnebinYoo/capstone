@@ -1,0 +1,45 @@
+2023-05-20 23:35:33,982 - app - INFO - This is an informational log message!
+2023-05-20 23:41:52,842 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.0.28:8000
+2023-05-20 23:41:52,842 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-05-20 23:41:58,637 - app - INFO - Request: GET http://localhost:8000/web_project/index.php
+2023-05-20 23:41:58,642 - app - INFO - Response: 200 OK
+2023-05-20 23:41:58,642 - werkzeug - INFO - 127.0.0.1 - - [20/May/2023 23:41:58] "GET /web_project/index.php HTTP/1.1" 200 -
+2023-05-20 23:42:00,518 - app - INFO - Request: GET http://localhost:8000/web_project/index.php
+2023-05-20 23:42:00,523 - app - INFO - Response: 200 OK
+2023-05-20 23:42:00,523 - werkzeug - INFO - 127.0.0.1 - - [20/May/2023 23:42:00] "GET /web_project/index.php HTTP/1.1" 200 -
+2023-05-20 23:42:03,503 - app - INFO - Request: GET http://localhost:8000/
+2023-05-20 23:42:03,503 - app - INFO - Response: 302 FOUND
+2023-05-20 23:42:03,503 - werkzeug - INFO - 127.0.0.1 - - [20/May/2023 23:42:03] "[32mGET / HTTP/1.1[0m" 302 -
+2023-05-20 23:42:03,754 - app - INFO - Request: GET http://localhost:8000/web_project/
+2023-05-20 23:42:03,757 - app - INFO - Response: 200 OK
+2023-05-20 23:42:03,757 - werkzeug - INFO - 127.0.0.1 - - [20/May/2023 23:42:03] "GET /web_project/ HTTP/1.1" 200 -
+2023-05-20 23:42:15,183 - app - INFO - Request: GET http://localhost:8000/
+2023-05-20 23:42:15,183 - app - INFO - Response: 302 FOUND
+2023-05-20 23:42:15,183 - werkzeug - INFO - 127.0.0.1 - - [20/May/2023 23:42:15] "[32mGET / HTTP/1.1[0m" 302 -
+2023-05-20 23:42:15,433 - app - INFO - Request: GET http://localhost:8000/web_project/
+2023-05-20 23:42:15,436 - app - INFO - Response: 200 OK
+2023-05-20 23:42:15,436 - werkzeug - INFO - 127.0.0.1 - - [20/May/2023 23:42:15] "GET /web_project/ HTTP/1.1" 200 -
+2023-05-20 23:42:15,487 - app - INFO - Request: GET http://localhost:8000/web_project/css/common.css
+2023-05-20 23:42:15,489 - app - INFO - Response: 200 OK
+2023-05-20 23:42:15,489 - werkzeug - INFO - 127.0.0.1 - - [20/May/2023 23:42:15] "GET /web_project/css/common.css HTTP/1.1" 200 -
+2023-05-20 23:42:15,742 - app - INFO - Request: GET http://localhost:8000/web_project/css/main.css
+2023-05-20 23:42:15,742 - app - INFO - Request: GET http://localhost:8000/web_project/css/board.css
+2023-05-20 23:42:15,746 - app - INFO - Response: 200 OK
+2023-05-20 23:42:15,746 - werkzeug - INFO - 127.0.0.1 - - [20/May/2023 23:42:15] "GET /web_project/css/main.css HTTP/1.1" 200 -
+2023-05-20 23:42:15,746 - app - INFO - Response: 200 OK
+2023-05-20 23:42:15,747 - werkzeug - INFO - 127.0.0.1 - - [20/May/2023 23:42:15] "GET /web_project/css/board.css HTTP/1.1" 200 -
+2023-05-20 23:42:38,078 - app - INFO - Request: GET http://localhost:8000/web_project/board_list.php
+2023-05-20 23:42:38,081 - app - INFO - Response: 200 OK
+2023-05-20 23:42:38,081 - werkzeug - INFO - 127.0.0.1 - - [20/May/2023 23:42:38] "GET /web_project/board_list.php HTTP/1.1" 200 -
+2023-05-20 23:42:39,791 - app - INFO - Request: GET http://localhost:8000/web_project/login_form.php
+2023-05-20 23:42:39,793 - app - INFO - Response: 200 OK
+2023-05-20 23:42:39,793 - werkzeug - INFO - 127.0.0.1 - - [20/May/2023 23:42:39] "GET /web_project/login_form.php HTTP/1.1" 200 -
+2023-05-20 23:42:40,043 - app - INFO - Request: GET http://localhost:8000/web_project/css/login.css
+2023-05-20 23:42:40,045 - app - INFO - Response: 200 OK
+2023-05-20 23:42:40,045 - werkzeug - INFO - 127.0.0.1 - - [20/May/2023 23:42:40] "GET /web_project/css/login.css HTTP/1.1" 200 -
+2023-05-20 23:42:43,486 - app - INFO - Request: POST http://localhost:8000/web_project/login.php
+2023-05-20 23:42:43,487 - app - INFO - Response: 403 FORBIDDEN
+2023-05-20 23:42:43,487 - werkzeug - INFO - 127.0.0.1 - - [20/May/2023 23:42:43] "[31m[1mPOST /web_project/login.php HTTP/1.1[0m" 403 -
