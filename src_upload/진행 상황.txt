@@ -1,0 +1,6 @@
+firebase db바탕으로 로그인은 구현
+
+로그인 실패 => console에 로그인 오류 에러 메시지
+로그인 성공 => home.js로 이동
+
+home.js 파일이 있음에도 No routes matched location "/home" 에러 메시지 떠서 확인 중
