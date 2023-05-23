@@ -1,3 +1,4 @@
-#please install follow things
-pip install request
-pip install flask
+#please install follow things  
+
+#pip install request  
+#pip install flask  
