@@ -1,7 +1,11 @@
 # capstone
-<<<<<<< HEAD
+
 # main branch에는 업로드 금지
-# 각자 본인이름의 branch를 만들고 업로드
+# 각자 본인이름의 branch를 만들고 업로드 
+# 리버스 프록시 서버 폴더 안에  
+# app.py route 주소 변경  
+# re_proxy.py안에 주소 본인 웹서버 주소로 변경
+
 =======
 #각자 branch 본인이름으로 만들고 각자 코딩한거 올리기  
 #main은 회의후 최종적으로 확인된 코드를 올리기  
@@ -10,4 +14,4 @@
 # 그후 git commit -m "message"로 message에 작업한 내용 기술후 엔터  
 # git push -u origin [branch 명] 입력으로 업로드(브랜치 접근 안되면 하나 만들어서 업로드)  
 # 작업 -> add로 폴더 추가 -> commit으로 작업 내용 작성 -> push로 각각 브랜치로 업로드  
->>>>>>> main
+
