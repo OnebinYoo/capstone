@@ -3,7 +3,6 @@ import Chart from '../../components/chart/Chart';
 import FeaturedInfo from '../../components/featuredInfo/FeaturedInfo';
 import './home.css'
 import logData from '../../server.log';
-import arrayData from './arrayData';
 
 export default function Home() {
     const userData = []; /**userData초기화 */
@@ -18,8 +17,6 @@ export default function Home() {
     //       </li>
     //     );
     //   });
-    console.log("arrayData: ", typeof arrayData);
-    console.log(arrayData);
 
     return (
         <div className='home'>
