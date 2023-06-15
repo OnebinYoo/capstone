@@ -3,8 +3,11 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
 import Login from './components/Login';
-import Home from './components/Home';
-import FindId from './components/FindId';
+import Home from './Home';
+import Findpw from './components/Findpw';
+import Log from './Log';
+import Setting from './Setting';
+import TopBarTest from './components/topbar/TopbarTest';
 
 const App = () => {
   return (
@@ -12,7 +15,10 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/findid" element={<FindId />} />
+          <Route path="/findpw" element={<Findpw />} />
+          <Route path="/setting" element={<Setting />} />
+          <Route path="/log" element={<Log />} />
+          <Route path="/topbartest" element={<TopBarTest />} />
         </Routes>
     </BrowserRouter>
   );
