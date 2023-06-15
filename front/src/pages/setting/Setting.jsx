@@ -1,8 +1,47 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import json from 'react-router-dom';
+import axios from 'axios';
+
 import './setting.css'
 
-export default function Setting() {
-    return <div className='setting'>
-        설정
-    </div>
-}
+const GetSecurity = () => {
+    const [data, setData] = useState([]);
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get('http://localhost:8000/security-rules');
+          const securityRules = response.data.security_rules;
+            setData(securityRules)
+          securityRules.forEach((rule) => {
+            console.log('ID:', rule.id);
+            console.log('Name:', rule.name);
+            console.log('Description:', rule.description);
+            console.log('Enabled:', rule.enabled);
+            console.log('------------------------');
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      };
+  
+      fetchData();
+    }, []);
+  
+    return  (
+    <div className='setting'>
+        {console.log(data)}
+        {data.map(d => (
+                <div key={d.id} to={`${d.id}`}>
+                    <p>{d.id}</p>
+                    <p>{d.name}</p>
+                    <p>{d.description}</p>
+                    <button > 
+                        {d.enabled ? '활성화' : '비활성화'}
+                    </button>
+                </div>
+            ))}   
+         </div>
+         );
+  };
+  
+  export default GetSecurity;
