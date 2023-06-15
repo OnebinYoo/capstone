@@ -1,6 +1,7 @@
 from flask import Flask, redirect, request
 import re_proxy
 import logging
+import log
 from logging.handlers import RotatingFileHandler
 from logging_utils import save_log
 from flask_cors import CORS
@@ -45,6 +46,7 @@ def index():
 
 app.route('/<path:path>', methods=['GET', 'POST', 'DELETE'])(re_proxy.proxy)
 app.route('/security-rules', methods=['GET', 'POST', 'DELETE'])(re_proxy.manage_security_rules)
+app.route('/logs', methods=['GET'])(log.get_logs)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=False, port=8000)
