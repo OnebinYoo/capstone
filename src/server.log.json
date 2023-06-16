@@ -1,0 +1,31 @@
+[
+
+    {
+        "status_code": 404, 
+        "headers": {"Date": "Sat, 10 Jun 2023 14:33:15 GMT", 
+        "Server": "Apache/2.4.54 (Unix)", 
+        "Keep-Alive": "timeout=5, max=100", 
+        "Content-Type": "text/html; charset=iso-8859-1", 
+        "Content-Length": "196"}, 
+        "data": null
+    },
+
+    {
+        "status_code": 404, 
+        "headers": {"Date": "Sat, 10 Jun 2023 14:33:17 GMT", 
+        "Server": "Apache/2.4.54 (Unix)", 
+             "Keep-Alive": "timeout=5, max=100", 
+        "Content-Type": "text/html; charset=iso-8859-1", 
+        "Content-Length": "196"}, 
+        "data": null
+    },
+
+    {
+        "status_code": 302, 
+        "headers": {"Content-Type": "text/html; charset=utf-8", 
+        "Content-Length": "213", 
+        "Location": "/web_project/"}, 
+        "data": null
+    }
+
+]
