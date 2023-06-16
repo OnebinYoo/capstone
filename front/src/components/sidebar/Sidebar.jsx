@@ -27,6 +27,11 @@ export default function Sidebar() {
                                 <SettingsIcon />setting
                             </li>
                         </Link>
+                        <Link to='AdminPage'>
+                        <li className="sidebarListItem">
+                                <SettingsIcon />AdminPage
+                            </li>
+                        </Link>
                     </ul>
                 </div>
             </div>
