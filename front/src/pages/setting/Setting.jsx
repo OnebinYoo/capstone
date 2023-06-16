@@ -13,11 +13,11 @@ const GetSecurity = () => {
           const securityRules = response.data.security_rules;
             setData(securityRules)
           securityRules.forEach((rule) => {
-            console.log('ID:', rule.id);
-            console.log('Name:', rule.name);
-            console.log('Description:', rule.description);
-            console.log('Enabled:', rule.enabled);
-            console.log('------------------------');
+            // console.log('ID:', rule.id);
+            // console.log('Name:', rule.name);
+            // console.log('Description:', rule.description);
+            // console.log('Enabled:', rule.enabled);
+            // console.log('------------------------');
           });
         } catch (error) {
           console.error(error);

@@ -1,6 +1,7 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, request ,render_template, jsonify
 import json
 import os
+import requests
 
 app = Flask(__name__)
 
@@ -25,10 +26,11 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/logs')
+@app.route('/logs', methods=['GET'])
 def get_logs():
-    logs = parse_log_file()
-    return jsonify(logs)
+    if request.method == 'GET':
+     logs = parse_log_file()
+    return jsonify(logs) and{'logs': logs}
 
 
 if __name__ == '__main__':
