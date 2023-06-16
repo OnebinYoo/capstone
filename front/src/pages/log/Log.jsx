@@ -51,15 +51,18 @@ import './log.css'
   // export default GetLog;
   const LogTable = () => {
     const [logs, setLogs] = useState([]);
+    const [loading, setLoading] = useState(true);
   
     useEffect(() => {
       const fetchLogs = async () => {
         try {
           const response = await axios.get('http://localhost:8000/logs');
           setLogs(response.data);
-          console.log(response);
+          console.log(response.data);
         } catch (error) {
           console.error(error);
+        } finally {
+          setLoading(false);
         }
       };
   
@@ -93,7 +96,19 @@ import './log.css'
       },
     ];
   
-    return <MaterialReactTable columns={columns} data={logs.logs} />;
+    return (
+      <>
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          logs && logs.logs.length > 0 ? (
+            <MaterialReactTable columns={columns} data={logs.logs} />
+          ) : (
+            <p>No data available</p>
+          )
+        )}
+      </>
+      );
   };
   
   export default LogTable;
