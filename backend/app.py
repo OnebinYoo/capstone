@@ -12,7 +12,6 @@ import datetime
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
-
 def log_request_info():
     current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     log_data = {
@@ -51,4 +50,4 @@ configure_proxy_routes(app)
 app.route('/logs', methods=['GET'])(log.get_logs)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=False, port=8000)
+    app.run(host='0.0.0.0', debug=True, port=8000)

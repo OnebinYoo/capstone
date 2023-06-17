@@ -43,7 +43,7 @@ def configure_proxy_routes(app):
             if rule_id:
                 for rule in security_rules:
                     if rule['id'] == rule_id:
-                        rule['enabled'] = request.json.get('enabled', False)
+                        rule['enabled'] = not rule.get('enabled', False)
                         return {'message': '보안 규칙이 수정되었습니다.'}
                 return {'error': '해당 보안 규칙이 존재하지 않습니다.'}, 404
             else:
@@ -69,7 +69,7 @@ def configure_proxy_routes(app):
                     for key, value in request.args.items():
                         if pattern.search(value):
                             return log_and_block()
-            resp = requests.get(f'{SITE_URL}{path}', params=request.args)
+            resp = requests.get(f'{SITE_URL}{path}', params=request.args, cookies=request.cookies)
             excluded_headers = ['content-encoding', 'content-length', 'transfer-encoding', 'connection']
             headers = [(name, value) for (name, value) in resp.raw.headers.items() if name.lower() not in excluded_headers]
             response = Response(resp.content, resp.status_code, headers)
@@ -87,9 +87,9 @@ def configure_proxy_routes(app):
                             if pattern.search(value):
                                 return log_and_block()
             if request.form:
-                resp = requests.post(f'{SITE_URL}{path}', data=request.form)
+                resp = requests.post(f'{SITE_URL}{path}', data=request.form, cookies=request.cookies)
             elif request.json:
-                resp = requests.post(f'{SITE_URL}{path}', json=request.json)
+                resp = requests.post(f'{SITE_URL}{path}', json=request.json, cookies=request.cookies)
             else:
                 return "지원되지 않는 미디어 유형입니다", 415
             excluded_headers = ['content-encoding', 'content-length', 'transfer-encoding', 'connection']
