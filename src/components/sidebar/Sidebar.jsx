@@ -1,6 +1,15 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
+import './Sidebar.css'
+
+import home from "../../assets/icon/home.png";
+import clickedHome from "../../assets/icon/clickedHome.png"
+import log from "../../assets/icon/log.png";
+import clickedLog from "../../assets/icon/clickedLog.png"
+import settings from "../../assets/icon/settings.png";
+import clickedSettings from "../../assets/icon/clickedSettings.png"
+
 const Sidebar = ({ active }) => {
 
   const location = useLocation();
@@ -12,25 +21,25 @@ const Sidebar = ({ active }) => {
         <Link to="/home" className="link">
           {currentPage === "/home" ? (
             <div className="MainMenuDiv" style={{ backgroundColor: "#f3f3f3" }}>
-            {/*<Icon src={clickedHome}></Icon>*/}
+            <img className="Icon" src={clickedHome} alt="clickedHome"></img>
             <div className="MenuSapn">홈</div>
             </div>
           ) : (
             <div className="MainMenuDiv">
-            {/*<Icon src={home}></Icon>*/}
-            <div  className="MenuSapn">홈</div>
+            <img className="Icon" src={home} alt="home"></img>
+            <div className="MenuSapn">홈</div>
             </div>
           )}
         </Link>
         <Link to="/log" className="link">
           {currentPage === "/log" ? (
           <div className="MainMenuDiv" style={{ backgroundColor: "#f3f3f3" }}>
-          {/*<Icon src={clickedExplore}></Icon>*/}
-          <div  className="MenuSapn">로그</div>
+          <img className="Icon" src={clickedLog} alt="clickedLog"></img>
+          <div className="MenuSapn">로그</div>
           </div>
           ) : (
           <div className="MainMenuDiv">
-          {/*<Icon src={explore}></Icon>*/}
+          <img className="Icon" src={log} alt="log"></img>
           <div  className="MenuSapn">로그</div>
           </div>
           )}
@@ -38,12 +47,12 @@ const Sidebar = ({ active }) => {
         <Link to="/setting" className="link">
           {currentPage === "/setting" ? (
           <div className="MainMenuDiv" style={{ backgroundColor: "#f3f3f3" }}>
-          {/*<Icon src={clickedExplore}></Icon>*/}
-          <div  className="MenuSapn">설정</div>
+          <img className="Icon" src={clickedSettings} alt="clickedSettings"></img>
+          <div className="MenuSapn">설정</div>
           </div>
           ) : (
           <div className="MainMenuDiv">
-          {/*<Icon src={explore}></Icon>*/}
+          <img className="Icon" src={settings} alt="settings"></img>
           <div  className="MenuSapn">설정</div>
           </div>
           )}
