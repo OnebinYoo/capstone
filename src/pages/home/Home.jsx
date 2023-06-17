@@ -22,7 +22,7 @@ export default function Home() {
                     </div>
                     <div className='ColumnRight'>
                         
-                        <FeaturedInfo /> 
+{/*                         <FeaturedInfo />  */}
                         <Chart 
                             data={userData}
                             title='새로운 로그'
