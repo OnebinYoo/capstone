@@ -20,13 +20,13 @@ export default function Home() {
                         <Sidebar />
                     </div>
                     <div className='ColumnRight'>
-                    <FeaturedInfo /> 
-                    <Chart 
-                        data={userData}
-                        title='User Analytics'
-                        grid
-                        dataKey='Active User'
-                    />
+                        <FeaturedInfo /> 
+                        <Chart 
+                            data={userData}
+                            title='User Analytics'
+                            grid
+                            dataKey='Active User'
+                        />
                     </div>
                 </div>
             </div>

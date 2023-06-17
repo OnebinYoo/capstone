@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import json from 'react-router-dom';
+//import json from 'react-router-dom';
 import axios from 'axios';
 
 import './setting.css'
 import Topbar from '../../components/topbar/Topbar';
 import Sidebar from '../../components/sidebar/Sidebar';
+import Switch from '../../components/switch/Switch';
 
 const GetSecurity = () => {
     const [data, setData] = useState([]);
+    const [value, setValue] =  useState(false);
     useEffect(() => {
       const fetchData = async () => {
         try {
@@ -40,6 +42,7 @@ const GetSecurity = () => {
               <Sidebar />
             </div>
             <div className='ColumnRight'>
+              <div>
               {console.log(data)}
               {data.map(d => (
                 <div key={d.id} to={`${d.id}`}>
@@ -51,10 +54,20 @@ const GetSecurity = () => {
                   </button>
                 </div>
               ))}
+              </div>
+              <div>
+                <Switch
+                  isOn={value}
+                  onColor="#9e30f4"
+                  handleToggle={() => setValue(!value)}
+                />
+              </div>
+              <div>
+                
+              </div>
             </div>
           </div>
         </div>
-           
       </div>
     );
 };

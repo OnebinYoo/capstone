@@ -87,7 +87,7 @@ const Login = () => {
           <button onClick={handleLogin} className='bottomButton'>로그인</button>
         </div>
         <div className='inputTitle'  style={{marginTop: '20px'}}>
-          <Link to="/findpw" style={{color: 'black'}}>계정 찾기</Link>
+          <Link to="/findpw" style={{color: 'black'}}>비밀번호 재설정</Link>
         </div>
       </div>
     </div>

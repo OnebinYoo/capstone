@@ -98,6 +98,7 @@ code {
   color: white;
 }
 
+/* alertbar css */
 .alertErrorBar {
   display: flex;
   border-radius: 50px;
@@ -108,12 +109,13 @@ code {
 
 .alertSuccessBar {
   display: flex;
-  border-radius: 35px;
+  border-radius: 34px;
   padding: 16px;
   margin-top: 8px;
   background-color: #A7FF9B;
 }
 
+/* body css */
 .Wrap {
   min-width: 1340px;
 }
@@ -121,7 +123,7 @@ code {
 .Header {
   width: 1280px;
   margin: 0 auto;
-  padding: 0px 0px 50px 0px;
+  padding: 0px 0px 20px 0px;
 }
 
 .Container {
@@ -140,115 +142,4 @@ code {
   float: left;
   width: 860px;
   margin-left: 30px;
-}
-
-/*.SidebarSection {
-    padding: 5px;
-
-  `;
-
-  .Container_bak {
-  padding: 10px 0px 10px 10px;
-  width: 300px;
-  float: left;
-  position: fixed;
-  left: 0;
-  height: 100%;
-`*/
-
-.SideBarContainer {
-    
-  text-align: left;
-  overflow-y: scroll;
-
-  @media (max-width: 1300px) {
-    width: 90px;
-
-    .title {
-      display: none;
-    }
-  }
-
-  .link {
-    text-decoration: none;
-    color: black;
-  }
-
-  @media (max-width: 800px) {
-    display: none;
-  }
-
-  /*스크롤바*/
-  &::-webkit-scrollbar {
-    border: none;
-    -webkit-appearance: none;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: darkgrey;
-    border-radius: 8px;
-  }
-}
-
-.MainMenuDiv {
-  padding: 5px 20px 5px 20px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  border-radius: 15px;
-
-  :hover {
-    background-color: #f3f3f3;
-  }
-
-  @media (max-width: 1300px) {
-    height: 90px;
-    flex-direction: column;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-  }
-}
-
-/*.MenuDiv {
-padding: 0px 20px 0px 20px;
-height: 40px;
-display: flex;
-align-items: center;
-cursor: pointer;
-
-:hover {
-  background-color: #f3f3f3;
-}
-
-@media (max-width: 1300px) {
-  display: none;
-}
-`;
-
-.Icon = styled.img`
-margin-right: 20px;
-height: 25px;
-align-items: center;
-display: flex;
-float: left;
-
-@media (max-width: 1300px) {
-  margin: 0;
-}
-`;*/
-
-.MenuSpan {
-font-size: 15px;
-}
-
-.Line {
-  height: 1px;
-  background: #dedede;
-  margin-top: 14px;
-  margin-bottom: 14px;
-
-  @media (max-width: 1300px) {
-    display: none;
-  }
 }

@@ -5,7 +5,6 @@ import './App.css';
 import Home from './pages/home/Home';
 import Log from './pages/log/Log';
 import Setting from './pages/setting/Setting';
-import AdminPage from './pages/AdminPage';
 import Login from './pages/login/Login';
 import Findpw from './pages/login/Findpw';
 
