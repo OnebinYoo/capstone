@@ -1,5 +1,6 @@
 from flask import Flask, redirect, request
 import re_proxy
+from re_proxy import configure_proxy_routes
 import logging
 import log
 from logging.handlers import RotatingFileHandler
@@ -44,8 +45,9 @@ def log_response_info(response):
 def index():
     return redirect('/web_project/')
 
-app.route('/<path:path>', methods=['GET', 'POST', 'DELETE'])(re_proxy.proxy)
-app.route('/security-rules', methods=['GET', 'POST', 'DELETE'])(re_proxy.manage_security_rules)
+configure_proxy_routes(app)
+# app.route('/<path:path>', methods=['GET', 'POST', 'DELETE'])(re_proxy.proxy)
+# app.route('/security-rules', methods=['GET', 'POST', 'DELETE'])(re_proxy.manage_security_rules)
 app.route('/logs', methods=['GET'])(log.get_logs)
 
 if __name__ == '__main__':
