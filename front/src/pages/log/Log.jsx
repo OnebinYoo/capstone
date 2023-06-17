@@ -3,6 +3,8 @@ import axios from 'axios';
 import MaterialReactTable from 'material-react-table';
 
 import './log.css'
+import Topbar from '../../components/topbar/Topbar';
+import Sidebar from '../../components/sidebar/Sidebar';
 
   const LogTable = () => {
     const [logs, setLogs] = useState([]);
@@ -52,18 +54,33 @@ import './log.css'
     ];
   
     return (
-      <>
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          logs && logs.logs.length > 0 ? (
-            <MaterialReactTable columns={columns} data={logs.logs} />
-          ) : (
-            <p>No data available</p>
-          )
-        )}
-      </>
-      );
+      <div className='Wrap'>
+        <div className='Header'>
+          <Topbar />
+        </div>
+        <div className='Container'>
+          <div className='Root'>
+            <div className='ColumnLeft'>
+              <Sidebar />
+            </div>
+            <div className='ColumnRight'>
+              {loading ? (
+                <p>Loading...</p>
+              ) : (
+                logs && logs.logs.length > 0 ? (
+                  <MaterialReactTable columns={columns} data={logs.logs} />
+                ) : (
+                  <p>No data available</p>
+                )
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
+    
+
   };
   
-  export default LogTable;
+export default LogTable;

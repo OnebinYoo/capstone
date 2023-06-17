@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Topbar from '../components/topbar/Topbar';
+import Sidebar from '../components/sidebar/Sidebar';
 
 function AdminPage() {
   const [securityRules, setSecurityRules] = useState([]);
@@ -34,22 +36,34 @@ function AdminPage() {
   };
 
   return (
-    <div>
-      <h1>Admin Page</h1>
-      <h2>Security Rules</h2>
-      {console.log(securityRules)}
-      {securityRules.map((rule) => (
-        <div key={rule.id}>
-          <h3>{rule.name}</h3>
-          <p>Description: {rule.description}</p>
-          <p>Enabled: {rule.enabled ? 'Yes' : 'No'}</p>
-          <button onClick={() => toggleRule(rule.id, !rule.enabled)}>
-            {rule.enabled ? 'Disable Rule' : 'Enable Rule'}
-          </button>
-        </div>
-      ))}
-      <h2>Current Rule Applied: {isRuleApplied ? 'Yes' : 'No'}</h2>
-    </div>
+    <div className='Wrap'>
+            <div className='Header'>
+                <Topbar />
+            </div>
+            <div className='Container'>
+                <div className='Root'>
+                    <div className='ColumnLeft'>
+                        <Sidebar />
+                    </div>
+                    <div className='ColumnRight'>
+                      <h1>Admin Page</h1>
+                      <h2>Security Rules</h2>
+                      {console.log(securityRules)}
+                      {securityRules.map((rule) => (
+                        <div key={rule.id}>
+                          <h3>{rule.name}</h3>
+                          <p>Description: {rule.description}</p>
+                          <p>Enabled: {rule.enabled ? 'Yes' : 'No'}</p>
+                          <button onClick={() => toggleRule(rule.id, !rule.enabled)}>
+                            {rule.enabled ? 'Disable Rule' : 'Enable Rule'}
+                          </button>
+                        </div>
+                      ))}
+                      <h2>Current Rule Applied: {isRuleApplied ? 'Yes' : 'No'}</h2>
+                    </div>
+                </div>
+            </div>
+          </div>
   );
 }
 

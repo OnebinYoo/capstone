@@ -1,40 +1,67 @@
 import React from "react";
-import './sidebar.css'
-import { Link } from "react-router-dom";
-import HomeIcon from '@mui/icons-material/Home';
-import ChecklistIcon from '@mui/icons-material/Checklist';
-import SettingsIcon from '@mui/icons-material/Settings';
+import { Link, useLocation } from "react-router-dom";
 
-export default function Sidebar() {
-    return (
-        <div className="sidebar">
-            <div className="sidebarWrapper">
-                <div className="sidebarMenu">
-                    <h3 className="sidebarTitle">관리페이지</h3>
-                    <ul className="sidebarList">
-                        <Link to='/'>
-                            <li className="sidebarListItem">
-                                <HomeIcon /> home
-                            </li>
-                        </Link>
-                        <Link to='log'>
-                            <li className="sidebarListItem">
-                                <ChecklistIcon />log
-                            </li>
-                        </Link>
-                        <Link  to='setting'>
-                            <li className="sidebarListItem">
-                                <SettingsIcon />setting
-                            </li>
-                        </Link>
-                        <Link to='AdminPage'>
-                        <li className="sidebarListItem">
-                                <SettingsIcon />AdminPage
-                            </li>
-                        </Link>
-                    </ul>
-                </div>
+import './Sidebar.css'
+
+import home from "../../assets/icon/home.png";
+import clickedHome from "../../assets/icon/clickedHome.png"
+import log from "../../assets/icon/log.png";
+import clickedLog from "../../assets/icon/clickedLog.png"
+import settings from "../../assets/icon/settings.png";
+import clickedSettings from "../../assets/icon/clickedSettings.png"
+
+const Sidebar = ({ active }) => {
+
+  const location = useLocation();
+  const currentPage = location.pathname;
+
+  return (
+    
+    <div className="SidebarContainer">
+        <Link to="/home" className="link">
+          {currentPage === "/home" ? (
+            <div className="MainMenuDiv" style={{ backgroundColor: "#f3f3f3" }}>
+            <img className="Icon" src={clickedHome} alt="clickedHome"></img>
+            <div className="MenuSapn">홈</div>
             </div>
-        </div>
-    );
-}
+          ) : (
+            <div className="MainMenuDiv">
+            <img className="Icon" src={home} alt="home"></img>
+            <div className="MenuSapn">홈</div>
+            </div>
+          )}
+        </Link>
+        <Link to="/log" className="link">
+          {currentPage === "/log" ? (
+          <div className="MainMenuDiv" style={{ backgroundColor: "#f3f3f3" }}>
+          <img className="Icon" src={clickedLog} alt="clickedLog"></img>
+          <div className="MenuSapn">로그</div>
+          </div>
+          ) : (
+          <div className="MainMenuDiv">
+          <img className="Icon" src={log} alt="log"></img>
+          <div  className="MenuSapn">로그</div>
+          </div>
+          )}
+        </Link>
+        <Link to="/setting" className="link">
+          {currentPage === "/setting" ? (
+          <div className="MainMenuDiv" style={{ backgroundColor: "#f3f3f3" }}>
+          <img className="Icon" src={clickedSettings} alt="clickedSettings"></img>
+          <div className="MenuSapn">설정</div>
+          </div>
+          ) : (
+          <div className="MainMenuDiv">
+          <img className="Icon" src={settings} alt="settings"></img>
+          <div  className="MenuSapn">설정</div>
+          </div>
+          )}
+        </Link>
+        <div className="Line" />
+
+    </div>
+    
+  );
+};
+  
+export default Sidebar;

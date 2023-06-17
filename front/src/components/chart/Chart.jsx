@@ -1,30 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import './chart.css';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import axios from 'axios';
 
-export default function Chart({ title, data, dataKey, grid }) {
-  const [chartData, setChartData] = useState(data);
+export default function Chart({ title, dataKey, grid }) {
+  const [chartData, setChartData] = useState([]);
+  const [logs, setLogs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const fetchLogs = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/logs');
+        setLogs(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLogs();
+
+    const interval = setInterval(() => {
+      fetchLogs();
+    }, 5000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
+  useEffect(() => {
+    const generateRandomData = (prevData) => {
+      const newData = [...prevData];
+      const logValue = logs.logs ? logs.logs.length : logs;
+      const currentTime = new Date().toLocaleTimeString();
+
+      if (newData.length >= 10) {
+        newData.shift();
+      }
+
+      newData.push({ name: currentTime, [dataKey]: logValue });
+      return newData;
+    };
+
     const interval = setInterval(() => {
       setChartData(prevData => generateRandomData(prevData));
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
-
-  const generateRandomData = (prevData) => {
-    const newData = [...prevData];
-    const randomValue = Math.floor(Math.random() * 100);
-    const currentTime = new Date().toLocaleTimeString();
-
-    if (newData.length >= 10) {
-      newData.shift();
-    }
-
-    newData.push({ name: currentTime, [dataKey]: randomValue });
-    return newData;
-  };
+  }, [logs, dataKey]);
 
   return (
     <div className='chart'>
@@ -32,7 +59,7 @@ export default function Chart({ title, data, dataKey, grid }) {
       <ResponsiveContainer width='100%' aspect={4 / 1}>
         <LineChart data={chartData}>
           <XAxis dataKey='name' stroke='#5550bd' />
-          <Line type='monotone' dataKey={dataKey} />
+          <Line type='monotone' dataKey={dataKey} stroke='#5550bd' />
           <Tooltip />
           {grid && <CartesianGrid stroke='#e0dfdf' strokeDasharray='5 5' />}
         </LineChart>
@@ -40,4 +67,3 @@ export default function Chart({ title, data, dataKey, grid }) {
     </div>
   );
 }
-

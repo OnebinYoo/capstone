@@ -2,7 +2,8 @@ from flask import Flask, request, redirect, Response
 import requests
 import re
 
-SITE_URL = 'http://192.168.56.101/'
+SITE_URL = 'http://192.168.56.102/'
+# SITE_URL = 'http://192.168.56.101/'
 
 def log_and_block():
     print('액세스가 거부되었습니다. 페이로드에 의심스러운 내용이 포함되어 있습니다.')
