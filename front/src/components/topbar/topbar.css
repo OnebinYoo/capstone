@@ -57,3 +57,31 @@
     display: flex;
     align-items: center;
 }
+
+.TopList {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .TopListItem {
+    padding: 10px;
+    margin-right: 10px;
+  }
+  
+  .toplistleft {
+    margin-right: auto;
+  }
+  
+  .toplistright {
+    display: flex;
+    align-items: center;
+  }
+  
+  .UserEmail {
+    margin-right: 30px;
+    width: 300px;
+    text-align: right;
+  }

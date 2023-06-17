@@ -6,7 +6,6 @@ import axios from 'axios';
 export default function Chart({ title, dataKey, grid }) {
   const [chartData, setChartData] = useState([]);
   const [logs, setLogs] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchLogs = async () => {
@@ -16,16 +15,14 @@ export default function Chart({ title, dataKey, grid }) {
         console.log(response.data);
       } catch (error) {
         console.error(error);
-      } finally {
-        setLoading(false);
-      }
+      } 
     };
 
     fetchLogs();
 
     const interval = setInterval(() => {
       fetchLogs();
-    }, 5000);
+    }, 3000); // 로그 업데이트 주기 설정
 
     return () => {
       clearInterval(interval);
@@ -35,7 +32,12 @@ export default function Chart({ title, dataKey, grid }) {
   useEffect(() => {
     const generateRandomData = (prevData) => {
       const newData = [...prevData];
-      const logValue = logs.logs ? logs.logs.length : logs;
+      const newLogs = logs.logs || []; // 새로운 로그 배열
+
+      const newLogsCount = newLogs.length; // 새로운 로그 개수
+      const prevLogsCount = prevData.reduce((count, entry) => count + entry[dataKey], 0); // 이전 로그 개수
+
+      const logValue = newLogsCount - prevLogsCount; // 새로운 로그 개수 - 이전 로그 개수
       const currentTime = new Date().toLocaleTimeString();
 
       if (newData.length >= 10) {
@@ -47,8 +49,8 @@ export default function Chart({ title, dataKey, grid }) {
     };
 
     const interval = setInterval(() => {
-      setChartData(prevData => generateRandomData(prevData));
-    }, 5000);
+      setChartData((prevData) => generateRandomData(prevData));
+    }, 3000); // 차트 업데이트 주기 설정
 
     return () => clearInterval(interval);
   }, [logs, dataKey]);

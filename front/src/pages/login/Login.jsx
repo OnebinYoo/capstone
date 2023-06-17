@@ -37,7 +37,7 @@ const Login = () => {
       })
       .catch((error) => {
         const errorMessage = error.message;
-        if (errorMessage === 'Firebase: Error (auth/invalid-email).' || errorMessage === 'Firebase: Error (auth/wrong-password).') {
+        if (errorMessage === 'Firebase: Error (auth/invalid-email).' || errorMessage === 'Firebase: Error (auth/wrong-password).' || errorMessage === 'Firebase: Error (auth/user-not-found).') {
           setErrorMessage('계정을 정확하게 입력해 주세요.');
         } else {
           setErrorMessage(errorMessage);

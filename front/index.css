@@ -123,7 +123,7 @@ code {
 .Header {
   width: 1280px;
   margin: 0 auto;
-  padding: 0px 0px 20px 0px;
+  padding: 10px 0px 20px 0px;
 }
 
 .Container {
@@ -140,6 +140,6 @@ code {
 
 .ColumnRight {
   float: left;
-  width: 860px;
+  width: 910px;
   margin-left: 30px;
 }

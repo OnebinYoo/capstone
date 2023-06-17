@@ -65,7 +65,7 @@ import Sidebar from '../../components/sidebar/Sidebar';
             </div>
             <div className='ColumnRight'>
               {loading ? (
-                <p>Loading...</p>
+                <div id="loading"><div class="spinner"></div></div>
               ) : (
                 logs && logs.logs.length > 0 ? (
                   <MaterialReactTable columns={columns} data={logs.logs} />

@@ -1,3 +1,21 @@
-.setting {
-    flex: 4;
-}
+.RuleSetting {
+    margin-top: 16px;
+    border-radius: 30px;
+    outline: 3px solid;
+    outline-color: #f3f3f3;
+    display: flex; /* Flexbox를 사용하여 자식 요소들을 정렬합니다 */
+    align-items: center; /* 세로 중앙 정렬 */
+    justify-content: space-between; /* 좌우 간격을 최대한 확보하여 요소들을 배치합니다 */
+  }
+  
+  .RuleSettingLeft {
+    margin-left: 30px;
+    outline: 3px solid;
+    outline-color: black;
+  }
+  
+  .RuleSettingSwitch {
+    margin-right: 30px; /* 필요한 경우 위 여백을 조정합니다 */
+    display: flex;
+  }
+  
