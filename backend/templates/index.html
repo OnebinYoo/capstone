@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>로그 시각화</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+</head>
+<body>
+    <h1>로그 시각화</h1>
+    <canvas id="logChart"></canvas>
+
+    <script>
+        // 로그 데이터를 가져와 차트로 시각화하는 함수
+        function visualizeLogs() {
+            fetch('/../logs')
+                .then(response => response.json())
+                .then(logs => {
+                    const logCounts = countLogsByLevel(logs);
+                    const logLevels = Object.keys(logCounts);
+                    const logData = logLevels.map(level => logCounts[level]);
+
+                    // 차트 생성
+                    const ctx = document.getElementById('logChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: logLevels,
+                            datasets: [{
+                                label: '로그 수',
+                                data: logData,
+                                backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    stepSize: 1
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Failed to fetch logs:', error);
+                });
+        }
+
+        // 로그 레벨별 로그 수를 계산하는 함수
+        function countLogsByLevel(logs) {
+            const logCounts = {};
+            for (const log of logs) {
+                const level = log.levelname;
+                if (logCounts[level]) {
+                    logCounts[level]++;
+                } else {
+                    logCounts[level] = 1;
+                }
+            }
+            return logCounts;
+        }
+
+        // 페이지 로드 시 로그 시각화
+        document.addEventListener('DOMContentLoaded', visualizeLogs);
+    </script>
+</body>
+</html>
