@@ -98,6 +98,7 @@ code {
   color: white;
 }
 
+/* alertbar css */
 .alertErrorBar {
   display: flex;
   border-radius: 50px;
@@ -108,12 +109,13 @@ code {
 
 .alertSuccessBar {
   display: flex;
-  border-radius: 35px;
+  border-radius: 34px;
   padding: 16px;
   margin-top: 8px;
   background-color: #A7FF9B;
 }
 
+/* body css */
 .Wrap {
   min-width: 1340px;
 }
