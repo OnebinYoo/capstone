@@ -1,5 +1,6 @@
 import React from 'react'
 import Chart from '../../components/chart/Chart';
+import Chart2 from '../../components/chart/Chart2';
 import FeaturedInfo from '../../components/featuredInfo/FeaturedInfo';
 import './home.css'
 
@@ -20,10 +21,17 @@ export default function Home() {
                         <Sidebar />
                     </div>
                     <div className='ColumnRight'>
+                        
                         <FeaturedInfo /> 
                         <Chart 
                             data={userData}
-                            title='User Analytics'
+                            title='새로운 로그'
+                            grid
+                            dataKey='Active User'
+                        />
+                        <Chart2
+                            data={userData}
+                            title='누적 로그'
                             grid
                             dataKey='Active User'
                         />
