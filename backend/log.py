@@ -1,13 +1,11 @@
 from flask import Flask, request ,render_template, jsonify
 import json
 import os
-import requests
 
 app = Flask(__name__)
 
 # 로그 파일 경로
 LOG_FILE = 'logs/server.log'
-
 
 def parse_log_file():
     logs = []
@@ -20,11 +18,6 @@ def parse_log_file():
                 except json.decoder.JSONDecodeError:
                     continue
     return logs
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
 
 @app.route('/logs', methods=['GET'])
 def get_logs():
