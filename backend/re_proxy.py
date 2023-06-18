@@ -1,13 +1,13 @@
-from flask import Flask, request, redirect, Response
+from flask import Flask, request, redirect, Response, render_template
 import requests
 import re
 
-SITE_URL = 'http://192.168.56.102/'
+SITE_URL = 'http://localhost/'
 # SITE_URL = 'http://192.168.56.101/'
 
 def log_and_block():
     print('액세스가 거부되었습니다. 페이로드에 의심스러운 내용이 포함되어 있습니다.')
-    return Response('액세스 거부', status=403)
+    return Response(render_template('access_denied.html'), status=403)
 
 def configure_proxy_routes(app):
     security_rules = [
