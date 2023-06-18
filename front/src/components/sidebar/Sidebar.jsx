@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import './Sidebar.css'
+import './sidebar.css'
 
 import home from "../../assets/icon/home.png";
 import clickedHome from "../../assets/icon/clickedHome.png"
