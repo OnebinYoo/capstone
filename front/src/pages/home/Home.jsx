@@ -1,7 +1,7 @@
 import React from 'react'
 import Chart from '../../components/chart/Chart';
 import Chart2 from '../../components/chart/Chart2';
-import FeaturedInfo from '../../components/featuredInfo/FeaturedInfo';
+
 import './home.css'
 
 import Topbar from '../../components/topbar/Topbar';
@@ -16,24 +16,23 @@ export default function Home() {
                 <Topbar />
             </div>
             <div className='Container'>
-                <div className='Root'>
+                <div className='ARoot'>
                     <div className='ColumnLeft'>
                         <Sidebar />
                     </div>
                     <div className='ColumnRight'>
                         
-{/*                         <FeaturedInfo />  */}
                         <Chart 
                             data={userData}
                             title='새로운 로그'
                             grid
-                            dataKey='Active User'
+                            dataKey='log'
                         />
                         <Chart2
                             data={userData}
                             title='누적 로그'
                             grid
-                            dataKey='Active User'
+                            dataKey='log'
                         />
                     </div>
                 </div>

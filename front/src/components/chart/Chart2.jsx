@@ -25,7 +25,7 @@ export default function Chart({ title, dataKey, grid }) {
 
     const interval = setInterval(() => {
       fetchLogs();
-    }, 5000);
+    }, 3000);
 
     return () => {
       clearInterval(interval);
@@ -33,7 +33,7 @@ export default function Chart({ title, dataKey, grid }) {
   }, []);
 
   useEffect(() => {
-    const generateRandomData = (prevData) => {
+    const generateData = (prevData) => {
       const newData = [...prevData];
       const logValue = logs.logs ? logs.logs.length : logs;
       const currentTime = new Date().toLocaleTimeString();
@@ -47,7 +47,7 @@ export default function Chart({ title, dataKey, grid }) {
     };
 
     const interval = setInterval(() => {
-      setChartData(prevData => generateRandomData(prevData));
+      setChartData(prevData => generateData(prevData));
     }, 5000);
 
     return () => clearInterval(interval);
