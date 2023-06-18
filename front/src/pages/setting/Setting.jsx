@@ -1,3 +1,5 @@
+//Setting.jsx
+
 import React, { useState, useEffect } from 'react';
 //import json from 'react-router-dom';
 import axios from 'axios';
@@ -43,27 +45,31 @@ const GetSecurity = () => {
             </div>
             <div className='ColumnRight'>
               <div>
-              {console.log(data)}
-              {data.map(d => (
-                <div key={d.id} to={`${d.id}`}>
-                  <p>{d.id}</p>
-                  <p>{d.name}</p>
-                  <p>{d.description}</p>
-                  <button > 
-                    {d.enabled ? '활성화' : '비활성화'}
-                  </button>
+                {console.log(data)}
+                {data.map(d => (
+                  <div key={d.id} to={`${d.id}`}>
+                      <p>{d.id}</p>
+                      <p>{d.name}</p>
+                      <p>{d.description}</p>
+                      <button > 
+                          {d.enabled ? '활성화' : '비활성화'}
+                      </button>
+                  </div>
+                ))}
+              </div>
+              <div className='RuleSetting'>
+                <div className='RuleSettingLeft'>
+                  <p style={{fontSize: '32px', margin: '10px 0px 0px 0px'}}>Rule1</p>
+                  <br/>
+                  <p style={{margin: '10px 0px 10px 0px'}}>description</p>
                 </div>
-              ))}
-              </div>
-              <div>
-                <Switch
-                  isOn={value}
-                  onColor="#9e30f4"
-                  handleToggle={() => setValue(!value)}
-                />
-              </div>
-              <div>
-                
+                <div className='RuleSettingSwitch'>
+                  <Switch
+                    isOn={value}
+                    onColor="#9e30f4"
+                    handleToggle={() => setValue(!value)}
+                  />
+                </div>
               </div>
             </div>
           </div>

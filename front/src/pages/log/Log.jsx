@@ -28,12 +28,8 @@ import Sidebar from '../../components/sidebar/Sidebar';
   
     const columns = [
       {
-        accessorKey: 'id',
-        header: 'ID',
-      },
-      {
         accessorKey: 'status_code',
-        header: 'Status Code',
+        header: '에러 코드',
       },
       {
         accessorKey: 'ip',
@@ -41,15 +37,11 @@ import Sidebar from '../../components/sidebar/Sidebar';
       },
       {
         accessorKey: 'date',
-        header: 'Date',
+        header: '날짜',
       },
       {
         accessorKey: 'content_length',
-        header: 'Content Length',
-      },
-      {
-        accessorKey: 'data',
-        header: 'Data',
+        header: '컨텐츠 길이',
       },
     ];
   
@@ -65,7 +57,7 @@ import Sidebar from '../../components/sidebar/Sidebar';
             </div>
             <div className='ColumnRight'>
               {loading ? (
-                <p>Loading...</p>
+                <div id="loading"><div class="spinner"></div></div>
               ) : (
                 logs && logs.logs.length > 0 ? (
                   <MaterialReactTable columns={columns} data={logs.logs} />
@@ -78,9 +70,6 @@ import Sidebar from '../../components/sidebar/Sidebar';
         </div>
       </div>
     );
-
-    
-
   };
   
 export default LogTable;

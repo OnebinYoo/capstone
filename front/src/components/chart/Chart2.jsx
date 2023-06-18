@@ -6,6 +6,7 @@ import axios from 'axios';
 export default function Chart({ title, dataKey, grid }) {
   const [chartData, setChartData] = useState([]);
   const [logs, setLogs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchLogs = async () => {
@@ -15,14 +16,16 @@ export default function Chart({ title, dataKey, grid }) {
         console.log(response.data);
       } catch (error) {
         console.error(error);
-      } 
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchLogs();
 
     const interval = setInterval(() => {
       fetchLogs();
-    }, 3000); // 로그 업데이트 주기 설정
+    }, 3000);
 
     return () => {
       clearInterval(interval);
@@ -30,9 +33,9 @@ export default function Chart({ title, dataKey, grid }) {
   }, []);
 
   useEffect(() => {
-    const generateRandomData = (prevData) => {
+    const generateData = (prevData) => {
       const newData = [...prevData];
-      const logValue = logs ? logs.logs.length : logs;
+      const logValue = logs.logs ? logs.logs.length : logs;
       const currentTime = new Date().toLocaleTimeString();
 
       if (newData.length >= 10) {
@@ -44,8 +47,8 @@ export default function Chart({ title, dataKey, grid }) {
     };
 
     const interval = setInterval(() => {
-      setChartData(prevData => generateRandomData(prevData));
-    }, 3000); // 차트 업데이트 주기 설정
+      setChartData(prevData => generateData(prevData));
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [logs, dataKey]);

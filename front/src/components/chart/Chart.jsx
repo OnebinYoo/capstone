@@ -17,7 +17,6 @@ export default function Chart({ title, dataKey, grid }) {
         console.error(error);
       } 
     };
-
     fetchLogs();
 
     const interval = setInterval(() => {
@@ -30,14 +29,12 @@ export default function Chart({ title, dataKey, grid }) {
   }, []);
 
   useEffect(() => {
-    const generateRandomData = (prevData) => {
+    const generateData = (prevData) => {
       const newData = [...prevData];
-      const newLogs = logs.logs || []; // 새로운 로그 배열
 
-      const newLogsCount = newLogs.length; // 새로운 로그 개수
-      const prevLogsCount = prevData.reduce((count, entry) => count + entry[dataKey], 0); // 이전 로그 개수
+      const prevLogsCount = prevData.reduce((count, entry) => count + entry[dataKey], 0); 
 
-      const logValue = newLogsCount - prevLogsCount; // 새로운 로그 개수 - 이전 로그 개수
+      const logValue = logs.logs.length - prevLogsCount; 
       const currentTime = new Date().toLocaleTimeString();
 
       if (newData.length >= 10) {
@@ -49,7 +46,7 @@ export default function Chart({ title, dataKey, grid }) {
     };
 
     const interval = setInterval(() => {
-      setChartData((prevData) => generateRandomData(prevData));
+      setChartData((prevData) => generateData(prevData));
     }, 3000); // 차트 업데이트 주기 설정
 
     return () => clearInterval(interval);
