@@ -24,7 +24,16 @@ import Sidebar from '../../components/sidebar/Sidebar';
       };
   
       fetchLogs();
+
+      const interval = setInterval(() => {
+        fetchLogs();
+      }, 5000);
+  
+      return () => {
+        clearInterval(interval);
+      };
     }, []);
+    
   
     const columns = [
       {
@@ -62,7 +71,7 @@ import Sidebar from '../../components/sidebar/Sidebar';
                 logs && logs.logs.length > 0 ? (
                   <MaterialReactTable columns={columns} data={logs.logs} />
                 ) : (
-                  <p>No data available</p>
+                  <MaterialReactTable columns={columns} data={logs.logs} />
                 )
               )}
             </div>
