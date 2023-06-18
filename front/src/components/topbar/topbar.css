@@ -1,87 +1,87 @@
 .topbar {
-    width: 100%;
-    height: 50px;
-    background-color: white;
+  width: 100%;
+  height: 50px;
+  background-color: white;
 
-    position: sticky;
-    top: 0;
-    z-index: 999;
+  position: sticky;
+  top: 0;
+  z-index: 999;
 }
 
 .topbarWrapper {
-    height: 100%;
-    padding: 0px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  height: 100%;
+  padding: 0px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .logo {
-    font-weight: bold;
-    font-size: 30px;
-    color: darkblue;
-    cursor: pointer;
+  font-weight: bold;
+  font-size: 30px;
+  color: darkblue;
+  cursor: pointer;
 }
 
 .topbarIconContainer {
-    position: relative;
-    margin-right: 15px;
-    color: #555;
+  position: relative;
+  margin-right: 15px;
+  color: #555;
 }
 
 .topIconBadge {
-    position: absolute;
-    top: -5px;
-    right: 5px;
+  position: absolute;
+  top: -5px;
+  right: 5px;
 }
 
 .topIconBadge {
-    position: absolute;
-    top: -5px;
-    right: 5px;
+  position: absolute;
+  top: -5px;
+  right: 5px;
 
-    background-color: red;
-    border-radius: 50%;
-    height: 15px;
-    width: 15px;
+  background-color: red;
+  border-radius: 50%;
+  height: 15px;
+  width: 15px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    font-size: 13px;
-    color: white;
+  font-size: 13px;
+  color: white;
 }
 
 .topRight {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .TopList {
-    display: flex;
-    align-items: center;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .TopListItem {
-    padding: 10px;
-    margin-right: 10px;
-  }
-  
-  .toplistleft {
-    margin-right: auto;
-  }
-  
-  .toplistright {
-    display: flex;
-    align-items: center;
-  }
-  
-  .UserEmail {
-    margin-right: 30px;
-    width: 300px;
-    text-align: right;
-  }
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.TopListItem {
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.toplistleft {
+  margin-right: auto;
+}
+
+.toplistright {
+  display: flex;
+  align-items: center;
+}
+
+.UserEmail {
+  margin-right: 30px;
+  width: 300px;
+  text-align: right;
+}
