@@ -24,8 +24,6 @@ code {
   left: 50%;
   transform: translate(-50%, 0);
 
-/*  background-color: #F7F7F7; */
-
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -53,7 +51,7 @@ code {
 .inputWrap {
   display: flex;
   border-radius: 50px;
-  padding: 16px;
+  padding: 4px 12px 4px 14px;
   margin-top: 8px;
   background-color: white;
   border: 1px solid #e2e0e0;
@@ -66,13 +64,17 @@ code {
   width: 100%;
   outline: none;
   border: none;
-  height: 17px;
+  height: 40px;
   font-size: 18px;
   font-weight: 400;
 }
 
 .input::placeholder {
   color: #dadada;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
 }
 
 .bottomButtonWrap {
