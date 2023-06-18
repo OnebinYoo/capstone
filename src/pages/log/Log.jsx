@@ -28,10 +28,6 @@ import Sidebar from '../../components/sidebar/Sidebar';
   
     const columns = [
       {
-        accessorKey: 'id',
-        header: 'ID',
-      },
-      {
         accessorKey: 'status_code',
         header: 'Status Code',
       },
@@ -46,11 +42,7 @@ import Sidebar from '../../components/sidebar/Sidebar';
       {
         accessorKey: 'content_length',
         header: 'Content Length',
-      },
-      {
-        accessorKey: 'data',
-        header: 'Data',
-      },
+      }
     ];
   
     return (
