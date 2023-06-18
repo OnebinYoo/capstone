@@ -87,9 +87,9 @@ def configure_proxy_routes(app):
                             if pattern.search(value):
                                 return log_and_block()
             if request.form:
-                resp = requests.post(f'{SITE_URL}{path}', data=request.form, cookies=request.cookies)
+                resp = requests.post(f'{SITE_URL}{path}', data=request.form, params=request.args, cookies=request.cookies)
             elif request.json:
-                resp = requests.post(f'{SITE_URL}{path}', json=request.json, cookies=request.cookies)
+                resp = requests.post(f'{SITE_URL}{path}', json=request.json, params=request.args, cookies=request.cookies)
             else:
                 return "지원되지 않는 미디어 유형입니다", 415
             excluded_headers = ['content-encoding', 'content-length', 'transfer-encoding', 'connection']
