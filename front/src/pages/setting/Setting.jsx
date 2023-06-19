@@ -1,7 +1,4 @@
-//Setting.jsx
-
 import React, { useState, useEffect } from 'react';
-//import json from 'react-router-dom';
 import axios from 'axios';
 
 import './setting.css'
@@ -18,13 +15,6 @@ const GetSecurity = () => {
           const response = await axios.get('http://localhost:8000/security-rules');
           const securityRules = response.data.security_rules;
             setData(securityRules)
-          securityRules.forEach((rule) => {
-            // console.log('ID:', rule.id);
-            // console.log('Name:', rule.name);
-            // console.log('Description:', rule.description);
-            // console.log('Enabled:', rule.enabled);
-            // console.log('------------------------');
-          });
         } catch (error) {
           console.error(error);
         }
@@ -32,6 +22,27 @@ const GetSecurity = () => {
   
       fetchData();
     }, []);
+
+    const toggleSecurityRule = (ruleId, enabled) => {
+      const updatedData = data.map(rule => {
+        if (rule.id === ruleId) {
+          return { ...rule, enabled: !enabled };
+        }
+        return rule;
+      });
+  
+      axios.put('http://localhost:8000/security-rules', {
+        rule_id: ruleId,
+        enabled: !enabled
+      })
+        .then(response => {
+          console.log(response.data);
+          setData(updatedData);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    };
   
     return  (
       <div className='Wrap'>
@@ -48,16 +59,17 @@ const GetSecurity = () => {
                 {console.log(data)}
                 {data.map(d => (
                   <div key={d.id} to={`${d.id}`}>
-                      <p>{d.id}</p>
-                      <p>{d.name}</p>
+                    <div className='SecurityRuleContent' >
+                      <p className='Name'>{d.name}</p>
                       <p>{d.description}</p>
-                      <button > 
+                      <button onClick={() => toggleSecurityRule(d.id, d.enabled)}> 
                           {d.enabled ? '활성화' : '비활성화'}
                       </button>
+                      </div>
                   </div>
                 ))}
               </div>
-              <div className='RuleSetting'>
+              {/* <div className='RuleSetting'>
                 <div className='RuleSettingLeft'>
                   <p style={{fontSize: '32px', margin: '10px 0px 0px 0px'}}>Rule1</p>
                   <br/>
@@ -70,7 +82,7 @@ const GetSecurity = () => {
                     handleToggle={() => setValue(!value)}
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
