@@ -1,7 +1,4 @@
-//Setting.jsx
-
 import React, { useState, useEffect } from 'react';
-//import json from 'react-router-dom';
 import axios from 'axios';
 
 import './setting.css'
@@ -19,18 +16,13 @@ const GetSecurity = () => {
           const securityRules = response.data.security_rules;
             setData(securityRules)
           securityRules.forEach((rule) => {
-            // console.log('ID:', rule.id);
-            // console.log('Name:', rule.name);
-            // console.log('Description:', rule.description);
-            // console.log('Enabled:', rule.enabled);
-            // console.log('------------------------');
           });
         } catch (error) {
           console.error(error);
         }
       };
-  
       fetchData();
+      
     }, []);
   
     return  (
