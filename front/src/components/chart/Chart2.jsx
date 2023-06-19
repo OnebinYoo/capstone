@@ -25,7 +25,7 @@ export default function Chart({ title, dataKey, grid }) {
 
     const interval = setInterval(() => {
       fetchLogs();
-    }, 3000);
+    }, 5000);
 
     return () => {
       clearInterval(interval);
