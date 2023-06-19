@@ -69,20 +69,6 @@ const GetSecurity = () => {
                   </div>
                 ))}
               </div>
-              {/* <div className='RuleSetting'>
-                <div className='RuleSettingLeft'>
-                  <p style={{fontSize: '32px', margin: '10px 0px 0px 0px'}}>Rule1</p>
-                  <br/>
-                  <p style={{margin: '10px 0px 10px 0px'}}>description</p>
-                </div>
-                <div className='RuleSettingSwitch'>
-                  <Switch
-                    isOn={value}
-                    onColor="#9e30f4"
-                    handleToggle={() => setValue(!value)}
-                  />
-                </div>
-              </div> */}
             </div>
           </div>
         </div>
