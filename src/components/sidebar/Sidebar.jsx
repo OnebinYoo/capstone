@@ -22,12 +22,12 @@ const Sidebar = ({ active }) => {
           {currentPage === "/home" ? (
             <div className="MainMenuDiv" style={{ backgroundColor: "#f3f3f3" }}>
             <img className="Icon" src={clickedHome} alt="clickedHome"></img>
-            <div className="MenuSapn">홈</div>
+            <div className="MenuDiv">홈</div>
             </div>
           ) : (
             <div className="MainMenuDiv">
             <img className="Icon" src={home} alt="home"></img>
-            <div className="MenuSapn">홈</div>
+            <div className="MenuDiv">홈</div>
             </div>
           )}
         </Link>
@@ -35,12 +35,12 @@ const Sidebar = ({ active }) => {
           {currentPage === "/log" ? (
           <div className="MainMenuDiv" style={{ backgroundColor: "#f3f3f3" }}>
           <img className="Icon" src={clickedLog} alt="clickedLog"></img>
-          <div className="MenuSapn">로그</div>
+          <div className="MenuDiv">로그</div>
           </div>
           ) : (
           <div className="MainMenuDiv">
           <img className="Icon" src={log} alt="log"></img>
-          <div  className="MenuSapn">로그</div>
+          <div  className="MenuDiv">로그</div>
           </div>
           )}
         </Link>
@@ -48,12 +48,12 @@ const Sidebar = ({ active }) => {
           {currentPage === "/setting" ? (
           <div className="MainMenuDiv" style={{ backgroundColor: "#f3f3f3" }}>
           <img className="Icon" src={clickedSettings} alt="clickedSettings"></img>
-          <div className="MenuSapn">설정</div>
+          <div className="MenuDiv">설정</div>
           </div>
           ) : (
           <div className="MainMenuDiv">
           <img className="Icon" src={settings} alt="settings"></img>
-          <div  className="MenuSapn">설정</div>
+          <div  className="MenuDiv">설정</div>
           </div>
           )}
         </Link>

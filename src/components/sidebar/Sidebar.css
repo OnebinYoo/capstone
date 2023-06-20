@@ -52,7 +52,7 @@
   
   @media (max-width: 1300px) {
     .MainMenuDiv {
-      height: 90px;
+      height: 40px;
       flex-direction: column;
       gap: 10px;
       justify-content: center;
