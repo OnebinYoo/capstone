@@ -13,16 +13,23 @@ def configure_proxy_routes(app):
     security_rules = [
         {
             'id': 1,
-            'name': 'Rule 1',
+            'name': '기본 룰',
             'pattern': r'admin|#|%|&|\+|\\|\^|~',
             'description': '문자열 패턴에 따른 보안 규칙',
-            'enabled': True
+            'enabled': False
         },
         {
             'id': 2,
-            'name': 'Rule 2',
-            'pattern': r'admin|#|%|&|\+|\\|\^|~',
-            'description': '1번 규칙과 같지만 설정을 끄고 킬 수 있는지 테스트용',
+            'name': 'XSS 공격 차단',
+            'pattern': r'document|<|>|script|</',
+            'description': 'XSS 공격시 사용되는 구문 필터링',
+            'enabled': False
+        },
+        {
+            'id': 3,
+            'name': 'Injection 공격 차단',
+            'pattern': r'and|#|-|or',
+            'description': 'Injection 공격시 사용되는 구문 필터링',
             'enabled': False
         }
     ]
