@@ -1,0 +1,17 @@
+.alertErrorBar {
+    display: flex;
+    height: max-content;
+    border-radius: 50px;
+    padding: 16px;
+    margin-top: 8px;
+    background-color: rgb(211, 47, 47);
+}
+  
+.alertSuccessBar {
+    display: flex;
+    height: max-content;
+    border-radius: 28px;
+    padding: 16px;
+    margin-top: 8px;
+    background-color: rgb(46, 125, 50);
+}
