@@ -65,7 +65,9 @@ const Findpw = () => {
         {errorMessage && <LoginError message={errorMessage}/>}
         {successMessage && <ResetpwSuccess />}
         <div className='bottomButtonWrap'>
-          <button onClick={handleFindPassword} className='bottomButton' disabled={isButtonDisabled}>확인</button>
+          <button onClick={handleFindPassword} className='bottomButton' disabled={isButtonDisabled}>
+            확인
+          </button>
         </div>
       </div>
     </div>

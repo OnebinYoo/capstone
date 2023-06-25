@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import MaterialReactTable from 'material-react-table';
-import CircularProgress from '@material-ui/core/CircularProgress';
+// import CircularProgress from '@material-ui/core/CircularProgress';
 
 import './log.css'
 import Topbar from '../../components/topbar/Topbar';
@@ -46,12 +46,6 @@ import Sidebar from '../../components/sidebar/Sidebar';
         header: 'Content Length',
       }
     ];
-
-    const NoDataComponent = () => (
-      <div>
-        발생한 로그가 없습니다
-      </div>
-    );
   
     return (
       <div className='Wrap'>
@@ -65,11 +59,13 @@ import Sidebar from '../../components/sidebar/Sidebar';
             </div>
             <div className='ColumnRight'>
               {loading ? (
-                <div id="loading">
-                  <CircularProgress style={{ color: '#9e30f4' }} />
-                </div>
+                <div id="loading">{/* <CircularProgress style={{ color: '#9e30f4' }} /> */}</div>
               ) : (
-                <MaterialReactTable columns={columns} data={logs.logs} NoDataComponent={NoDataComponent} />
+                logs && logs.logs.length > 0 ? (
+                  <MaterialReactTable columns={columns} data={logs.logs} />
+                ) : (
+                  <MaterialReactTable columns={columns} data={logs.logs} />
+                )
               )}
             </div>
           </div>
