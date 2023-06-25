@@ -7,7 +7,6 @@ import Log from './pages/log/Log';
 import Setting from './pages/setting/Setting';
 import Login from './pages/login/Login';
 import Findpw from './pages/login/Findpw';
-import RuleAdd from './pages/setting/RuleAdd';
 
 function App() {
 
