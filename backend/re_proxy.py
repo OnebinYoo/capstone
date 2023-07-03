@@ -2,31 +2,14 @@ from flask import Flask, request, redirect, Response, render_template
 import requests
 import re
 
-SITE_URL = 'http://localhost/'
-# SITE_URL = 'http://192.168.56.101/'
+SITE_URL = 'http://192.168.56.102/'
 
 def log_and_block():
     print('액세스가 거부되었습니다. 페이로드에 의심스러운 내용이 포함되어 있습니다.')
     return Response(render_template('access_denied.html'), status=403)
 
 def configure_proxy_routes(app):
-    security_rules = [
-        {
-            'id': 1,
-            'name': 'Rule 1',
-            'pattern': r'admin|#|%|&|\+|\\|\^|~',
-            'description': '문자열 패턴에 따른 보안 규칙',
-            'enabled': True
-        },
-        {
-            'id': 2,
-            'name': 'Rule 2',
-            'pattern': r'admin|#|%|&|\+|\\|\^|~',
-            'description': '1번 규칙과 같지만 설정을 끄고 킬 수 있는지 테스트용',
-            'enabled': False
-        }
-    ]
-
+    
     @app.route('/security-rules', methods=['GET', 'POST', 'PUT', 'DELETE'])
     def manage_security_rules():
         if request.method == 'GET':
