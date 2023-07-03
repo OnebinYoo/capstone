@@ -5,3 +5,7 @@
 {"id": "052b0dec-bce0-4267-a214-c2a2a8757c1f", "status_code": 403, "ip": "192.168.0.28", "date": "2023-06-20 15:42:11", "content_length": 1055, "data": null}
 {"id": "00e5c7f6-4c1f-40df-b752-5777e5a598b9", "status_code": 403, "ip": "192.168.0.28", "date": "2023-06-20 15:42:32", "content_length": 1055, "data": null}
 {"id": "8052f91a-19e8-4448-a8f6-8c5f808d543f", "status_code": 404, "ip": "127.0.0.1", "date": "2023-06-20 18:42:13", "content_length": 112, "data": null}
+{"id": "a4b2cb5e-e85a-41c9-a17d-a44b6f9751d8", "status_code": 404, "ip": "127.0.0.1", "date": "2023-07-03 21:55:16", "content_length": 196, "data": null}
+{"id": "1a828bff-8b2d-4e47-841e-c90f8cc30844", "status_code": 404, "ip": "127.0.0.1", "date": "2023-07-03 21:55:20", "content_length": 196, "data": null}
+{"id": "58ab7a13-7560-45b8-a711-6e7dfcc34a31", "status_code": 403, "ip": "127.0.0.1", "date": "2023-07-03 22:09:43", "content_length": 1055, "data": null}
+{"id": "7f66d700-0006-4fb9-a7b3-bb2c3330bfd6", "status_code": 404, "ip": "127.0.0.1", "date": "2023-07-03 22:10:08", "content_length": 196, "data": null}
