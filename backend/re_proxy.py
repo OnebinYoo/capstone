@@ -9,7 +9,34 @@ def log_and_block():
     return Response(render_template('access_denied.html'), status=403)
 
 def configure_proxy_routes(app):
+<<<<<<< HEAD
     
+=======
+    security_rules = [
+        {
+            'id': 1,
+            'name': '기본 룰',
+            'pattern': r'admin|#|%|&|\+|\\|\^|~',
+            'description': '문자열 패턴에 따른 보안 규칙',
+            'enabled': False
+        },
+        {
+            'id': 2,
+            'name': 'XSS 공격 차단',
+            'pattern': r'document|<|>|script|</',
+            'description': 'XSS 공격시 사용되는 구문 필터링',
+            'enabled': False
+        },
+        {
+            'id': 3,
+            'name': 'Injection 공격 차단',
+            'pattern': r'and|#|-|or',
+            'description': 'Injection 공격시 사용되는 구문 필터링',
+            'enabled': False
+        }
+    ]
+
+>>>>>>> 376e201a1c2b2d9668300ff0e6b016badac73ca4
     @app.route('/security-rules', methods=['GET', 'POST', 'PUT', 'DELETE'])
     def manage_security_rules():
         if request.method == 'GET':
