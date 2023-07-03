@@ -1,8 +1,23 @@
 from flask import Flask, request, redirect, Response, render_template
 import requests
 import re
+from firebase_admin import credentials, db, initialize_app
 
-SITE_URL = 'http://192.168.56.102/'
+app = Flask(__name__)
+
+cred = credentials.Certificate('./capstone-dab03-firebase-adminsdk-thmaz-17364d3943.json')
+initialize_app(cred, {
+    'databaseURL': 'https://capstone-dab03-default-rtdb.asia-southeast1.firebasedatabase.app'
+})
+
+# Firebase Realtime Database에서 보안 규칙 가져오기
+ref = db.reference('/rule')
+security_rules = ref.get()
+
+#받아온 보안규칙 저장
+app.security_rules = security_rules
+
+SITE_URL = 'http://localhost/'
 
 def log_and_block():
     print('액세스가 거부되었습니다. 페이로드에 의심스러운 내용이 포함되어 있습니다.')
@@ -10,67 +25,21 @@ def log_and_block():
 
 def configure_proxy_routes(app):
 
-    security_rules = [
-        {
-            'id': 1,
-            'name': '기본 룰',
-            'pattern': r'admin|#|%|&|\+|\\|\^|~',
-            'description': '문자열 패턴에 따른 보안 규칙',
-            'enabled': False
-        },
-        {
-            'id': 2,
-            'name': 'XSS 공격 차단',
-            'pattern': r'document|<|>|script|</',
-            'description': 'XSS 공격시 사용되는 구문 필터링',
-            'enabled': False
-        },
-        {
-            'id': 3,
-            'name': 'Injection 공격 차단',
-            'pattern': r'and|#|-|or',
-            'description': 'Injection 공격시 사용되는 구문 필터링',
-            'enabled': False
-        }
-    ]
+    def handle_rule_change(event):
+        # 보안 규칙이 변경될 때마다 호출되는 함수
+        app.security_rules = ref.get()
+        print('보안 규칙이 변경되었습니다 :', app.security_rules)
 
-    @app.route('/security-rules', methods=['GET', 'POST', 'PUT', 'DELETE'])
-    def manage_security_rules():
-        if request.method == 'GET':
-            return {'security_rules': security_rules}
-        elif request.method == 'POST':
-            rule = request.json.get('rule')
-            if rule:
-                security_rules.append(rule)
-                return {'message': '보안 규칙이 추가되었습니다.'}
-            else:
-                return {'error': '올바른 보안 규칙을 제공해야 합니다.'}, 400
-        elif request.method == 'PUT':
-            rule_id = request.json.get('rule_id')
-            if rule_id:
-                for rule in security_rules:
-                    if rule['id'] == rule_id:
-                        rule['enabled'] = not rule.get('enabled', False)
-                        return {'message': '보안 규칙이 수정되었습니다.'}
-                return {'error': '해당 보안 규칙이 존재하지 않습니다.'}, 404
-            else:
-                return {'error': '수정을 하려면 보안 규칙 ID가 필요합니다.'}, 400
-        elif request.method == 'DELETE':
-            rule_id = request.json.get('rule_id')
-            if rule_id:
-                for rule in security_rules:
-                    if rule['id'] == rule_id:
-                        security_rules.remove(rule)
-                        return {'message': '보안 규칙이 삭제되었습니다.'}
-                return {'error': '해당 보안 규칙이 존재하지 않습니다.'}, 404
-            else:
-                return {'error': '삭제를 하려면 보안 규칙 ID가 필요합니다.'}, 400
+    def initialize_rules():
+        ref.listen(handle_rule_change)
+
+    initialize_rules()
 
     @app.route('/<path:path>', methods=['GET', 'POST', 'DELETE'])
     def proxy(path):
         global SITE_URL
         if request.method == 'GET':
-            for rule in security_rules:
+            for rule in app.security_rules:
                 if rule['enabled']:
                     pattern = re.compile(rule['pattern'])
                     for key, value in request.args.items():
@@ -82,7 +51,7 @@ def configure_proxy_routes(app):
             response = Response(resp.content, resp.status_code, headers)
             return response
         elif request.method == 'POST':
-            for rule in security_rules:
+            for rule in app.security_rules:
                 if rule['enabled']:
                     pattern = re.compile(rule['pattern'])
                     if request.form:
