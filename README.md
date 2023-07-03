@@ -1,13 +1,11 @@
 # capstone
 
 # main branch에는 업로드 금지
-<<<<<<< HEAD
 # 각자 본인이름의 branch를 만들고 업로드  
   #pip install request  
     #안되면 pip install requests  
   #pip install flask  
   # pip install -U flask-cors  
-=======
 # 각자 본인이름의 branch를 만들고 업로드 
 # 리버스 프록시 서버 운용시 변경 사항 
 # app.py route 주소 변경  
@@ -20,4 +18,3 @@
 # git push -u origin [branch 명] 입력으로 업로드(브랜치 접근 안되면 하나 만들어서 업로드)  
 # 작업 -> add로 폴더 추가 -> commit으로 작업 내용 작성 -> push로 각각 브랜치로 업로드  
 
->>>>>>> fce0b59e796d5316c443ec0d464cdea47f6eab02
