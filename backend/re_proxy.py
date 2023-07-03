@@ -9,9 +9,7 @@ def log_and_block():
     return Response(render_template('access_denied.html'), status=403)
 
 def configure_proxy_routes(app):
-<<<<<<< HEAD
-    
-=======
+
     security_rules = [
         {
             'id': 1,
@@ -36,7 +34,6 @@ def configure_proxy_routes(app):
         }
     ]
 
->>>>>>> 376e201a1c2b2d9668300ff0e6b016badac73ca4
     @app.route('/security-rules', methods=['GET', 'POST', 'PUT', 'DELETE'])
     def manage_security_rules():
         if request.method == 'GET':
