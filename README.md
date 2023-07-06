@@ -4,3 +4,7 @@ project/
 - front/
 - backend/
 - .env
+
+
+## realtime firebase
+https://capstone-dab03-default-rtdb.asia-southeast1.firebasedatabase.app
