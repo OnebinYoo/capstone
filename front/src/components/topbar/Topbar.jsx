@@ -42,7 +42,7 @@ export default function Topbar() {
       </div>
       <div className='TopListItem toplistright'>
         <div className='UserEmail'>{username}님 환영합니다</div>
-        <button onClick={handleLogout} className='bottomButton' style={{ width: '120px' }}>
+        <button onClick={handleLogout} className='bottomButton' style={{ width: '120px', height: '50px'}}>
           로그아웃
         </button>
       </div>
