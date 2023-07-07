@@ -46,4 +46,4 @@ const RuleList = ({ rules, toggleSwitch, showActions, deleteRule, editRule, view
   );
 };
 
-export default RuleList;    
+export default RuleList;

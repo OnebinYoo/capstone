@@ -1,49 +1,117 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-
-import './setting.css';
+import { Link } from 'react-router-dom';
+import { getDatabase, ref, update, remove } from 'firebase/database';
 import Topbar from '../../components/topbar/Topbar';
 import Sidebar from '../../components/sidebar/Sidebar';
-import Switch from '../../components/switch/Switch';
+import RuleList from '../../components/rulelist/RuleList';
+import Alert from '../../components/alert/Alert';
 
-const GetSecurity = () => {
-  const [data, setData] = useState([]);
+// import './setting.css';
+
+const Setting = () => {
+  const [rules, setRules] = useState([]);
+  const [selectedRule, setSelectedRule] = useState(null);
+  const [showAlert, setShowAlert] = useState(false); 
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:8000/security-rules');
-        const securityRules = response.data.security_rules;
-        setData(securityRules);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
+    fetch('https://capstone-dab03-default-rtdb.asia-southeast1.firebasedatabase.app/rule.json')
+      .then((response) => response.json())
+      .then((data) => {
+        const ruleArray = Object.values(data);
+        setRules(ruleArray);
+      })
+      .catch((error) => {
+        console.error('Error fetching rules:', error);
+      });
   }, []);
 
-  const toggleSecurityRule = (ruleId) => {
-    const updatedData = data.map(rule => {
-      if (rule.id === ruleId) {
-        const enabled = !rule.enabled;
-        return { ...rule, enabled: enabled };
-      }
-      return rule;
-    });
+  const toggleSwitch = async (ruleId) => {
+    try {
+      const database = getDatabase();
+      const ruleRef = ref(database, `rule/${ruleId}`);
+      const updatedData = {
+        enabled: !rules.find((rule) => rule.id === ruleId).enabled,
+      };
+      await update(ruleRef, updatedData);
+      console.log('스위치를 Firebase에 업데이트했습니다.');
   
-    axios.put(`http://localhost:8000/security-rules/`, {
-      enabled: updatedData.find(rule => rule.id === ruleId).enabled
-    })
-      .then(response => {
-        console.log(response.data);
-        setData(updatedData);
-      })
-      .catch(error => {
-        console.error(error);
+      const updatedRules = rules.map((rule) => {
+        if (rule.id === ruleId) {
+          return {
+            ...rule,
+            enabled: updatedData.enabled,
+          };
+        }
+        return rule;
       });
+      setRules(updatedRules);
+    } catch (error) {
+      console.error('Error updating switch:', error);
+    }
   };
   
+
+  const showActions = (ruleId) => {
+    setRules((prevRules) => {
+      return prevRules.map((rule) => {
+        if (rule.id === ruleId) {
+          return {
+            ...rule,
+            showActions: !rule.showActions,
+          };
+        }
+        return rule;
+      });
+    });
+  };
+
+  const deleteRule = async (ruleId) => {
+    try {
+      const database = getDatabase();
+      const ruleRef = ref(database, `rule/${ruleId}`);
+      await remove(ruleRef);
+      console.log('규칙을 Firebase에서 삭제했습니다.');
+  
+      // Firebase에서 삭제 후 규칙 목록을 다시 가져옴
+      fetch('https://capstone-dab03-default-rtdb.asia-southeast1.firebasedatabase.app/rule.json')
+        .then((response) => response.json())
+        .then((data) => {
+          const ruleArray = Object.values(data);
+          setRules(ruleArray);
+        })
+        .catch((error) => {
+          console.error('Error fetching rules:', error);
+        });
+    } catch (error) {
+      console.error('규칙 삭제 중 오류:', error);
+    }
+  };
+
+  const handleCancel = () => {
+    setShowAlert(false);
+  };
+
+  // 알림 창에서 삭제 버튼 클릭 시 규칙 삭제
+  const handleDelete = async () => {
+    try {
+      await deleteRule(selectedRule.id);
+      setShowAlert(false);
+
+      // 규칙 목록에서 삭제된 규칙을 필터링하여 업데이트
+      setRules((prevRules) => prevRules.filter((rule) => rule.id !== selectedRule.id));
+    } catch (error) {
+      console.error('규칙 삭제 중 오류:', error);
+    }
+  };
+
+  const editRule = (ruleId) => {
+    console.log('Edit rule:', ruleId);
+  };
+
+  const viewDetails = (ruleId) => {
+    console.log('View details for rule:', ruleId);
+  };
+
   return (
     <div className='Wrap'>
       <div className='Header'>
@@ -56,24 +124,23 @@ const GetSecurity = () => {
           </div>
           <div className='ColumnRight'>
             <div>
-              {data.map(d => (
-                <div className='RuleSetting' key={d.id}>
-                  <div className='RuleId'>
-                    <p className='Name'>{d.name}</p>
-                  </div>
-                  <div className='RuleDescription'>
-                    <p>{d.description}</p>
-                  </div>
-                  <div className='RuleSwitch'>
-                    <Switch
-                      isOn={d.enabled}
-                      onColor='#9e30f4'
-                      handleToggle={() => toggleSecurityRule(d.id, d.enabled)}
-                    />
-                  </div>
-                </div>
-              ))}
+              <Link to='/ruleadd'>추가</Link>
             </div>
+            <RuleList
+              rules={rules}
+              toggleSwitch={toggleSwitch}
+              showActions={showActions}
+              deleteRule={deleteRule}
+              editRule={editRule}
+              viewDetails={viewDetails}
+            />
+            {showAlert && (
+              <Alert
+                ruleName={selectedRule ? selectedRule.name : ''}
+                onCancel={handleCancel}
+                onDelete={handleDelete}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -81,4 +148,4 @@ const GetSecurity = () => {
   );
 };
 
-export default GetSecurity;
+export default Setting;
