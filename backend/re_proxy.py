@@ -14,10 +14,10 @@ initialize_app(cred, {
 ref = db.reference('/rule')
 security_rules = ref.get()
 
-#받아온 보안규칙 저장
+# 받아온 보안규칙 저장
 app.security_rules = security_rules
 
-SITE_URL = 'http://localhost/'
+SITE_URL = 'http://192.168.56.102/'
 
 def log_and_block():
     print('액세스가 거부되었습니다. 페이로드에 의심스러운 내용이 포함되어 있습니다.')
@@ -39,7 +39,7 @@ def configure_proxy_routes(app):
     def proxy(path):
         global SITE_URL
         if request.method == 'GET':
-            for rule in app.security_rules:
+            for rule in app.security_rules.values():
                 if rule['enabled']:
                     pattern = re.compile(rule['pattern'])
                     for key, value in request.args.items():
@@ -51,7 +51,7 @@ def configure_proxy_routes(app):
             response = Response(resp.content, resp.status_code, headers)
             return response
         elif request.method == 'POST':
-            for rule in app.security_rules:
+            for rule in app.security_rules.values():
                 if rule['enabled']:
                     pattern = re.compile(rule['pattern'])
                     if request.form:
