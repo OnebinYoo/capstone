@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './chart.css';
-import { LineChart, Line, XAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from 'recharts';
 import axios from 'axios';
 
-export default function Chart({ title, dataKey, grid }) {
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+
+export default function Chart({ title }) {
   const [chartData, setChartData] = useState([]);
   const [logs, setLogs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchLogs = async () => {
@@ -15,13 +18,16 @@ export default function Chart({ title, dataKey, grid }) {
         console.log(response.data);
       } catch (error) {
         console.error(error);
-      } 
+      } finally {
+        setLoading(false);
+      }
     };
+
     fetchLogs();
 
     const interval = setInterval(() => {
       fetchLogs();
-    }, 3000); // 로그 업데이트 주기 설정
+    }, 5000);
 
     return () => {
       clearInterval(interval);
@@ -29,39 +35,51 @@ export default function Chart({ title, dataKey, grid }) {
   }, []);
 
   useEffect(() => {
-    const generateData = (prevData) => {
-      const newData = [...prevData];
+    const generateData = () => {
+      if (!logs.logs) return [];
 
-      const prevLogsCount = prevData.reduce((count, entry) => count + entry[dataKey], 0); 
+      const statusCodes = logs.logs.reduce((acc, log) => {
+        if (acc[log.status_code]) {
+          acc[log.status_code] += 1;
+        } else {
+          acc[log.status_code] = 1;
+        }
+        return acc;
+      }, {});
 
-      const logValue = logs.logs.length - prevLogsCount; 
-      const currentTime = new Date().toLocaleTimeString();
+      const newData = Object.entries(statusCodes).map(([name, value]) => ({
+        name,
+        value,
+      }));
 
-      if (newData.length >= 10) {
-        newData.shift();
-      }
-
-      newData.push({ name: currentTime, [dataKey]: logValue });
       return newData;
     };
 
-    const interval = setInterval(() => {
-      setChartData((prevData) => generateData(prevData));
-    }, 3000); // 차트 업데이트 주기 설정
-
-    return () => clearInterval(interval);
-  }, [logs, dataKey]);
+    setChartData(generateData());
+  }, [logs]);
 
   return (
     <div className='chart'>
       <h3 className='chartTitle'>{title}</h3>
       <ResponsiveContainer width='100%' aspect={4 / 1}>
-        <LineChart data={chartData}>
-          <XAxis dataKey='name' stroke='#5550bd' />
-          <Line type='monotone' dataKey={dataKey} stroke='#5550bd' />
+        <PieChart>
+          <Pie
+            data={chartData}
+            cx='50%'
+            cy='50%'
+            labelLine={false}
+            outerRadius={80}
+            fill='#8884d8'
+            dataKey='value'
+            nameKey='name'
+          >
+            {chartData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
           <Tooltip />
-          {grid && <CartesianGrid stroke='#e0dfdf' strokeDasharray='5 5' />}
-        </LineChart>
+          <Legend />
+        </PieChart>
       </ResponsiveContainer>
     </div>
   );
