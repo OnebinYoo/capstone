@@ -9,6 +9,7 @@ import Login from './pages/login/Login';
 import Findpw from './pages/login/Findpw';
 // import PrivateRoutes from './components/PrivateRoutes';
 import RuleAdd from './pages/setting/RuleAdd';
+import RuleAdj from './pages/setting/RuleAdj';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/setting" element={<Setting/>} />
         {/* </Route> */}
         <Route path="/ruleadd" element={<RuleAdd />} />
+        <Route path="/ruleadj" element={<RuleAdj />} />
       </Routes>
     </Router>
   );

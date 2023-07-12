@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getDatabase, ref, update, remove } from 'firebase/database';
 import Topbar from '../../components/topbar/Topbar';
 import Sidebar from '../../components/sidebar/Sidebar';
@@ -11,7 +11,9 @@ import Alert from '../../components/alert/Alert';
 const Setting = () => {
   const [rules, setRules] = useState([]);
   const [selectedRule, setSelectedRule] = useState(null);
-  const [showAlert, setShowAlert] = useState(false); 
+  const [showAlert, setShowAlert] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch('https://capstone-dab03-default-rtdb.asia-southeast1.firebasedatabase.app/rule.json')
@@ -74,7 +76,6 @@ const Setting = () => {
     setShowAlert(false);
   };
 
-  // 알림 창에서 삭제 버튼 클릭 시 규칙 삭제
   const handleDelete = async () => {
     try {
       const database = getDatabase();
@@ -90,7 +91,7 @@ const Setting = () => {
   };
 
   const editRule = (ruleId) => {
-    console.log('Edit rule:', ruleId);
+    navigate(`/ruleadj?id=${ruleId}`);
   };
 
   const viewDetails = (ruleId) => {
