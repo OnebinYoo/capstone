@@ -66,25 +66,8 @@ const Setting = () => {
   };
 
   const deleteRule = async (ruleId) => {
-    try {
-      const database = getDatabase();
-      const ruleRef = ref(database, `rule/${ruleId}`);
-      await remove(ruleRef);
-      console.log('규칙을 Firebase에서 삭제했습니다.');
-  
-      // Firebase에서 삭제 후 규칙 목록을 다시 가져옴
-      fetch('https://capstone-dab03-default-rtdb.asia-southeast1.firebasedatabase.app/rule.json')
-        .then((response) => response.json())
-        .then((data) => {
-          const ruleArray = Object.values(data);
-          setRules(ruleArray);
-        })
-        .catch((error) => {
-          console.error('Error fetching rules:', error);
-        });
-    } catch (error) {
-      console.error('규칙 삭제 중 오류:', error);
-    }
+    setSelectedRule(rules.find((rule) => rule.id === ruleId));
+    setShowAlert(true);
   };
 
   const handleCancel = () => {
@@ -94,13 +77,15 @@ const Setting = () => {
   // 알림 창에서 삭제 버튼 클릭 시 규칙 삭제
   const handleDelete = async () => {
     try {
-      await deleteRule(selectedRule.id);
+      const database = getDatabase();
+      const ruleRef = ref(database, `rule/${selectedRule.id}`);
+      await remove(ruleRef);
+  
+      const updatedRules = rules.filter((rule) => rule.id !== selectedRule.id);
+      setRules(updatedRules);
       setShowAlert(false);
-
-      // 규칙 목록에서 삭제된 규칙을 필터링하여 업데이트
-      setRules((prevRules) => prevRules.filter((rule) => rule.id !== selectedRule.id));
     } catch (error) {
-      console.error('규칙 삭제 중 오류:', error);
+      console.error('Error deleting rule:', error);
     }
   };
 
