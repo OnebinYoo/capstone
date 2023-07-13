@@ -23,8 +23,8 @@ function App() {
           <Route path="/log" element={<Log/>} />
           <Route path="/setting" element={<Setting/>} />
         {/* </Route> */}
-        <Route path="/ruleadd" element={<RuleAdd />} />
-        <Route path="/ruleadj" element={<RuleAdj />} />
+        <Route path="/setting/ruleadd" element={<RuleAdd />} />
+        <Route path="/setting/ruleadj" element={<RuleAdj />} />
       </Routes>
     </Router>
   );

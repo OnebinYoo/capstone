@@ -4,6 +4,7 @@ import { addItemToFirebase } from '../../firebase';
 
 import Topbar from '../../components/topbar/Topbar';
 import Sidebar from '../../components/sidebar/Sidebar';
+import LoginError from '../../components/Alertbar/LoginError'
 import './setting.css';
 
 import add from '../../assets/icon/add.png';
@@ -13,13 +14,18 @@ function RuleAdd() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [pattern, setPattern] = useState('');
-  const [type, setType] = useState(0); // Added state for type selection
+  const [type, setType] = useState(0);
   const [blockedItems, setBlockedItems] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleAddButtonClick = () => {
-
+    if (!name || !description || !pattern) {
+      setErrorMessage('입력된 값이 없습니다.')
+      return;
+    }
+  
     const concatenatedItems = blockedItems.join('|');
-
+  
     const newItem = {
       description,
       enabled: true,
@@ -27,7 +33,7 @@ function RuleAdd() {
       pattern: concatenatedItems,
       type,
     };
-
+  
     addItemToFirebase(newItem)
       .then(() => {
         console.log('데이터를 Firebase Realtime Database에 추가했습니다.');
@@ -47,8 +53,10 @@ function RuleAdd() {
   };
 
   const handleAddItem = () => {
-      if (pattern.trim() !== '') {
-      setBlockedItems([...blockedItems, pattern]);
+    if (pattern.trim() !== '') {
+      if (!blockedItems.includes(pattern)) {
+        setBlockedItems([...blockedItems, pattern]);
+      }
       setPattern('');
     }
   };
@@ -95,20 +103,21 @@ function RuleAdd() {
                 </div>
                 <div className='inputTitle'>
                   <label htmlFor="description">규칙 설명</label>
-                  <div className='inputWrap' style={{minHeight: '42px', maxHeight: '12em', overflow: 'auto'}}>
+                  <div className='inputWrap'>
                   <textarea
                     className="description-textarea"
                     type="text"
-                    rows={1}
                     placeholder="규칙 설명을 입력해 주세요"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
+                    style={{ minHeight: '42px', maxHeight: '12em', height: 'auto' }}
+                    rows={Math.min(10, description.split('\n').length)}
                   />
                   </div>
                 </div>
                 <div className='inputTitle'>
                   <label htmlFor="description">{type === 0 ? "차단할 문자열" : "차단할 IP"}</label>
-                  <div className='inputWrap'>
+                  <div className='inputWrap' style={{ display: 'flex', alignItems: 'center' }}>
                     <input
                       className='input'
                       type="text"
@@ -122,21 +131,34 @@ function RuleAdd() {
                         }
                       }}
                     />
-                    <button className='addButton' onClick={handleAddItem}>
+                    <button className='ItemAddButton' onClick={handleAddItem}>
                       <img className='ImgAdd' src={add} alt='추가'/>
                     </button>
                   </div>
                   <div className='blockedItems'>
                     {blockedItems.map((item, index) => (
-                      <span className='blockedItem' key={index}>
-                        {item}
-                        <button onClick={() => handleRemoveItem(index)}>x</button>
-                      </span>
+                      <div className='blockedItem' key={index}>
+                        <span className="blockedItemContent">
+                          {item}
+                          <button className='RemoveButton' onClick={() => handleRemoveItem(index)}>
+                            <img className='ImgRemove' src={close} alt='삭제'/>
+                          </button>
+                        </span>
+                      </div>
                     ))}
                   </div>
                 </div>
-                <div style={{marginTop:'20px'}}>
-                  <button className='bottomButton' onClick={handleAddButtonClick} style={{width:'200px', height:'50px'}}>추가</button>
+
+                {errorMessage && <LoginError message={errorMessage}/>}
+
+                <div className='AddButton'>
+                  <button
+                    className='bottomButton'
+                    onClick={handleAddButtonClick}
+                    style={{width:'100%', height:'50px'}}
+                  >
+                  추가
+                  </button>
                 </div>
               </div>
             </div>

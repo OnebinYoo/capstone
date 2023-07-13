@@ -6,17 +6,14 @@
 
 .description-textarea {
     width: 100%;
-    height: auto;
     outline: none;
     border: none;
-    height: 40px;
     font-size: 18px;
     font-weight: 400;
     font-family: inherit;
     resize: none;
     box-sizing: border-box;
     padding: 6px 0 0 0;
-    overflow: hidden;
     line-height: 1.5;
   }
   
@@ -29,30 +26,72 @@
 }
 
 .blockedItems {
-    margin-top: 7px;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .blockedItem {
-    display: inline-block;
-    width: auto;
-    height: 35px;
-    border: none;
-    border-radius: 15px;
-    background-color: #e2e0e0;
-}
-
-.addButton {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: max-content;
+    height: 35px;
+    border: none;
+    border-radius: 20px;
+    background-color: #e2e0e0;
+    margin: 0 10px 10px 0;
+}
+
+.blockedItemContent {
+    display: flex;
+    align-items: center;
+    width: auto;
+    padding: 0 5px 0 15px;
+}
+
+.ItemAddButton {
     height: 100%;
-    width: 30px;
+    width: 40px;
+    margin-top: auto;
+    margin-bottom: auto;
     overflow: hidden;
     border: none;
     background-color: #ffffff;
+    cursor: pointer;
 }
 
 .ImgAdd {
+    width: 35px;
+    height: auto;
+}
+
+.AddButton {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.RemoveButton {
+    display: flex;
+    justify-content: center;
+    margin-left: 10px;
+    border-radius: 100%;
+    padding:3px;
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+}
+
+.RemoveButton:hover {
+    background-color: #d1cdcd;
+}
+
+.ImgRemove {
     width: 20px;
     height: auto;
 }
+
+.error-border {
+    border-color: rgb(239, 83, 80);
+  }

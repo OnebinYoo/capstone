@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom'; // useLocation 추가
-import { addItemToFirebase } from '../../firebase';
+import { Link, useLocation } from 'react-router-dom';
+import { updateItemInFirebase } from '../../firebase';
 
 import Topbar from '../../components/topbar/Topbar';
 import Sidebar from '../../components/sidebar/Sidebar';
 import './setting.css';
 
 import add from '../../assets/icon/add.png';
-import close from '../../assets/icon/close.png';
+// import close from '../../assets/icon/close.png';
 import { getDatabase, onValue, ref } from 'firebase/database';
 
 function RuleAdj() {
@@ -35,42 +35,37 @@ function RuleAdj() {
         }
       });
     }
-  }, [ruleId]);
+  }, [ruleId, database]);
 
-  const handleAddButtonClick = () => {
+  const handleUpdateButtonClick = () => {
     const concatenatedItems = blockedItems.join('|');
-
-    const newItem = {
+  
+    const updatedItem = {
       description,
       enabled: true,
       name,
       pattern: concatenatedItems,
       type,
     };
-
+  
     if (ruleId) {
-      // Firebase에서 ruleId에 해당하는 데이터를 수정
-      // 아래는 예시 코드이므로 실제로는 Firebase에서 데이터를 수정해야 함
-      console.log('데이터를 Firebase Realtime Database에서 수정했습니다.');
-      setName('');
-      setDescription('');
-      setBlockedItems([]);
-      window.location.href = '/setting';
-    } else {
-      addItemToFirebase(newItem)
+      
+      const updatedItemWithId = {
+        ...updatedItem,
+        id: ruleId,
+      };
+
+      updateItemInFirebase(ruleId, updatedItemWithId)
         .then(() => {
-          console.log('데이터를 Firebase Realtime Database에 추가했습니다.');
-          setName('');
-          setDescription('');
-          setBlockedItems([]);
+          console.log('데이터를 Firebase Realtime Database에서 수정했습니다.');
           window.location.href = '/setting';
         })
         .catch((error) => {
-          console.error('데이터 추가 중 오류가 발생했습니다.', error);
+          console.error('데이터 수정 중 오류가 발생했습니다.', error);
         });
     }
   };
-
+  
   const handleTypeChange = (event) => {
     setType(parseInt(event.target.value));
     setBlockedItems([]);
@@ -78,10 +73,13 @@ function RuleAdj() {
 
   const handleAddItem = () => {
     if (pattern.trim() !== '') {
-      setBlockedItems([...blockedItems, pattern]);
+      if (!blockedItems.includes(pattern)) {
+        setBlockedItems([...blockedItems, pattern]);
+      }
       setPattern('');
     }
   };
+  
 
   const handleRemoveItem = (index) => {
     const updatedItems = [...blockedItems];
@@ -171,26 +169,30 @@ function RuleAdj() {
                         }
                       }}
                     />
-                    <button className="addButton" onClick={handleAddItem}>
+                    <button className="ItemAddButton" onClick={handleAddItem}>
                       <img className="ImgAdd" src={add} alt="추가" />
                     </button>
                   </div>
                   <div className="blockedItems">
-                    {blockedItems.map((item, index) => (
-                      <span className="blockedItem" key={index}>
+                  {blockedItems.map((item, index) => (
+                    <div className='blockedItem' key={index}>
+                      <span className="blockedItemContent">
                         {item}
-                        <button onClick={() => handleRemoveItem(index)}>x</button>
+                        <button onClick={() => handleRemoveItem(index)} style={{ marginLeft: '10px' }}>
+                          x
+                        </button>
                       </span>
-                    ))}
+                    </div>
+                  ))}
                   </div>
                 </div>
-                <div style={{ marginTop: '20px' }}>
+                <div className='AddButton'>
                   <button
                     className="bottomButton"
-                    onClick={handleAddButtonClick}
+                    onClick={handleUpdateButtonClick}
                     style={{ width: '200px', height: '50px' }}
                   >
-                    {ruleId ? '수정' : '추가'}
+                  수정
                   </button>
                 </div>
               </div>

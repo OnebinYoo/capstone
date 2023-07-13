@@ -91,12 +91,22 @@ const Setting = () => {
   };
 
   const editRule = (ruleId) => {
-    navigate(`/ruleadj?id=${ruleId}`);
+    navigate(`/setting/ruleadj?id=${ruleId}`);
   };
 
-  const viewDetails = (ruleId) => {
-    console.log('View details for rule:', ruleId);
+  const toggleDetails = (ruleId) => {
+    const updatedRules = rules.map((rule) => {
+      if (rule.id === ruleId) {
+        return {
+          ...rule,
+          showDetails: !rule.showDetails,
+        };
+      }
+      return rule;
+    });
+    setRules(updatedRules);
   };
+
 
   return (
     <div className='Wrap'>
@@ -110,7 +120,7 @@ const Setting = () => {
           </div>
           <div className='ColumnRight'>
             <div>
-              <Link to='/ruleadd'>추가</Link>
+              <Link to='/setting/ruleadd'>추가</Link>
             </div>
             <RuleList
               rules={rules}
@@ -118,7 +128,7 @@ const Setting = () => {
               showActions={showActions}
               deleteRule={deleteRule}
               editRule={editRule}
-              viewDetails={viewDetails}
+              toggleDetails={toggleDetails}
             />
             {showAlert && (
               <Alert

@@ -59,3 +59,18 @@
     justify-content: center;
     gap: 10px;
   }
+
+  .RuleDetails {
+    width: 100%;
+    margin: 15px 20px 0 20px;
+    background-color: #f3f3f3;
+    border-radius: 22px;
+  }
+
+  .RuleDetails.hidden {
+    margin: 0px;
+  }
+
+  .RuleDetailsContent {
+    margin: 0 20px 0 20px;
+  }

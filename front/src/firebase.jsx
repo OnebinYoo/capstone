@@ -36,6 +36,12 @@ const addItemToFirebase = async (item) => {
   console.log('데이터를 Firebase Realtime Database에 추가했습니다.');
 };
 
+const updateItemInFirebase = async (itemId, item) => {
+  const ruleRef = ref(database, `rule/${itemId}`);
+  await set(ruleRef, item);
+  console.log('데이터를 Firebase Realtime Database에서 수정했습니다.');
+};
+
 const deleteItemFromFirebase = async (ruleId) => {
   try {
     const ruleRef = ref(database, `rule/${ruleId}`);
@@ -46,4 +52,4 @@ const deleteItemFromFirebase = async (ruleId) => {
   }
 };
  
-export { auth, signInWithEmailAndPassword, addItemToFirebase, deleteItemFromFirebase };
+export { auth, signInWithEmailAndPassword, addItemToFirebase, updateItemInFirebase, deleteItemFromFirebase };
