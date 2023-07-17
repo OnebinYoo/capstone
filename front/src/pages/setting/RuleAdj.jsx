@@ -4,14 +4,15 @@ import { updateItemInFirebase } from '../../firebase';
 
 import Topbar from '../../components/topbar/Topbar';
 import Sidebar from '../../components/sidebar/Sidebar';
+import LoginError from '../../components/Alertbar/LoginError';
 import './setting.css';
 
 import add from '../../assets/icon/add.png';
-// import close from '../../assets/icon/close.png';
+import close from '../../assets/icon/close.png';
 import { getDatabase, onValue, ref } from 'firebase/database';
 
 function RuleAdj() {
-  const location = useLocation(); // useLocation 사용
+  const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const ruleId = searchParams.get('id');
   const database = getDatabase();
@@ -21,6 +22,7 @@ function RuleAdj() {
   const [pattern, setPattern] = useState('');
   const [type, setType] = useState(0);
   const [blockedItems, setBlockedItems] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     if (ruleId) {
@@ -38,7 +40,18 @@ function RuleAdj() {
   }, [ruleId, database]);
 
   const handleUpdateButtonClick = () => {
-    const concatenatedItems = blockedItems.join('|');
+    if (!name || !description || blockedItems.length === 0) {
+      setErrorMessage('입력된 값이 없습니다.');
+      return;
+    }
+    
+    let transformedItems = blockedItems.map((item) => item);
+    
+    if (type === 0) {
+      transformedItems = blockedItems.map((item) => `(?im)^(?=.*\\b${item}\\b).*`);
+    }
+    
+    const concatenatedItems = transformedItems.join('|');
   
     const updatedItem = {
       description,
@@ -60,31 +73,34 @@ function RuleAdj() {
           console.log('데이터를 Firebase Realtime Database에서 수정했습니다.');
           window.location.href = '/setting';
         })
-        .catch((error) => {
-          console.error('데이터 수정 중 오류가 발생했습니다.', error);
+        .catch(() => {
+          setErrorMessage('데이터 수정 중 오류가 발생했습니다.');
         });
     }
   };
   
-  const handleTypeChange = (event) => {
-    setType(parseInt(event.target.value));
-    setBlockedItems([]);
-  };
-
   const handleAddItem = () => {
     if (pattern.trim() !== '') {
-      if (!blockedItems.includes(pattern)) {
+      if (!blockedItems.includes(pattern) && blockedItems.length < 5) {
         setBlockedItems([...blockedItems, pattern]);
       }
       setPattern('');
     }
-  };
+  };  
   
-
   const handleRemoveItem = (index) => {
     const updatedItems = [...blockedItems];
     updatedItems.splice(index, 1);
     setBlockedItems(updatedItems);
+  };
+
+  const getTypeLabel = (type) => {
+    if (type === 0) {
+      return '문자열 차단';
+    } else if (type === 1) {
+      return 'IP 차단';
+    }
+    return '';
   };
 
   return (
@@ -106,22 +122,7 @@ function RuleAdj() {
                   <label htmlFor="type">규칙 유형</label>
                 </div>
                 <div style={{ padding: '10px 0 15px 0' }}>
-                  <input
-                    type="radio"
-                    name="option"
-                    value={0}
-                    onChange={handleTypeChange}
-                    checked={type === 0}
-                  />{' '}
-                  문자열 차단
-                  <input
-                    type="radio"
-                    name="option"
-                    value={1}
-                    onChange={handleTypeChange}
-                    checked={type === 1}
-                  />{' '}
-                  IP 차단
+                  {getTypeLabel(type)}
                 </div>
                 <div className="inputTitle">
                   <label htmlFor="name">규칙 이름</label>
@@ -152,7 +153,7 @@ function RuleAdj() {
                   </div>
                 </div>
                 <div className="inputTitle">
-                  <label htmlFor="description">{type === 0 ? '차단할 문자열' : '차단할 IP'}</label>
+                  <label htmlFor="description">{type === 0 ? '차단할 문자열 (최대 5개)' : '차단할 IP (최대 5개)'}</label>
                   <div className="inputWrap">
                     <input
                       className="input"
@@ -178,14 +179,17 @@ function RuleAdj() {
                     <div className='blockedItem' key={index}>
                       <span className="blockedItemContent">
                         {item}
-                        <button onClick={() => handleRemoveItem(index)} style={{ marginLeft: '10px' }}>
-                          x
-                        </button>
+                        <button className='RemoveButton' onClick={() => handleRemoveItem(index)}>
+                            <img className='ImgRemove' src={close} alt='삭제'/>
+                          </button>
                       </span>
                     </div>
                   ))}
                   </div>
                 </div>
+
+                {errorMessage && <LoginError message={errorMessage}/>}
+
                 <div className='AddButton'>
                   <button
                     className="bottomButton"

@@ -5,6 +5,26 @@ import moreVert from '../../assets/icon/moreVert.png';
 import './rulelist.css'
 
 const RuleList = ({ rules, toggleSwitch, showActions, deleteRule, editRule, toggleDetails }) => {
+
+  const getFormattedPattern = (pattern, type) => {
+    if (type === 0) {
+      const extractedItems = pattern.match(/(?<=\b)(\w+)(?=\b)/g);
+      if (extractedItems) {
+        const formattedItems = [];
+        for (let i = 0; i < extractedItems.length - 1; i++) {
+          if (extractedItems[i] === 'im') {
+            formattedItems.push(extractedItems[i + 1]);
+          }
+        }
+        return formattedItems.join(', ');
+      }
+    } else if (type === 1) {
+      return pattern.replace(/\|/g, ', ');
+    }
+    return pattern;
+  };
+  
+  
   return (
     <div>
       {rules.map((rule) => (
@@ -46,7 +66,7 @@ const RuleList = ({ rules, toggleSwitch, showActions, deleteRule, editRule, togg
                 <p style={{fontWeight:'bold'}}>규칙 상세 정보</p>
                 <p>이름: {rule.name}</p>
                 <p>유형: {rule.type === 0 ? '문자열 차단' : rule.type === 1 ? 'IP 차단' : '알 수 없음'}</p>
-                <p>{rule.type===0?'문자열':rule.type===1?'IP':'없음'}: {rule.pattern.replace(/\|/g, ', ')}</p>
+                <p>{rule.type===0?'문자열':rule.type===1?'IP':'없음'}: {getFormattedPattern(rule.pattern, rule.type)}</p>
               </div>
             )}
           </div>

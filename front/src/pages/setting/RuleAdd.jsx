@@ -8,7 +8,7 @@ import LoginError from '../../components/Alertbar/LoginError'
 import './setting.css';
 
 import add from '../../assets/icon/add.png';
-import close from '../../assets/icon/close.png'
+import close from '../../assets/icon/close.png';
 
 function RuleAdd() {
   const [name, setName] = useState('');
@@ -19,12 +19,18 @@ function RuleAdd() {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleAddButtonClick = () => {
-    if (!name || !description || !pattern) {
-      setErrorMessage('입력된 값이 없습니다.')
+    if (!name || !description || blockedItems.length === 0) {
+      setErrorMessage('입력된 값이 없습니다.');
       return;
     }
   
-    const concatenatedItems = blockedItems.join('|');
+    let transformedItems = blockedItems.map((item) => item);
+    
+    if (type === 0) {
+      transformedItems = blockedItems.map((item) => `(?im)^(?=.*\\b${item}\\b).*`);
+    }
+    
+    const concatenatedItems = transformedItems.join('|');
   
     const newItem = {
       description,
