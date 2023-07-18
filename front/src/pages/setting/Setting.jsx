@@ -106,6 +106,7 @@ const Setting = () => {
           return {
             ...rule,
             showActions: !rule.showActions,
+            showDetails: false,
           };
         }
         return rule;

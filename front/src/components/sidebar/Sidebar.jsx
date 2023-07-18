@@ -45,7 +45,7 @@ const Sidebar = ({ active }) => {
           )}
         </Link>
         <Link to="/setting" className="link">
-          {currentPage === "/setting" ? (
+          {currentPage.includes("/setting") ? (
           <div className="MainMenuDiv" style={{ backgroundColor: "#f3f3f3" }}>
           <img className="Icon" src={clickedSettings} alt="clickedSettings"></img>
           <div className="MenuDiv">설정</div>
