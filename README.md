@@ -52,7 +52,7 @@ project/
 
 - 7/18
   - 규칙 목록에 필터 기능 추가
-  * ` RuleAdd`,`RuleAdj  ` 페이지 접속 시에는 `sidebar`의 `설정`이 clicked 상태이도록 수정
+  * `RuleAdd`,`RuleAdj` 페이지 접속 시에는 `sidebar`의 `설정`이 clicked 상태이도록 수정
   * 설정 페이지의 상단 부분 UI 개선
   * `RuleAddWrap`의 `border-radius` 값 조정
   * 삭제/수정/상세보기 버튼과 상세 정보란이 전부 펼쳐져 있을 때 buttonMoreVert 버튼 클릭만으로 전부 접히도록 개선
