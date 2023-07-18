@@ -93,5 +93,105 @@
 }
 
 .error-border {
-    border-color: rgb(239, 83, 80);
-  }
+    border-color: #EF5350;
+}
+
+/* dropdown css (setting.jsx) */
+.Info {
+    background-color: #f3f3f3;
+    border-radius: 30px;
+}
+
+.Info-Name {
+    padding: 30px 30px 0 30px;
+    font-size: 1.8em;
+}
+
+.Info-Setbar {
+    margin-top: 30px;
+    padding: 0 30px 30px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.Info-Setbar-AddButton {
+    width: 140px;
+    height: 50px;
+    border: none;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 50px;
+    background-color: #9e30f4;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+}
+  
+.Info-Setbar-FilterDropdown {
+    width: 200px;
+    position: relative;
+}
+
+.Info-Setbar-FilterDropdownButton {
+    width: 100%;
+    height: 50px;
+    /* border: none; */
+    border-radius: 50px;
+    padding: 0;
+    cursor: pointer;
+}
+
+.FilterDropdownButton-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    padding: 0 20px 0 20px;
+}
+
+.FilterDropdownButton-innertext {
+    font-size: 15px;
+}
+
+.FilterDropdownButton-innerimg {
+    width: 25px;
+    height: auto;
+}
+
+.FilterOptions {
+    position: absolute;
+    width: 200px;
+    top: 100%;
+    left: 0;
+    border: 1px solid #ddd;
+    background-color: white;
+    border-radius: 20px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+  
+.FilterOptions li {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    align-items: center;
+    padding: 0 20px;
+    cursor: pointer;
+}
+
+.FilterOptions li.active {
+    background-color: #f3f3f3;
+}
+
+.FilterOptions li:hover {
+    background-color: #f3f3f3;
+}
+
+.FilterOptions label {
+    display: block;
+}

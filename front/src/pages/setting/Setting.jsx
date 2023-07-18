@@ -1,19 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getDatabase, ref, update, remove } from 'firebase/database';
 import Topbar from '../../components/topbar/Topbar';
 import Sidebar from '../../components/sidebar/Sidebar';
 import RuleList from '../../components/rulelist/RuleList';
 import Alert from '../../components/alert/Alert';
-
-// import './setting.css';
+import expandmore from '../../assets/icon/expandMore.png';
+import expandless from '../../assets/icon/expandLess.png';
+import './setting.css';
 
 const Setting = () => {
   const [rules, setRules] = useState([]);
   const [selectedRule, setSelectedRule] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
-
+  const [filterType, setFilterType] = useState(null);
+  const [showFilterDropdown, setShowFilterDropdown] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState(null);
+  const [filterText, setFilterText] = useState('모든 규칙');
   const navigate = useNavigate();
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     fetch('https://capstone-dab03-default-rtdb.asia-southeast1.firebasedatabase.app/rule.json')
@@ -26,6 +31,47 @@ const Setting = () => {
         console.error('Error fetching rules:', error);
       });
   }, []);
+
+  const getFilteredRules = () => {
+    if (filterType === 0) {
+      return rules.filter((rule) => rule.type === 0);
+    } else if (filterType === 1) {
+      return rules.filter((rule) => rule.type === 1);
+    }
+    return rules;
+  };
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowFilterDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, []);
+
+  const toggleFilterDropdown = () => {
+    setShowFilterDropdown(!showFilterDropdown);
+  };
+
+  const handleFilterClick = (filterType) => {
+    setSelectedFilter(filterType);
+    setFilterType(filterType);
+    setShowFilterDropdown(false);
+  
+    if (filterType === 0) {
+      setFilterText('문자열 차단');
+    } else if (filterType === 1) {
+      setFilterText('IP 차단');
+    } else {
+      setFilterText('모든 규칙');
+    }
+  };
 
   const toggleSwitch = async (ruleId) => {
     try {
@@ -107,6 +153,9 @@ const Setting = () => {
     setRules(updatedRules);
   };
 
+  const ClickedRuleAdd = () => {
+    navigate('/setting/ruleadd');
+  }
 
   return (
     <div className='Wrap'>
@@ -119,11 +168,46 @@ const Setting = () => {
             <Sidebar />
           </div>
           <div className='ColumnRight'>
-            <div>
-              <Link to='/setting/ruleadd'>추가</Link>
+            <div className='Info'>
+              <div className='Info-Name'>
+                설정
+              </div>
+              <div className='Info-Setbar'>
+                <button className='Info-Setbar-AddButton' onClick={ClickedRuleAdd}>규칙 추가</button>
+                <div className={`Info-Setbar-FilterDropdown ${showFilterDropdown ? 'show' : ''}`} ref={dropdownRef}>
+                  <button className='Info-Setbar-FilterDropdownButton' onClick={toggleFilterDropdown}>
+                    <div className='FilterDropdownButton-inner'>
+                      <div className='FilterDropdownButton-innertext'>{filterText}</div>
+                      <img className='FilterDropdownButton-innerimg' src={showFilterDropdown ? expandless : expandmore} alt='필터더보기'/>
+                    </div>
+                  </button>
+                  {showFilterDropdown && (
+                    <ul className='FilterOptions'>
+                      <li
+                        className={selectedFilter === 0 ? 'active' : ''}
+                        onClick={() => handleFilterClick(0)}
+                      >
+                        문자열 차단
+                      </li>
+                      <li
+                        className={selectedFilter === 1 ? 'active' : ''}
+                        onClick={() => handleFilterClick(1)}
+                      >
+                        IP 차단
+                      </li>
+                      <li
+                        className={selectedFilter === null ? 'active' : ''}
+                        onClick={() => handleFilterClick(null)}
+                      >
+                        모든 규칙
+                      </li>
+                    </ul>
+                  )}
+                </div>
+              </div>
             </div>
             <RuleList
-              rules={rules}
+              rules={getFilteredRules()}
               toggleSwitch={toggleSwitch}
               showActions={showActions}
               deleteRule={deleteRule}
