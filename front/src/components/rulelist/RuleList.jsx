@@ -1,8 +1,49 @@
 import React from 'react';
+import Switch from '@mui/material/Switch';
 import moreVert from '../../assets/icon/moreVert.png';
-// import Switch from '../switch/Switch';
+import { styled } from '@mui/system';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import './rulelist.css'
+
+const RuleSwitch = styled(Switch)(({ theme }) => ({
+  width: '56px',
+  height: '34px',
+  padding: 0,
+  margin: 0,
+  overflow: 'hidden',
+  '& .MuiSwitch-switchBase': {
+    padding: '6px',
+    '&.Mui-checked': {
+      color: '#fff',
+      transform: 'translateX(calc(56px - 22px - 6px * 2))',
+      '& + .MuiSwitch-track': {
+        backgroundColor: theme.palette.primary.main,
+        opacity: 1,
+        border: 'none',
+      },
+      '& .MuiSwitch-thumb': {
+        backgroundColor: '#fff',
+      },
+    },
+  },
+  '& .MuiSwitch-track': {
+    borderRadius: '40px',
+    border: `solid ${theme.palette.grey[400]}`,
+    borderWidth: '2px',
+    backgroundColor: theme.palette.grey[50],
+    opacity: 1,
+    transition: theme.transitions.create(['background-color', 'border']),
+    boxSizing: 'border-box',
+  },
+  '& .MuiSwitch-thumb': {
+    boxShadow: 'none',
+    backgroundColor: theme.palette.grey[400],
+    width: '22px',
+    height: '22px',
+  },
+  '& .MuiSwitch-checked': {},
+}));
 
 const RuleList = ({ rules, toggleSwitch, showActions, deleteRule, editRule, toggleDetails }) => {
 
@@ -23,9 +64,17 @@ const RuleList = ({ rules, toggleSwitch, showActions, deleteRule, editRule, togg
     }
     return pattern;
   };
-  
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#9e30f4',
+      },
+    },
+  });
   
   return (
+    
     <div>
       {rules.map((rule) => (
         <div className='RuleSetting' key={rule.id}>
@@ -35,19 +84,14 @@ const RuleList = ({ rules, toggleSwitch, showActions, deleteRule, editRule, togg
           <div className='RuleDescription'>
             <p>{rule.description}</p>
           </div>
-          <label className='RuleSwitch'>
-            <input
-              type="checkbox"
-              checked={rule.enabled}
-              onChange={() => toggleSwitch(rule.id)}
-            />
-            {rule.enabled ? 'Enabled' : 'Disabled'}
-            {/* <Switch
-                isOn={rule.enabled}
-                onColor='#9e30f4'
-                handleToggle={() => toggleSwitch(rule.id)}
-            /> */}
-          </label>
+          <ThemeProvider theme={theme}>
+            <label className='RuleSwitch'>
+              <RuleSwitch
+                checked={rule.enabled}
+                onChange={() => toggleSwitch(rule.id)}
+              />
+            </label>
+          </ThemeProvider>
           <div className='RuleToggleActions'>
             <button className='ButtonMoreVert' onClick={() => showActions(rule.id)}>
               <img className='ImgMoreVert' src={moreVert} alt='더보기'></img>
