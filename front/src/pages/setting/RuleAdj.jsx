@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { updateItemInFirebase } from '../../firebase';
 
 import Topbar from '../../components/topbar/Topbar';
@@ -9,10 +9,12 @@ import './setting.css';
 
 import add from '../../assets/icon/add.png';
 import close from '../../assets/icon/close.png';
+import chevronLeft from '../../assets/icon/chevronLeft.png';
 import { getDatabase, onValue, ref } from 'firebase/database';
 
 function RuleAdj() {
   const location = useLocation();
+  const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
   const ruleId = searchParams.get('id');
   const database = getDatabase();
@@ -103,6 +105,10 @@ function RuleAdj() {
     return '';
   };
 
+  const PreviousPage = () => {
+    navigate('/setting');
+  }
+
   return (
     <div className="Wrap">
       <div className="Header">
@@ -115,9 +121,16 @@ function RuleAdj() {
           </div>
           <div className="ColumnRight">
             <div>
-              <Link to="/setting">&lt; 목록</Link>
-              <h1>규칙 수정</h1>
               <div className="RuleAddWrap">
+                <button className='PreviousPage' onClick={PreviousPage}>
+                  <img className='PreviousPageImg' src={chevronLeft} alt='이전화살표'/>
+                  <div className='PreviousPageText'>
+                    목록
+                  </div>
+                </button>
+                <div className='RuleAddTitle'>
+                  규칙 수정
+                </div>
                 <div className="inputTitle" style={{ padding: '0' }}>
                   <label htmlFor="type">규칙 유형</label>
                 </div>

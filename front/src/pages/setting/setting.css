@@ -4,6 +4,38 @@
     padding: 30px;
 }
 
+.PreviousPage {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    height: 40px;
+    font-size: 14px;
+    padding-left: 10px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    background-color: #d1cdcd;
+}
+
+.PreviousPageImg {
+    display: flex;
+    justify-content: center;
+    width: 25px;
+    height: auto;
+}
+
+.PreviousPageText {
+    display: flex;
+    justify-content: center;
+    margin: 0 10px;
+}
+
+.RuleAddTitle {
+    padding: 50px 0;
+    font-size: 32px;
+    font-weight: bold;
+}
+
 .description-textarea {
     width: 100%;
     outline: none;
@@ -96,6 +128,11 @@
     border-color: #EF5350;
 }
 
+.highlighted {
+    background-color: #9e30f4;
+    transition: background-color 2s;
+  }
+
 /* dropdown css (setting.jsx) */
 .Info {
     background-color: #f3f3f3;
@@ -178,6 +215,7 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    z-index: 1;
 }
   
 .FilterOptions li {

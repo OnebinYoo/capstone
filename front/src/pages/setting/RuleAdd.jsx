@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { addItemToFirebase } from '../../firebase';
 
 import Topbar from '../../components/topbar/Topbar';
@@ -9,8 +9,10 @@ import './setting.css';
 
 import add from '../../assets/icon/add.png';
 import close from '../../assets/icon/close.png';
+import chevronLeft from '../../assets/icon/chevronLeft.png';
 
 function RuleAdd() {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [pattern, setPattern] = useState('');
@@ -27,7 +29,7 @@ function RuleAdd() {
     let transformedItems = blockedItems.map((item) => item);
     
     if (type === 0) {
-      transformedItems = blockedItems.map((item) => `(?im)^(?=.*\\b${item}\\b).*`);
+      transformedItems = blockedItems.map((item) => `(?im)^(?=.*\\b{${item}}\\b).*`);
     }
     
     const concatenatedItems = transformedItems.join('|');
@@ -60,7 +62,7 @@ function RuleAdd() {
 
   const handleAddItem = () => {
     if (pattern.trim() !== '') {
-      if (!blockedItems.includes(pattern)) {
+      if (!blockedItems.includes(pattern) && blockedItems.length < 5) {
         setBlockedItems([...blockedItems, pattern]);
       }
       setPattern('');
@@ -72,6 +74,10 @@ function RuleAdd() {
     updatedItems.splice(index, 1);
     setBlockedItems(updatedItems);
   };
+
+  const PreviousPage = () => {
+    navigate('/setting');
+  }
 
   return (
     <div className='Wrap'>
@@ -85,9 +91,16 @@ function RuleAdd() {
           </div>
           <div className='ColumnRight'>
             <div>
-              <Link to="/setting">&lt; 목록</Link>
-              <h1>규칙 추가</h1>
               <div className='RuleAddWrap'>
+                <button className='PreviousPage' onClick={PreviousPage}>
+                  <img className='PreviousPageImg' src={chevronLeft} alt='이전화살표'/>
+                  <div className='PreviousPageText'>
+                    목록
+                  </div>
+                </button>
+                <div className='RuleAddTitle'>
+                  규칙 추가
+                </div>
                 <div className='inputTitle' style={{padding:'0'}}>
                   <label htmlFor="type">규칙 유형</label>
                 </div>
@@ -122,7 +135,7 @@ function RuleAdd() {
                   </div>
                 </div>
                 <div className='inputTitle'>
-                  <label htmlFor="description">{type === 0 ? "차단할 문자열" : "차단할 IP"}</label>
+                  <label htmlFor="description">{type === 0 ? "차단할 문자열 (최대 5개)" : "차단할 IP (최대 5개)"}</label>
                   <div className='inputWrap' style={{ display: 'flex', alignItems: 'center' }}>
                     <input
                       className='input'

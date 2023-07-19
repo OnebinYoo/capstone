@@ -58,25 +58,28 @@ project/
   * `RuleAdd`, `RuleAdj` 페이지 접속 시에는 `sidebar`의 '설정' clicked 상태가 정상적으로 작동안하던 부분 수정
   * 설정 페이지의 상단 부분 UI 개선
   * `RuleAddWrap`의 `border-radius` 값 조정
-  * 삭제/수정/상세보기 버튼과 상세 정보란이 전부 펼쳐져 있을 때 buttonMoreVert 버튼 클릭만으로 전부 접히도록 개선
+  * 삭제/수정/상세보기 버튼과 상세 정보란까지 전부 펼쳐져 있을 때 ButtonMoreVert 버튼 클릭만으로 전부 접히도록 개선
   * 규칙 목록에 스위치 구현
     - mui의 switch 사용
       - 사전에 제작해 둔 switch 컴포넌트 삭제
     * mui 사용 및 switch customize로 인해 `package-lock.json`, `package.json`도 업데이트
 
+* 7/19
+  - `setting`의 switch가 `FilterOptions` 앞에 나타나는 현상 수정
+  * `RuleAdd`, `RuldAdj` 페이지 상단 부분의 UI 개선
+  * 규칙 상세보기에서 pattern의 정규표현식이 완벽히 제거되지 않는 현상 수정
+    - backend와 협의되지 않은 사항이라 추후 수정될 수 있음
+    - 정규표현식을 제외한 pattern 값만 보여주기 위해 pattern 값을 정규표현식으로 감쌀 때 {}로 감싸도록 수정
+      - 기존: `admin -> (?im)^(?=.*\badmin\b).*`
+      - 수정: `admin -> (?im)^(?=.*\b{admin}\b).*` (admin 앞뒤로 {} 추가됨)
+
 ## 미완료 작업
 
 - 규칙 추가/수정/삭제 완료 시 alert 보이도록 구현
-
-* 규칙 추가/수정 페이지의 상단 부분 UI 개선
-  - 현재는 buttonMoreVert 버튼으로는 삭제/수정/상세보기 버튼만 control 가능
-* PrivateRoutes 사용해서 로그인 안했을 시 login.jsx 외의 페이지는 안보이도록 수정
-* console.log 제거
+- PrivateRoutes 사용해서 로그인 안했을 시 login.jsx 외의 페이지는 안보이도록 수정
+- console.log 제거
   - alert로 보이도록 하거나 제거
 
 ## 확인된 버그
 
-- 상세보기에서 pattern의 정규표현식이 완벽하게 벗겨지지 않고 출력되는 현상
-
-* 규칙 추가/수정의 description textarea 높이가 줄 수에 맞게 동적으로 변하지 않는 현상
-* `setting`의 switch가 dropdown 메뉴 앞에 나타나는 현상
+- 규칙 추가/수정의 description textarea 높이가 줄 수에 맞게 동적으로 변하지 않는 현상
