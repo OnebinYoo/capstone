@@ -87,6 +87,7 @@ project/
 - PrivateRoutes 사용해서 로그인 안했을 시 login.jsx 외의 페이지는 안보이도록 수정
 - console.log 제거
   - alert로 보이도록 하거나 제거
+- ip 차단 추천 컴포넌트 구현
 
 ## 확인된 버그
 
