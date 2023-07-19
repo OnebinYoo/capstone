@@ -107,7 +107,29 @@ function RuleAdj() {
 
   const PreviousPage = () => {
     navigate('/setting');
-  }
+  };
+
+  const handlePatternChange = (event) => {
+    const value = event.target.value;
+    const patternRegex1 = /^[0-9./]*$/;
+    const patternRegex2 = /\s/g;
+  
+    if (type === 0 && patternRegex2.test(value)) {
+      setErrorMessage('띄어쓰기는 허용되지 않습니다');
+  
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 2000);
+    } else if (type === 1 && (!patternRegex1.test(value) || patternRegex2.test(value))) {
+      setErrorMessage('숫자, ".", "/"만 입력할 수 있습니다');
+  
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 2000);
+    } else {
+      setPattern(value);
+    }
+  };
 
   return (
     <div className="Wrap">
@@ -175,7 +197,7 @@ function RuleAdj() {
                         type === 0 ? '차단할 문자열을 입력해 주세요' : '차단할 IP를 입력해 주세요'
                       }
                       value={pattern}
-                      onChange={(e) => setPattern(e.target.value)}
+                      onChange={handlePatternChange}
                       onKeyDown={(e) => {
                         if (e.key === 'Enter') {
                           e.preventDefault();
@@ -191,10 +213,10 @@ function RuleAdj() {
                   {blockedItems.map((item, index) => (
                     <div className='blockedItem' key={index}>
                       <span className="blockedItemContent">
-                        {item}
-                        <button className='RemoveButton' onClick={() => handleRemoveItem(index)}>
-                            <img className='ImgRemove' src={close} alt='삭제'/>
-                          </button>
+                        {type === 0 ? item.match(/\{(.*?)\}/)[1] : item}
+                        <button className="RemoveButton" onClick={() => handleRemoveItem(index)}>
+                          <img className="ImgRemove" src={close} alt="삭제" />
+                        </button>
                       </span>
                     </div>
                   ))}

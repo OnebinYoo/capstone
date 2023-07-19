@@ -10,21 +10,23 @@ import Findpw from './pages/login/Findpw';
 // import PrivateRoutes from './components/PrivateRoutes';
 import RuleAdd from './pages/setting/RuleAdd';
 import RuleAdj from './pages/setting/RuleAdj';
+import ErrorPage from './pages/error/ErrorPage';
 
 function App() {
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/findpw" element={<Findpw />} />
+        <Route exact path="/" element={<Login />} />
+        <Route exact path="/findpw" element={<Findpw />} />
         {/* <Route element={<PrivateRoutes/>}> */}
-          <Route path="/home" element={<Home />} />
-          <Route path="/log" element={<Log/>} />
-          <Route path="/setting" element={<Setting/>} />
+          <Route exact path="/home" element={<Home />} />
+          <Route exact path="/log" element={<Log/>} />
+          <Route exact path="/setting" element={<Setting/>} />
         {/* </Route> */}
-        <Route path="/setting/ruleadd" element={<RuleAdd />} />
-        <Route path="/setting/ruleadj" element={<RuleAdj />} />
+        <Route exact path="/setting/ruleadd" element={<RuleAdd />} />
+        <Route exact path="/setting/ruleadj" element={<RuleAdj />} />
+        <Route Component={ErrorPage}/>
       </Routes>
     </Router>
   );
