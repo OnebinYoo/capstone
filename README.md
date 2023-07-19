@@ -91,6 +91,9 @@ project/
 
 ## 확인된 버그
 
+- `RuleAdj` 배열에 값 추가 시 `Uncaught TypeError: Cannot read properties of null (reading '1')` 에러가 발생하는 현상
+  - 수정에서 배열에 새로운 값 추가 시 {}값이 없기 때문에 생기는 에러
+  - `{example}`처럼 값 입력 시 정상 추가됨
 - 규칙 추가/수정의 description textarea 높이가 줄 수에 맞게 동적으로 변하지 않는 현상
 - 7/19 이전 버전에서 추가한 규칙을 수정 시 정규표현식에 {}가 없어 에러가 발생하는 현상
   - 해당 규칙을 제거하면 해결되나 test를 위해 남겨놔 발생하는 현상
