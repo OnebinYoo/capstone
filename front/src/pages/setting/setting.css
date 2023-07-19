@@ -13,7 +13,11 @@
     padding-left: 10px;
     border: none;
     border-radius: 50px;
+    background-color: inherit;
     cursor: pointer;
+}
+
+.PreviousPage:hover {
     background-color: #d1cdcd;
 }
 
@@ -127,11 +131,6 @@
 .error-border {
     border-color: #EF5350;
 }
-
-.highlighted {
-    background-color: #9e30f4;
-    transition: background-color 2s;
-  }
 
 /* dropdown css (setting.jsx) */
 .Info {
