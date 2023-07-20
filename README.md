@@ -45,6 +45,8 @@ pip install firebase-admin
 
 예) 아파치 기본폴더 - 운영 중인 웹 서버 폴더 -> `www.example.com/web_project`
 
+--> `web_project` 기입
+
 `[re_proxy.py]:`
 
 20번째줄에 운영중인 웹서버 주소 적어주기.
