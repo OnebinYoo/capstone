@@ -5,6 +5,8 @@
 
 파이썬의 flask를 활용한 리버스 프록시 서버이다.
 
+파이썬은 3.9이상 버전을 사용하여 개발하였다.
+
 보안규칙을 통해 어플리케이션 계층의 페이로드를 검사하고 운영중인 서버를 보호해 준다.
 
 라즈베리파이가 프록시 서버 역할을 한다.
@@ -23,13 +25,13 @@ pip install request
 pip install requests
 ```
 
-프론트의 api접근을 허용하기 위한 모듈:
+프론트의 api요청을 허용하기 위한 모듈:
 
 ```sh
 pip install -U flask-cors
 ```
 
-firebase admin sdk이용을 위한 모듈:
+firebase admin 이용을 위한 모듈:
 
 ```sh
 pip install firebase-admin
@@ -88,13 +90,21 @@ python3 app.py
     * 추가: 보안규칙에 걸릴경우 보여줄 페이지인 `templates/access_denied.html` 추가
     * 추가: 보안규칙의 `활성화/비활성화` 여부를 통한 관리 기능
 * 0.1.1
-    * 수정: `security-rules` 하드코딩 삭제
+    * 수정: `security-rules` 하드코딩 삭제 ( 규칙 정보및 api등 )
     * 추가: `firebase`로 보안규칙 이전
     * 추가: 불러오기 기능, 수정사항 반영 기능 추가(수정사항 발생시 전체 받아옴)
     * 추가: 웹 db를 한번 거쳐서,규칙을 저장할때 특수문자 앞에 `'\'`를 추가해줘야지 인식
     * 추가: 보안규칙 형식에 `type`추가 (저장및 불러오기시 구분 목적. 규칙 적용에는 상관없음)
 * 0.1.2
-    * 수정 : `firebase`에 저장된 배열의 키값이 정수 나열(`0,1,2....`)이 아닐경우, 규칙을 못받아오는 에러 해결
+    * 수정 : `firebase`에 저장된 배열의 키값이 정수 나열(`0,1,2....`)이 아닐경우에도 받아오도록 수정
+* 0.1.3
+   * 수정 : ip차단을 위해 보안규칙 로직 분리
+   * 수정 : `security_rules`의 함수를 `app.py`와 `re_proxy.py`가 사용해서 규칙을 받아옴
+   * 추가 : `app.py`에서 는 ip차단을 `re_proxy.py`에서는 페이로드 차단을 담당
+   * 에러 : 보안규칙은 받아지는데, 분리된 로직에서 최신화 못받아옴 (main branch로 업데이트시에는 수정, 추가만 기입)
+   * 로직 분리 이유는 `app.py`의 `@app.before_request`로 접근시 ip를 차단하기 위함
+
+![image01](https://private-user-images.githubusercontent.com/80260016/254786243-474bd235-9a63-4948-a79b-699fe38a359b.PNG?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2ODk4MzM0MjMsIm5iZiI6MTY4OTgzMzEyMywicGF0aCI6Ii84MDI2MDAxNi8yNTQ3ODYyNDMtNDc0YmQyMzUtOWE2My00OTQ4LWE3OWItNjk5ZmUzOGEzNTliLlBORz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzA3MjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwNzIwVDA2MDUyM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWJmYjdhNDM2YWY1YjQ3ZDZiYTRmZGMzZjgyMTFjYzY2MTM0OGEzNDYyNDI3Njc3MWM0NzBhYTE0NmMzNWQxZGEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.FQ8IGAXACeM098zPx8xDjpCgky-K4Zdpnd3OIrMMg9I)
  
 
 ## 확인된 버그
@@ -102,9 +112,11 @@ python3 app.py
 * 벡엔드 종료시 소켓 에러 발생
    * firebase와의 통신을 닫는 구문이 없어서 라고 추측
    * `OSError: [WinError 10038] 소켓 이외의 개체에 작업을 시도했습니다` 메시지 출력
-   * 공식 문서도 딱히 닫는 구문을 예시로 보여주지 않음. 수정사항을 받아오는 구문 때문으로 추측
+   * 공식 문서확인결과 닫는 구문 없이 사용. 
+   * 버그 발생 위치 : 수정사항을 받아오는 구문
 * 수정사항 발생시 규칙 전부다 받아옴
-   * 공식 문서가 구글번역이여서 그런지 원하는 내용 없음
+   * 공식 문서내에서 제공하는 함수 없음
+* 로직 분리후 수정사항 발생시 규칙은 받아오는데, 로직에 적용이 안됌
 
 ## 참여 인원 정보
 
