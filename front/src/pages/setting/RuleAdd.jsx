@@ -4,7 +4,7 @@ import { addItemToFirebase } from '../../firebase';
 
 import Topbar from '../../components/topbar/Topbar';
 import Sidebar from '../../components/sidebar/Sidebar';
-import LoginError from '../../components/Alertbar/LoginError'
+import LoginError from '../../components/Alertbar/LoginError';
 import './setting.css';
 
 import add from '../../assets/icon/add.png';
@@ -22,7 +22,10 @@ function RuleAdd() {
 
   const handleAddButtonClick = () => {
     if (!name || !description || blockedItems.length === 0) {
-      setErrorMessage('입력된 값이 없습니다.');
+      setErrorMessage('규칙을 입력해 주세요');
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 3000);
       return;
     }
   
@@ -44,14 +47,16 @@ function RuleAdd() {
   
     addItemToFirebase(newItem)
       .then(() => {
-        console.log('데이터를 Firebase Realtime Database에 추가했습니다.');
         setName('');
         setDescription('');
         setBlockedItems([]);
-        window.location.href = '/setting';
+        navigate('/setting?success=1');
       })
-      .catch((error) => {
-        console.error('데이터 추가 중 오류가 발생했습니다.', error);
+      .catch(() => {
+        setErrorMessage('규칙 추가 중 오류가 발생했습니다');
+        setTimeout(() => {
+          setErrorMessage('');
+        }, 3000);
       });
   };
 
@@ -86,16 +91,14 @@ function RuleAdd() {
   
     if (type === 0 && patternRegex2.test(value)) {
       setErrorMessage('띄어쓰기는 허용되지 않습니다');
-  
       setTimeout(() => {
         setErrorMessage('');
-      }, 2000);
+      }, 3000);
     } else if (type === 1 && (!patternRegex1.test(value) || patternRegex2.test(value))) {
-      setErrorMessage('숫자, ".", "/"만 입력할 수 있습니다');
-  
+      setErrorMessage('숫자 .  /  만 입력할 수 있습니다');
       setTimeout(() => {
         setErrorMessage('');
-      }, 2000);
+      }, 3000);
     } else {
       setPattern(value);
     }

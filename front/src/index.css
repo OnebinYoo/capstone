@@ -140,6 +140,7 @@ input:-webkit-autofill {
   float: left;
   width: 910px;
   margin-left: 30px;
+  margin-bottom: 30px;
 }
 
 @media (max-width: 1300px) {

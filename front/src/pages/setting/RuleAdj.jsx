@@ -35,7 +35,16 @@ function RuleAdj() {
           setName(fetchedRule.name);
           setDescription(fetchedRule.description);
           setType(fetchedRule.type);
-          setBlockedItems(fetchedRule.pattern.split('|'));
+          if (fetchedRule.type === 0) {
+            const patternValues = fetchedRule.pattern.match(/\{(.*?)\}/g);
+            if (patternValues) {
+              const extractedItems = patternValues.map((pattern) => pattern.slice(1, -1));
+              setBlockedItems(extractedItems);
+            }
+          } else {
+            const patternValues = fetchedRule.pattern.split('|');
+            setBlockedItems(patternValues);
+          }
         }
       });
     }
@@ -44,39 +53,43 @@ function RuleAdj() {
   const handleUpdateButtonClick = () => {
     if (!name || !description || blockedItems.length === 0) {
       setErrorMessage('입력된 값이 없습니다.');
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 3000);
       return;
     }
-    
+  
     let transformedItems = blockedItems.map((item) => item);
-    
+  
     if (type === 0) {
-      transformedItems = blockedItems.map((item) => `(?im)^(?=.*\\b${item}\\b).*`);
+      transformedItems = blockedItems.map((item) => `(?im)^(?=.*\\b{${item}}\\b).*`);
     }
-    
+  
     const concatenatedItems = transformedItems.join('|');
   
     const updatedItem = {
       description,
       enabled: true,
       name,
-      pattern: concatenatedItems,
+      pattern: type === 0 ? concatenatedItems : blockedItems.join('|'),
       type,
     };
   
     if (ruleId) {
-      
       const updatedItemWithId = {
         ...updatedItem,
         id: ruleId,
       };
-
+  
       updateItemInFirebase(ruleId, updatedItemWithId)
         .then(() => {
-          console.log('데이터를 Firebase Realtime Database에서 수정했습니다.');
-          window.location.href = '/setting';
+          navigate('/setting?success=2');
         })
         .catch(() => {
-          setErrorMessage('데이터 수정 중 오류가 발생했습니다.');
+          setErrorMessage('규칙 수정 중 오류가 발생했습니다.');
+          setTimeout(() => {
+            setErrorMessage('');
+          }, 3000);
         });
     }
   };
@@ -116,16 +129,15 @@ function RuleAdj() {
   
     if (type === 0 && patternRegex2.test(value)) {
       setErrorMessage('띄어쓰기는 허용되지 않습니다');
-  
       setTimeout(() => {
         setErrorMessage('');
-      }, 2000);
+      }, 3000);
     } else if (type === 1 && (!patternRegex1.test(value) || patternRegex2.test(value))) {
       setErrorMessage('숫자, ".", "/"만 입력할 수 있습니다');
   
       setTimeout(() => {
         setErrorMessage('');
-      }, 2000);
+      }, 3000);
     } else {
       setPattern(value);
     }
@@ -213,7 +225,7 @@ function RuleAdj() {
                   {blockedItems.map((item, index) => (
                     <div className='blockedItem' key={index}>
                       <span className="blockedItemContent">
-                        {type === 0 ? item.match(/\{(.*?)\}/)[1] : item}
+                        {type === 0 ? `${item}` : item}
                         <button className="RemoveButton" onClick={() => handleRemoveItem(index)}>
                           <img className="ImgRemove" src={close} alt="삭제" />
                         </button>
@@ -222,9 +234,7 @@ function RuleAdj() {
                   ))}
                   </div>
                 </div>
-
                 {errorMessage && <LoginError message={errorMessage}/>}
-
                 <div className='AddButton'>
                   <button
                     className="bottomButton"

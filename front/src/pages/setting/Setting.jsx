@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { getDatabase, ref, update, remove } from 'firebase/database';
 import Topbar from '../../components/topbar/Topbar';
 import Sidebar from '../../components/sidebar/Sidebar';
 import RuleList from '../../components/rulelist/RuleList';
 import Alert from '../../components/alert/Alert';
+import SettingSuccess from '../../components/Alertbar/SettingSuccess';
+import SettingError from '../../components/Alertbar/SettingError';
 import expandmore from '../../assets/icon/expandMore.png';
 import expandless from '../../assets/icon/expandLess.png';
 import './setting.css';
@@ -17,8 +19,11 @@ const Setting = () => {
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState(null);
   const [filterText, setFilterText] = useState('모든 규칙');
+  const [SuccessMessage, setSuccessMessage] = useState('');
+  const [ErrorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
+  const location = useLocation();
 
   useEffect(() => {
     fetch('https://capstone-dab03-default-rtdb.asia-southeast1.firebasedatabase.app/rule.json')
@@ -27,10 +32,19 @@ const Setting = () => {
         const ruleArray = Object.values(data);
         setRules(ruleArray);
       })
-      .catch((error) => {
-        console.error('Error fetching rules:', error);
+      .catch(() => {
+        setErrorMessage('규칙을 불러오는데 실패하였습니다');
+        setTimeout(() => {
+          setErrorMessage('');
+        }, 3000);
       });
-  }, []);
+      if (SuccessMessage) {
+        setSuccessMessage(SuccessMessage);
+        setTimeout(() => {
+          setSuccessMessage('');
+        }, 3000);
+      }
+  }, [SuccessMessage]);
 
   const getFilteredRules = () => {
     if (filterType === 0) {
@@ -81,7 +95,6 @@ const Setting = () => {
         enabled: !rules.find((rule) => rule.id === ruleId).enabled,
       };
       await update(ruleRef, updatedData);
-      console.log('스위치를 Firebase에 업데이트했습니다.');
   
       const updatedRules = rules.map((rule) => {
         if (rule.id === ruleId) {
@@ -93,8 +106,11 @@ const Setting = () => {
         return rule;
       });
       setRules(updatedRules);
-    } catch (error) {
-      console.error('Error updating switch:', error);
+    } catch {
+      setErrorMessage('규칙 ON/OFF 중 에러가 발생했습니다');
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 3000);
     }
   };
   
@@ -132,8 +148,16 @@ const Setting = () => {
       const updatedRules = rules.filter((rule) => rule.id !== selectedRule.id);
       setRules(updatedRules);
       setShowAlert(false);
+
+      setSuccessMessage('규칙 삭제가 완료되었습니다');
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 3000);
     } catch (error) {
-      console.error('Error deleting rule:', error);
+      setErrorMessage('규칙 삭제 중 에러가 발생했습니다');
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 3000);
     }
   };
 
@@ -158,6 +182,22 @@ const Setting = () => {
     navigate('/setting/ruleadd');
   }
 
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    if (queryParams.get('success') === '1') {
+      setSuccessMessage('규칙 추가가 완료되었습니다');
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 3000);
+      navigate('/setting');
+    } else if (queryParams.get('success') === '2') {
+      setSuccessMessage('규칙 수정이 완료되었습니다');
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 3000);
+      navigate('/setting');
+    }
+  }, [location.search, navigate]);
   return (
     <div className='Wrap'>
       <div className='Header'>
@@ -225,6 +265,8 @@ const Setting = () => {
           </div>
         </div>
       </div>
+      {SuccessMessage && <SettingSuccess message={SuccessMessage}/>}
+      {ErrorMessage && <SettingError message={ErrorMessage}/>}
     </div>
   );
 };
