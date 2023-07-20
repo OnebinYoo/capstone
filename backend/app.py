@@ -2,13 +2,23 @@ from flask import Flask, redirect, request
 from re_proxy import configure_proxy_routes
 import log
 from logging_utils import save_log
+from security_rules import get_security_rules, initialize_rules
 from flask_cors import CORS
 import uuid
 import datetime
+import re
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
+def log_and_block():
+    print('액세스가 거부되었습니다. IP 차단 정책에 의해 차단되었습니다.')
+    return "액세스가 거부되었습니다. IP 차단 정책에 의해 차단되었습니다.", 403
+
+def update_security_rules(security_rules):
+    configure_proxy_routes(app, security_rules)
+
+@app.before_request
 def log_request_info():
     current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     log_data = {
@@ -16,9 +26,17 @@ def log_request_info():
         'url': request.url,
         'ip': request.remote_addr,
         'date': current_time,
-        'data': request.get_json()
+        'data': None
     }
+    if request.method == 'POST' and request.content_type == 'application/json':
+        log_data['data'] = request.get_json()
     save_log(log_data)
+
+    for rule in security_rules.values():
+        if rule['enabled'] and rule['type'] == 1:
+            pattern = re.compile(rule['pattern'])
+            if pattern.match(request.remote_addr):
+                return log_and_block()
 
 @app.after_request
 def log_response_info(response):
@@ -39,7 +57,15 @@ def log_response_info(response):
 def index():
     return redirect('/web_project/')
 
-configure_proxy_routes(app)
+# 최신 규칙 가져오기
+security_rules = get_security_rules()
+
+# 최신 규칙으로 프록시 라우트 설정
+update_security_rules(security_rules)
+
+# Firebase Realtime Database의 규칙 변경 감지 설정
+initialize_rules()
+
 app.route('/logs', methods=['GET'])(log.get_logs)
 
 if __name__ == '__main__':
