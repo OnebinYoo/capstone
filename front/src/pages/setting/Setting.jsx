@@ -198,6 +198,7 @@ const Setting = () => {
       navigate('/setting');
     }
   }, [location.search, navigate]);
+
   return (
     <div className='Wrap'>
       <div className='Header'>
