@@ -106,7 +106,7 @@ python3 app.py
 ![image01]
 
 * 0.1.4 (main branch에는 깔끔하게 업로드)
-   * 추가 : 로드밸런싱을 위해 라운드 로빈 알고리즘 채택.
+   * 추가 : 로드밸런싱을 위해 라운드 로빈 알고리즘 채택. `security_rules`랑 충돌로 따로 관리중
    * 서버의 dbms가 존재하면 문제 없지만 이 프로젝트 특성상 가상머신 2개를 웹서버로 운영중이고, 각 가상머신에 웹서버와 db가 존재한다.
    * 이에 라운드 로빈 알고리즘은 단순히 2개의 서버중 하나를 선택해 분산해 주는것이기 때문에 다른 알고리즘을 선택해야될 수도 있음.
    * A,B서버중 하나로 보내준후 client의 request 마다 서버를 선택하기 때문에 `dbms`동기화 없이는 아래와 같은 문제가 발생할수 있다.
@@ -146,4 +146,4 @@ python3 app.py
 <!-- Markdown link & img dfn's -->
 [flask-image]: https://img.shields.io/badge/flask-00000?style=flat-square&logo=flask&logoColor=#000000
 [flask-url]: https://flask-docs-kr.readthedocs.io/ko/latest/quickstart.html
-[image01]: https://private-user-images.githubusercontent.com/80260016/254786243-474bd235-9a63-4948-a79b-699fe38a359b.PNG?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2ODk4MzM0MjMsIm5iZiI6MTY4OTgzMzEyMywicGF0aCI6Ii84MDI2MDAxNi8yNTQ3ODYyNDMtNDc0YmQyMzUtOWE2My00OTQ4LWE3OWItNjk5ZmUzOGEzNTliLlBORz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzA3MjAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwNzIwVDA2MDUyM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWJmYjdhNDM2YWY1YjQ3ZDZiYTRmZGMzZjgyMTFjYzY2MTM0OGEzNDYyNDI3Njc3MWM0NzBhYTE0NmMzNWQxZGEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.FQ8IGAXACeM098zPx8xDjpCgky-K4Zdpnd3OIrMMg9I
+[image01]: https://private-user-images.githubusercontent.com/80260016/254786243-474bd235-9a63-4948-a79b-699fe38a359b.PNG?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2ODk5NDA0NzksIm5iZiI6MTY4OTk0MDE3OSwicGF0aCI6Ii84MDI2MDAxNi8yNTQ3ODYyNDMtNDc0YmQyMzUtOWE2My00OTQ4LWE3OWItNjk5ZmUzOGEzNTliLlBORz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzA3MjElMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwNzIxVDExNDkzOVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTE2ZjAwYThmNzYyZWRiYWFkNmUzMzk2YzY1MzI3OGY5ZjZlYjc5ZGQyYWUzMjY3OGJiMDJiOWFmZTJjZDVjOWMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.sN6fl1nGNgcEaLHACqWZboiNkjKhSIqB3Qi2uGDZRyQ
