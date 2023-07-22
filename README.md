@@ -11,6 +11,26 @@
 
 라즈베리파이가 프록시 서버 역할을 한다.
 
+## 프로그램 흐름도 Back-End
+
+```mermaid
+graph TD;
+    A[security_ruels.py]-->|Get rules| B{app.py};
+    B --> |Leave a log| C(log.py);
+    B --> |Check banned ip| E;
+    B --> |Give rules and infromations| D(re_proxy.py);
+    D --> |Check payload| E[access_denied.html];
+    D --> |After load balancing| F[web_pages];
+    G[Client] --> |Request 'web_pages'| B;
+    C -->|Get server's logs| H(Front - admin page);
+    I[firebase] --> H;
+    I --> A;
+    A -->|If some logic make problem. I'll add.| D;
+```
+
+1. secrutiy_rules에서 보안규칙 초기에 받아오고 최신화 안됌.
+2. 라운드 로빈 알고리즘으로 로드 밸런싱시 `0.1.4`버전에 기술한 고민거리 발생.
+
 ## 설치 방법-backend
 
 파이썬 호환 OS(pip or pip3):
