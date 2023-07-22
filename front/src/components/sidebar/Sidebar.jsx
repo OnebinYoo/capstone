@@ -10,7 +10,7 @@ import clickedLog from "../../assets/icon/clickedLog.png"
 import settings from "../../assets/icon/settings.png";
 import clickedSettings from "../../assets/icon/clickedSettings.png"
 
-const Sidebar = ({ active }) => {
+const Sidebar = () => {
 
   const location = useLocation();
   const currentPage = location.pathname;
@@ -18,8 +18,8 @@ const Sidebar = ({ active }) => {
   return (
     
     <div className="SidebarContainer">
-        <Link to="/home" className="link">
-          {currentPage === "/home" ? (
+        <Link to="/" className="link">
+          {currentPage === "/" ? (
             <div className="MainMenuDiv" style={{ backgroundColor: "#f3f3f3" }}>
             <img className="Icon" src={clickedHome} alt="clickedHome"></img>
             <div className="MenuDiv">홈</div>

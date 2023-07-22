@@ -41,24 +41,24 @@ project/
     - 배열에 null 값 입력 안되도록 구현
     - null 값 존재 시 에러 메시지 나타나도록 구현
 - 7/17
-  - null 값 검사를 input창이 아니라 blockedItems 배열을 검사하도록 수정(`RuleAdd`, `RuleAdj`)
-  - RuleAdj에서 배열에 null 값 입력되는 현상 수정
-  - RuleAdj의 일부 컴포넌트 요소 RuleAdd와 일치하도록 수정
+  - 규칙 추가/수정 시 null 값 검사를 input창이 아니라 blockedItems 배열을 검사하도록 수정
+  - `RuleAdj`에서 배열에 null 값 입력되는 현상 수정
+  - `RuleAdj`의 일부 컴포넌트 요소 `RuleAdd`와 일치하도록 수정
   - 배열에 최대 5개까지만 입력되도록 수정
   - `type=0`으로 규칙 추가시 정규표현식으로 변환하여 저장되도록 수정
 - 7/18
   - 규칙 목록에 필터 기능 추가
-  - `RuleAdd`, `RuleAdj` 페이지 접속 시에는 `sidebar`의 '설정' clicked 상태가 정상적으로 작동안하던 부분 수정
-  - 설정 페이지의 상단 부분 UI 개선
-  - `RuleAddWrap`의 `border-radius` 값 조정
+  - `RuleAdd`, `RuleAdj` 접속 시에는 `sidebar`의 clicked 상태가 정상적으로 작동안하던 부분 수정
+  - `Setting`의 상단 부분 UI 개선
+  - `RuleAdd`의 UI 개선
   - 삭제/수정/상세보기 버튼과 상세 정보란까지 전부 펼쳐져 있을 때 ButtonMoreVert 버튼 클릭만으로 전부 접히도록 개선
   - 규칙 목록에 스위치 구현
     - mui의 switch 사용
       - 사전에 제작해 둔 switch 컴포넌트 삭제
     - mui 사용 및 switch customize로 인해 `package-lock.json`, `package.json`도 업데이트
 - 7/19
-  - `setting`의 switch가 `FilterOptions` 앞에 나타나는 현상 수정
-  - `RuleAdd`, `RuldAdj` 페이지 상단 부분의 UI 개선
+  - `Setting`의 switch가 `FilterOptions` 앞에 나타나는 현상 수정
+  - `RuleAdd`, `RuldAdj` 상단 부분의 UI 개선
   - 규칙 상세보기에서 pattern의 정규표현식이 완벽히 제거되지 않는 현상 수정
     - backend와 협의되지 않은 사항이라 추후 수정될 수 있음
     - 정규표현식을 제외한 pattern 값만 보여주기 위해 pattern 값을 정규표현식으로 감쌀 때 {}로 감싸도록 수정
@@ -69,19 +69,26 @@ project/
     - (공통) 띄어쓰기 허용하지 않도록 구현
     - (type=1) ip 입력 시 `숫자`, `.`, `/`만 허용하도록 구현
     - (공통) 허용하지 않은 값 입력 시 2초간 에러 메시지 발생하도록 구현
-  - 에러페이지 초안 작성
+  - `ErrorPage` 초안 작성
+    - `App`에서 지정하지 않은 주소로 접근 시 `ErrorPage`로 라우틷되도록 수정
 - 7/20
   - pattern 값을 정규식 및 `{}`로 감싸도록 수정되어 생기는 오류 수정
     - `RuleAdj`에서 기존 값 외에 새로운 값 추가 시 배열에서 `{}`를 읽어오지 못해 생기는 오류 수정
     - 기존 값이 수정 후 이중으로 정규식으로 감싸지는 현상 수정
-  * alert, Alertbar UI 개선
-  * 규칙 추가/수정/삭제 완료 시 Alertbar 보이도록 구현
+  - `Alert`, `Alertbar` UI 개선
+  - 규칙 추가/수정/삭제 완료 시 Alertbar 보이도록 구현
     - 3초 후 없어지도록 구현
-  * `setting`, `RuleAdd`, `RuleAdj`의 console.log 제거 혹은 Alertbar로 대체
+  - `setting`, `RuleAdd`, `RuleAdj`의 console.log 제거 혹은 Alertbar로 대체
+- 7/22
+  - `PrivateRoutes`로 비로그인 상태에서는 `Login`, `Findpw` 외의 페이지 접근 시 `Login` 페이지로 리다이렉트되도록 구현
+    - 구현 위해 일부 주소 변경
+      - `Login` : `/` => `/login`
+      - `Home` : `/home` => `/`
+      - 주소 변경으로 인해 sidebar, topbar, login 일부 수정
+  - `ErrorPage` 완성
 
 ## 미완료 작업
 
-- PrivateRoutes 사용해서 로그인 안했을 시 login.jsx 외의 페이지는 안보이도록 수정
 - ip 차단 추천 컴포넌트 구현
 
 ## 확인된 버그

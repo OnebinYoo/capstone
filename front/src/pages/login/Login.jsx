@@ -31,7 +31,7 @@ const Login = () => {
 
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        navigate('/home');
+        navigate('/');
       })
       .catch((error) => {
         const errorMessage = error.message;
