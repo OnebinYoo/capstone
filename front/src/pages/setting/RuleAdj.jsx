@@ -239,7 +239,7 @@ function RuleAdj() {
                   <button
                     className="bottomButton"
                     onClick={handleUpdateButtonClick}
-                    style={{ width: '200px', height: '50px' }}
+                    style={{ width: '100%', height: '50px' }}
                   >
                   수정
                   </button>

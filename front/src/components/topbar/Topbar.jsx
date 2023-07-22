@@ -32,6 +32,7 @@ export default function Topbar() {
     auth.signOut().then(() => {
       navigate('/login');
     });
+    localStorage.clear();
   };
 
 

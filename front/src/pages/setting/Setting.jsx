@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getDatabase, ref, update, remove } from 'firebase/database';
+import { getDatabase, ref, update, remove, onValue } from 'firebase/database';
 import Topbar from '../../components/topbar/Topbar';
 import Sidebar from '../../components/sidebar/Sidebar';
 import RuleList from '../../components/rulelist/RuleList';
@@ -19,32 +19,40 @@ const Setting = () => {
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState(null);
   const [filterText, setFilterText] = useState('모든 규칙');
+  const [loading, setLoading] = useState(true);
   const [SuccessMessage, setSuccessMessage] = useState('');
   const [ErrorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
   const location = useLocation();
 
-  useEffect(() => {
-    fetch('https://capstone-dab03-default-rtdb.asia-southeast1.firebasedatabase.app/rule.json')
-      .then((response) => response.json())
-      .then((data) => {
+  const fetchData = () => {
+    const database = getDatabase();
+    const ruleRef = ref(database, 'rule');
+
+    const handleDataChange = (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
         const ruleArray = Object.values(data);
         setRules(ruleArray);
-      })
-      .catch(() => {
-        setErrorMessage('규칙을 불러오는데 실패하였습니다');
-        setTimeout(() => {
-          setErrorMessage('');
-        }, 3000);
-      });
-      if (SuccessMessage) {
-        setSuccessMessage(SuccessMessage);
-        setTimeout(() => {
-          setSuccessMessage('');
-        }, 3000);
+        localStorage.setItem('rules', JSON.stringify(ruleArray));
       }
-  }, [SuccessMessage]);
+      setLoading(false);
+    };
+
+    // Realtime Database에 관찰자 등록
+    onValue(ruleRef, handleDataChange);
+  };
+
+  useEffect(() => {
+    const cachedRules = localStorage.getItem('rules');
+    if (cachedRules) {
+      setRules(JSON.parse(cachedRules));
+      setLoading(false);
+    } else {
+      fetchData();
+    }
+  }, []);
 
   const getFilteredRules = () => {
     if (filterType === 0) {
@@ -248,14 +256,18 @@ const Setting = () => {
                 </div>
               </div>
             </div>
-            <RuleList
-              rules={getFilteredRules()}
-              toggleSwitch={toggleSwitch}
-              showActions={showActions}
-              deleteRule={deleteRule}
-              editRule={editRule}
-              toggleDetails={toggleDetails}
-            />
+            {loading ? (
+              <p>Loading...</p>
+            ) : (
+              <RuleList
+                rules={getFilteredRules()}
+                toggleSwitch={toggleSwitch}
+                showActions={showActions}
+                deleteRule={deleteRule}
+                editRule={editRule}
+                toggleDetails={toggleDetails}
+              />
+            )}
             {showAlert && (
               <Alert
                 ruleName={selectedRule ? selectedRule.name : ''}

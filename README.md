@@ -48,7 +48,7 @@ project/
   - `type=0`으로 규칙 추가시 정규표현식으로 변환하여 저장되도록 수정
 - 7/18
   - 규칙 목록에 필터 기능 추가
-  - `RuleAdd`, `RuleAdj` 접속 시에는 `sidebar`의 clicked 상태가 정상적으로 작동안하던 부분 수정
+  - `RuleAdd`, `RuleAdj` 접속 시에는 `sidebar`의 clicked 상태가 정상적으로 작동안하던 현상 수정
   - `Setting`의 상단 부분 UI 개선
   - `RuleAdd`의 UI 개선
   - 삭제/수정/상세보기 버튼과 상세 정보란까지 전부 펼쳐져 있을 때 ButtonMoreVert 버튼 클릭만으로 전부 접히도록 개선
@@ -70,7 +70,7 @@ project/
     - (type=1) ip 입력 시 `숫자`, `.`, `/`만 허용하도록 구현
     - (공통) 허용하지 않은 값 입력 시 2초간 에러 메시지 발생하도록 구현
   - `ErrorPage` 초안 작성
-    - `App`에서 지정하지 않은 주소로 접근 시 `ErrorPage`로 라우틷되도록 수정
+    - `App`에서 지정하지 않은 주소로 접근 시 `ErrorPage`로 라우팅되도록 수정
 - 7/20
   - pattern 값을 정규식 및 `{}`로 감싸도록 수정되어 생기는 오류 수정
     - `RuleAdj`에서 기존 값 외에 새로운 값 추가 시 배열에서 `{}`를 읽어오지 못해 생기는 오류 수정
@@ -86,11 +86,24 @@ project/
       - `Home` : `/home` => `/`
       - 주소 변경으로 인해 sidebar, topbar, login 일부 수정
   - `ErrorPage` 완성
+  - `RuleAdj` UI 수정
+  - 규칙 목록 보여주는 방식 수정
+    - 매번 `Setting` 접속 혹은 새로고침 때마다 firebase에서 데이터를 가져오는 방식에서 생기는 로딩 시간을 개선하기 위해 수정
+    - firebase에서 가져온 데이터를 로컬 저장소에 저장하도록 구현
+    - 관찰자를 두어 firebase 데이터에 수정 사항 발생 시 firebase에서 데이터를 다시 불러와 로컬 저장소에 다시 저장하도록 구현
+    - 로그아웃 시 로컬 저장소 비우도록 구현
 
 ## 미완료 작업
 
 - ip 차단 추천 컴포넌트 구현
+- `Log`, `Setting`의 로딩 시 보이는 UI 개선
+  - mui progress 사용 예정
 
 ## 확인된 버그
 
+- ~~`RuleAdj`에서 배열에 null 값 입력되는 현상~~ 7/17 수정 완료
+- ~~`RuleAdd`, `RuleAdj` 접속 시에는 `sidebar`의 clicked 상태가 정상적으로 작동안하던 현상~~ 7/18 수정 완료
+- ~~`Setting`의 switch가 `FilterOptions` 앞에 나타나는 현상~~ 7/19 수정 완료
+- ~~규칙 상세보기에서 pattern의 정규표현식이 완벽히 제거되지 않는 현상~~ 7/19 수정 완료
+- ~~pattern 값을 정규식 및 `{}`로 감싸도록 수정되어 생기는 오류~~ 7/20 수정 완료
 - 규칙 추가/수정의 description textarea 높이가 줄 수에 맞게 동적으로 변하지 않는 현상
