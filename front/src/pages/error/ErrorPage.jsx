@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../components/AuthContext';
+import { AuthContext } from '../../components/privateroutes/AuthContext';
 import errorpage from '../../assets/icon/errorpage.png';
 import './ErrorPage.css'
 

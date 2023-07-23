@@ -5,13 +5,14 @@ import { addItemToFirebase } from '../../firebase';
 import Topbar from '../../components/topbar/Topbar';
 import Sidebar from '../../components/sidebar/Sidebar';
 import LoginError from '../../components/Alertbar/LoginError';
+import TextArea from '../../components/setting/TextArea';
 import './setting.css';
 
 import add from '../../assets/icon/add.png';
 import close from '../../assets/icon/close.png';
 import chevronLeft from '../../assets/icon/chevronLeft.png';
 
-function RuleAdd() {
+const RuleAdd = () => {
   const navigate = useNavigate();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -20,51 +21,15 @@ function RuleAdd() {
   const [blockedItems, setBlockedItems] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleAddButtonClick = () => {
-    if (!name || !description || blockedItems.length === 0) {
-      setErrorMessage('규칙을 입력해 주세요');
-      setTimeout(() => {
-        setErrorMessage('');
-      }, 3000);
-      return;
-    }
-  
-    let transformedItems = blockedItems.map((item) => item);
-    
-    if (type === 0) {
-      transformedItems = blockedItems.map((item) => `(?im)^(?=.*\\b{${item}}\\b).*`);
-    }
-    
-    const concatenatedItems = transformedItems.join('|');
-  
-    const newItem = {
-      description,
-      enabled: true,
-      name,
-      pattern: concatenatedItems,
-      type,
-    };
-  
-    addItemToFirebase(newItem)
-      .then(() => {
-        setName('');
-        setDescription('');
-        setBlockedItems([]);
-        navigate('/setting?success=1');
-      })
-      .catch(() => {
-        setErrorMessage('규칙 추가 중 오류가 발생했습니다');
-        setTimeout(() => {
-          setErrorMessage('');
-        }, 3000);
-      });
-  };
+  const MAX_CHAR_LIMIT = 200;
 
+  // type 변경
   const handleTypeChange = (event) => {
     setType(parseInt(event.target.value));
     setBlockedItems([]);
   };
 
+  // blockedItems 배열 값 등록/삭제
   const handleAddItem = () => {
     if (pattern.trim() !== '') {
       if (!blockedItems.includes(pattern) && blockedItems.length < 5) {
@@ -84,11 +49,12 @@ function RuleAdd() {
     navigate('/setting');
   };
 
+  // 입력값 검증
   const handlePatternChange = (event) => {
     const value = event.target.value;
     const patternRegex1 = /^[0-9./]*$/;
     const patternRegex2 = /\s/g;
-  
+
     if (type === 0 && patternRegex2.test(value)) {
       setErrorMessage('띄어쓰기는 허용되지 않습니다');
       setTimeout(() => {
@@ -102,7 +68,48 @@ function RuleAdd() {
     } else {
       setPattern(value);
     }
-  };  
+  };
+
+  // 규칙 추가
+  const handleAddButtonClick = () => {
+    if (!name || !description || blockedItems.length === 0) {
+      setErrorMessage('규칙을 입력해 주세요');
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 3000);
+      return;
+    }
+
+    let transformedItems = blockedItems.map((item) => item);
+
+    if (type === 0) {
+      transformedItems = blockedItems.map((item) => `(?im)^(?=.*\\b{${item}}\\b).*`);
+    }
+
+    const concatenatedItems = transformedItems.join('|');
+
+    const newItem = {
+      description,
+      enabled: true,
+      name,
+      pattern: concatenatedItems,
+      type,
+    };
+
+    addItemToFirebase(newItem)
+      .then(() => {
+        setName('');
+        setDescription('');
+        setBlockedItems([]);
+        navigate('/setting?success=1');
+      })
+      .catch(() => {
+        setErrorMessage('규칙 추가 중 오류가 발생했습니다');
+        setTimeout(() => {
+          setErrorMessage('');
+        }, 3000);
+      });
+  };
 
   return (
     <div className='Wrap'>
@@ -118,7 +125,7 @@ function RuleAdd() {
             <div>
               <div className='RuleAddWrap'>
                 <button className='PreviousPage' onClick={PreviousPage}>
-                  <img className='PreviousPageImg' src={chevronLeft} alt='이전화살표'/>
+                  <img className='PreviousPageImg' src={chevronLeft} alt='이전화살표' />
                   <div className='PreviousPageText'>
                     목록
                   </div>
@@ -126,37 +133,34 @@ function RuleAdd() {
                 <div className='RuleAddTitle'>
                   규칙 추가
                 </div>
-                <div className='inputTitle' style={{padding:'0'}}>
+                <div className='inputTitle' style={{ padding: '0' }}>
                   <label htmlFor="type">규칙 유형</label>
                 </div>
-                <div style={{padding:'10px 0 15px 0'}}>
+                <div style={{ padding: '10px 0 15px 0' }}>
                   <input type="radio" name="option" value={0} onChange={handleTypeChange} checked={type === 0} /> 문자열 차단
                   <input type="radio" name="option" value={1} onChange={handleTypeChange} checked={type === 1} /> IP 차단
                 </div>
                 <div className='inputTitle'>
                   <label htmlFor="name">규칙 이름</label>
                   <div className='inputWrap'>
-                  <input
-                    className='input'
-                    type="text"
-                    placeholder="규칙 이름을 입력해 주세요"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
+                    <input
+                      className='input'
+                      type="text"
+                      placeholder="규칙 이름을 입력해 주세요"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
                   </div>
                 </div>
                 <div className='inputTitle'>
                   <label htmlFor="description">규칙 설명</label>
-                  <div className='inputWrap'>
-                  <textarea
-                    className="description-textarea"
-                    type="text"
-                    placeholder="규칙 설명을 입력해 주세요"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    style={{ minHeight: '42px', maxHeight: '12em', height: 'auto' }}
-                    rows={Math.min(10, description.split('\n').length)}
-                  />
+                  <span id="charCount" className="charCount">({description.length}/{MAX_CHAR_LIMIT}자 (공백 포함))</span>
+                  <div className='textareaWrap'>
+                    <TextArea
+                      value={pattern}
+                      onChange={handlePatternChange}
+                      placeholder={type === 0 ? "차단할 문자열을 입력해 주세요" : "차단할 IP를 입력해 주세요"}
+                    />
                   </div>
                 </div>
                 <div className='inputTitle'>
@@ -176,7 +180,7 @@ function RuleAdd() {
                       }}
                     />
                     <button className='ItemAddButton' onClick={handleAddItem}>
-                      <img className='ImgAdd' src={add} alt='추가'/>
+                      <img className='ImgAdd' src={add} alt='추가' />
                     </button>
                   </div>
                   <div className='blockedItems'>
@@ -185,7 +189,7 @@ function RuleAdd() {
                         <span className="blockedItemContent">
                           {item}
                           <button className='RemoveButton' onClick={() => handleRemoveItem(index)}>
-                            <img className='ImgRemove' src={close} alt='삭제'/>
+                            <img className='ImgRemove' src={close} alt='삭제' />
                           </button>
                         </span>
                       </div>
@@ -193,15 +197,15 @@ function RuleAdd() {
                   </div>
                 </div>
 
-                {errorMessage && <LoginError message={errorMessage}/>}
+                {errorMessage && <LoginError message={errorMessage} />}
 
                 <div className='AddButton'>
                   <button
                     className='bottomButton'
                     onClick={handleAddButtonClick}
-                    style={{width:'100%', height:'50px'}}
+                    style={{ width: '100%', height: '50px' }}
                   >
-                  추가
+                    추가
                   </button>
                 </div>
               </div>

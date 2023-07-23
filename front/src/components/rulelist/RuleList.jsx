@@ -69,7 +69,6 @@ const RuleList = ({ rules, toggleSwitch, showActions, deleteRule, editRule, togg
   });
   
   return (
-    
     <div>
       {rules.map((rule) => (
         <div className='RuleSetting' key={rule.id}>
@@ -77,7 +76,12 @@ const RuleList = ({ rules, toggleSwitch, showActions, deleteRule, editRule, togg
             <p className='Name'>{rule.name}</p>
           </div>
           <div className='RuleDescription'>
-            <p>{rule.description}</p>
+            {rule.description.split('\n').map((paragraph, index) => (
+                <React.Fragment key={index}>
+                  {paragraph}
+                  <br />
+                </React.Fragment>
+              ))}
           </div>
           <ThemeProvider theme={theme}>
             <label className='RuleSwitch'>

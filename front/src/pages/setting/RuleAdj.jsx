@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { getDatabase, onValue, ref } from 'firebase/database';
 import { updateItemInFirebase } from '../../firebase';
 
 import Topbar from '../../components/topbar/Topbar';
 import Sidebar from '../../components/sidebar/Sidebar';
 import LoginError from '../../components/Alertbar/LoginError';
+import TextArea from '../../components/setting/TextArea';
 import './setting.css';
 
 import add from '../../assets/icon/add.png';
 import close from '../../assets/icon/close.png';
 import chevronLeft from '../../assets/icon/chevronLeft.png';
-import { getDatabase, onValue, ref } from 'firebase/database';
 
 function RuleAdj() {
   const location = useLocation();
@@ -25,10 +26,13 @@ function RuleAdj() {
   const [type, setType] = useState(0);
   const [blockedItems, setBlockedItems] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+  
+  const MAX_CHAR_LIMIT = 200;
 
+  // id기반 규칙 데이터 가져오기
   useEffect(() => {
     if (ruleId) {
-      const ruleRef = ref(database, `rule/${ruleId}`);
+      const ruleRef = ref(database, `/rule/${ruleId}`);
       onValue(ruleRef, (snapshot) => {
         const fetchedRule = snapshot.val();
         if (fetchedRule) {
@@ -50,6 +54,56 @@ function RuleAdj() {
     }
   }, [ruleId, database]);
 
+  // blockedItems 배열 값 등록/삭제
+  const handleAddItem = () => {
+    if (pattern.trim() !== '') {
+      if (!blockedItems.includes(pattern) && blockedItems.length < 5) {
+        setBlockedItems([...blockedItems, pattern]);
+      }
+      setPattern('');
+    }
+  };  
+  const handleRemoveItem = (index) => {
+    const updatedItems = [...blockedItems];
+    updatedItems.splice(index, 1);
+    setBlockedItems(updatedItems);
+  };
+
+  const getTypeLabel = (type) => {
+    if (type === 0) {
+      return '문자열 차단';
+    } else if (type === 1) {
+      return 'IP 차단';
+    }
+    return '';
+  };
+
+  const PreviousPage = () => {
+    navigate('/setting');
+  };
+
+  // 입력값 검증
+  const handlePatternChange = (event) => {
+    const value = event.target.value;
+    const patternRegex1 = /^[0-9./]*$/;
+    const patternRegex2 = /\s/g;
+  
+    if (type === 0 && patternRegex2.test(value)) {
+      setErrorMessage('띄어쓰기는 허용되지 않습니다');
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 3000);
+    } else if (type === 1 && (!patternRegex1.test(value) || patternRegex2.test(value))) {
+      setErrorMessage('숫자, ".", "/"만 입력할 수 있습니다');
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 3000);
+    } else {
+      setPattern(value);
+    }
+  };
+
+  // 수정
   const handleUpdateButtonClick = () => {
     if (!name || !description || blockedItems.length === 0) {
       setErrorMessage('입력된 값이 없습니다.');
@@ -91,55 +145,6 @@ function RuleAdj() {
             setErrorMessage('');
           }, 3000);
         });
-    }
-  };
-  
-  const handleAddItem = () => {
-    if (pattern.trim() !== '') {
-      if (!blockedItems.includes(pattern) && blockedItems.length < 5) {
-        setBlockedItems([...blockedItems, pattern]);
-      }
-      setPattern('');
-    }
-  };  
-  
-  const handleRemoveItem = (index) => {
-    const updatedItems = [...blockedItems];
-    updatedItems.splice(index, 1);
-    setBlockedItems(updatedItems);
-  };
-
-  const getTypeLabel = (type) => {
-    if (type === 0) {
-      return '문자열 차단';
-    } else if (type === 1) {
-      return 'IP 차단';
-    }
-    return '';
-  };
-
-  const PreviousPage = () => {
-    navigate('/setting');
-  };
-
-  const handlePatternChange = (event) => {
-    const value = event.target.value;
-    const patternRegex1 = /^[0-9./]*$/;
-    const patternRegex2 = /\s/g;
-  
-    if (type === 0 && patternRegex2.test(value)) {
-      setErrorMessage('띄어쓰기는 허용되지 않습니다');
-      setTimeout(() => {
-        setErrorMessage('');
-      }, 3000);
-    } else if (type === 1 && (!patternRegex1.test(value) || patternRegex2.test(value))) {
-      setErrorMessage('숫자, ".", "/"만 입력할 수 있습니다');
-  
-      setTimeout(() => {
-        setErrorMessage('');
-      }, 3000);
-    } else {
-      setPattern(value);
     }
   };
 
@@ -185,22 +190,17 @@ function RuleAdj() {
                 </div>
                 <div className="inputTitle">
                   <label htmlFor="description">규칙 설명</label>
-                  <div
-                    className="inputWrap"
-                    style={{ minHeight: '42px', maxHeight: '12em', overflow: 'auto' }}
-                  >
-                    <textarea
-                      className="description-textarea"
-                      type="text"
-                      rows={1}
-                      placeholder="규칙 설명을 입력해 주세요"
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                    />
+                  <span id="charCount" className="charCount">
+                    ({description.length}/{MAX_CHAR_LIMIT}자 (공백 포함))
+                  </span>
+                  <div className='textareaWrap'>
+                    <TextArea value={description} onChange={setDescription} />
                   </div>
                 </div>
                 <div className="inputTitle">
-                  <label htmlFor="description">{type === 0 ? '차단할 문자열 (최대 5개)' : '차단할 IP (최대 5개)'}</label>
+                  <label htmlFor="description">
+                    {type === 0 ? '차단할 문자열 (최대 5개)' : '차단할 IP (최대 5개)'}
+                  </label>
                   <div className="inputWrap">
                     <input
                       className="input"
@@ -222,19 +222,19 @@ function RuleAdj() {
                     </button>
                   </div>
                   <div className="blockedItems">
-                  {blockedItems.map((item, index) => (
-                    <div className='blockedItem' key={index}>
-                      <span className="blockedItemContent">
-                        {type === 0 ? `${item}` : item}
-                        <button className="RemoveButton" onClick={() => handleRemoveItem(index)}>
-                          <img className="ImgRemove" src={close} alt="삭제" />
-                        </button>
-                      </span>
-                    </div>
-                  ))}
+                    {blockedItems.map((item, index) => (
+                      <div className='blockedItem' key={index}>
+                        <span className="blockedItemContent">
+                          {type === 0 ? `${item}` : item}
+                          <button className="RemoveButton" onClick={() => handleRemoveItem(index)}>
+                            <img className="ImgRemove" src={close} alt="삭제" />
+                          </button>
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 </div>
-                {errorMessage && <LoginError message={errorMessage}/>}
+                {errorMessage && <LoginError message={errorMessage} />}
                 <div className='AddButton'>
                   <button
                     className="bottomButton"

@@ -1,32 +1,37 @@
 .RuleSetting {
-    height: fit-content;
-    width: 905px;
-    margin-top: 16px;
-    padding: 15px 0 15px 0;
-    border: 3px solid #f3f3f3;
-    border-radius: 30px;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-  }
+  height: fit-content;
+  width: 905px;
+  margin-top: 16px;
+  padding: 15px 0 15px 0;
+  border: 3px solid #f3f3f3;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.RuleWrap {
+  display: flex;
+  align-items: center;
+}
   
-  .RuleName {
+.RuleName {
     width: 250px;
     text-align: left;
     margin-left: 30px;
     font-size: 1.8em;
-  }
+}
       
-  .RuleDescription {
+.RuleDescription {
     width: 480px;
     text-align: left;
     padding-right: 20px;
-  }
+}
       
-  .RuleSwitch {
+.RuleSwitch {
     width: 63px;
     text-align: center;
-  }
+}
 
   .RuleToggleActions {
     width: 20px;

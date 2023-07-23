@@ -10,9 +10,8 @@ import Findpw from './pages/login/Findpw';
 import RuleAdd from './pages/setting/RuleAdd';
 import RuleAdj from './pages/setting/RuleAdj';
 import ErrorPage from './pages/error/ErrorPage';
-
-import { AuthProvider } from './components/AuthContext';
-import PrivateRoutes from './components/PrivateRoutes';
+import PrivateRoutes from './components/privateroutes/PrivateRoutes';
+import { AuthProvider } from './components/privateroutes/AuthContext';
 
 function App() {
   return (
@@ -21,8 +20,6 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/findpw" element={<Findpw />} />
-
-          {/* 로그인이 되어 있을 때만 PrivateRoutes를 통해 보호된 페이지로 이동 */}
           <Route element={<PrivateRoutes />}>
             <Route index element={<Home />} />
             <Route path="log" element={<Log />} />
@@ -30,8 +27,6 @@ function App() {
             <Route path="setting/ruleadd" element={<RuleAdd />} />
             <Route path="setting/ruleadj" element={<RuleAdj />} />
           </Route>
-
-          {/* 이외의 모든 페이지는 에러 페이지로 이동 */}
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Router>

@@ -15,7 +15,7 @@ project/
 ```
 
 - package-lock.json, package.json 업데이트 필요
-  - 7/18 부로 업데이트(자세한 사항은 `업데이트 내역` 참조)
+  - 7/23 부로 업데이트(자세한 사항은 `업데이트 내역` 참조)
 - realtime firebase 주소
   - https://capstone*dab03*default*rtdb.asia*southeast1.firebasedatabase.app
 
@@ -55,7 +55,7 @@ project/
   - 규칙 목록에 스위치 구현
     - mui의 switch 사용
       - 사전에 제작해 둔 switch 컴포넌트 삭제
-    - mui 사용 및 switch customize로 인해 `package-lock.json`, `package.json`도 업데이트
+      - `package-lock.json`, `package.json` 업데이트
 - 7/19
   - `Setting`의 switch가 `FilterOptions` 앞에 나타나는 현상 수정
   - `RuleAdd`, `RuldAdj` 상단 부분의 UI 개선
@@ -87,17 +87,27 @@ project/
       - 주소 변경으로 인해 sidebar, topbar, login 일부 수정
   - `ErrorPage` 완성
   - `RuleAdj` UI 수정
-  - 규칙 목록 보여주는 방식 수정
+  - 규칙 목록 보여주는 방식 개선
     - 매번 `Setting` 접속 혹은 새로고침 때마다 firebase에서 데이터를 가져오는 방식에서 생기는 로딩 시간을 개선하기 위해 수정
-    - firebase에서 가져온 데이터를 로컬 저장소에 저장하도록 구현
-    - 관찰자를 두어 firebase 데이터에 수정 사항 발생 시 firebase에서 데이터를 다시 불러와 로컬 저장소에 다시 저장하도록 구현
-    - 로그아웃 시 로컬 저장소 비우도록 구현
+    - firebase에서 가져온 데이터를 로컬 저장소에 저장
+    - 관찰자를 두어 firebase 데이터에 수정 사항 발생 시 firebase에서 데이터를 다시 불러와 로컬 저장소에 다시 저장
+    - 로그아웃 시 로컬 저장소 비움
+- 7/23
+  - textarea 수정
+    - `TextArea`로 컴포넌트화
+    - 글의 줄 수에 따라 textarea의 높이 자동으로 변하도록 수정
+    - 200자 제한
+  - 로컬 저장소의 캐시 데이터 유효성 검사 추가
+  - 로딩 UI 개선
+    - `Log`: mui progress 사용
+    - `Setting`: mui skeleton 사용
+    - mui progress, skeleton 사용으로 인해 `package-lock.json`, `package.json` 업데이트
+  - 코드 정리
+    - `Setting`, `RuleAdd`, `RuldAdj`, `firebase`, `App`
 
 ## 미완료 작업
 
 - ip 차단 추천 컴포넌트 구현
-- `Log`, `Setting`의 로딩 시 보이는 UI 개선
-  - mui progress 사용 예정
 
 ## 확인된 버그
 
@@ -106,4 +116,4 @@ project/
 - ~~`Setting`의 switch가 `FilterOptions` 앞에 나타나는 현상~~ 7/19 수정 완료
 - ~~규칙 상세보기에서 pattern의 정규표현식이 완벽히 제거되지 않는 현상~~ 7/19 수정 완료
 - ~~pattern 값을 정규식 및 `{}`로 감싸도록 수정되어 생기는 오류~~ 7/20 수정 완료
-- 규칙 추가/수정의 description textarea 높이가 줄 수에 맞게 동적으로 변하지 않는 현상
+- ~~규칙 추가/수정의 description textarea 높이가 줄 수에 맞게 동적으로 변하지 않는 현상~~ 7/23 수정 완료
