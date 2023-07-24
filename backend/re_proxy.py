@@ -1,10 +1,9 @@
 from flask import Flask, request, redirect, Response, render_template
 import requests, re
-from security_rules import get_security_rules, handle_rule_change, initialize_rules
 
 app = Flask(__name__)
 
-SITE_URL = 'http://192.168.0.57/'
+SITE_URL = 'http://localhost/'
 
 def log_and_block():
     print('액세스가 거부되었습니다. 페이로드에 의심스러운 내용이 포함되어 있습니다.')
@@ -55,10 +54,3 @@ def configure_proxy_routes(app, security_rules):
             headers = [(name, value) for (name, value) in resp.raw.headers.items() if name.lower() not in excluded_headers]
             response = Response(resp.content, resp.status_code, headers)
             return response
-        
-security_rules = get_security_rules()
-
-# Firebase Realtime Database의 규칙 변경 감지 설정
-initialize_rules()
-
-configure_proxy_routes(app, security_rules)

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>액세스 거부</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 40px;
+        background-color: #fff;
+        border-radius: 4px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        color: #dc3545;
+      }
+
+      p {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>액세스가 거부되었습니다.</h1>
+      <p>접근이 허가되지 않은 ip입니다.</p>
+      <p>관리자에게 문의하거나 다시 시도해주세요.</p>
+      <p><button onclick="goBack()">Go Back</button></p>
+    <script>
+      function goBack() {
+          window.history.back();  // 브라우저의 이전 페이지로 돌아감
+      }
+  </script>
+   </div>
+  </body>
+</html>
