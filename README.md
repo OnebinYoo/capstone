@@ -28,8 +28,9 @@ graph TD;
     A -->|If some logic make problem. I'll add.| D;
 ```
 
-1. secrutiy_rules에서 보안규칙 초기에 받아오고 최신화 안됌.
-2. 라운드 로빈 알고리즘으로 로드 밸런싱시 `0.1.4`버전에 기술한 고민거리 발생.
+1. secrutiy_rules에서 보안규칙 초기에 받아오고 최신화가 security_rules.py내부에서 발생.
+2. app.py로 콜백해줄 함수 부재 추가 하거나 로직 변경.
+3. 라운드 로빈 알고리즘으로 로드 밸런싱시 `0.1.4`버전에 기술한 고민거리 발생.
 
 ## 설치 방법-backend
 
