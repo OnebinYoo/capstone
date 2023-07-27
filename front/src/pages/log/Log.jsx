@@ -48,11 +48,11 @@ const LogTable = () => {
 
   return (
     <div className='Wrap'>
-      <div className='Header'>
-        <Topbar />
-      </div>
       <div className='Container'>
         <div className='Root'>
+          <div className='Header'>
+            <Topbar />
+          </div>
           <div className='ColumnLeft'>
             <Sidebar />
           </div>

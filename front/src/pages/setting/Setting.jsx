@@ -231,83 +231,91 @@ const Setting = () => {
     }
   };
 
+  // 사이드바 토글
+  const [showColumnLeft, setShowColumnLeft] = useState(true);
+  const toggleColumnLeft = () => {
+    setShowColumnLeft((prev) => !prev);
+  };
+
   return (
     <div className='Wrap'>
-      <div className='Header'>
-        <Topbar />
-      </div>
       <div className='Container'>
         <div className='Root'>
-          <div className='ColumnLeft'>
-            <Sidebar />
+          <div className='Header'>
+            <Topbar toggleColumnLeft={toggleColumnLeft} />
           </div>
-          <div className='ColumnRight'>
-            <div className='Info'>
-              <div className='Info-Name'>
-                설정
-              </div>
-              <div className='Info-Setbar'>
-                <button className='Info-Setbar-AddButton' onClick={ClickedRuleAdd}>규칙 추가</button>
-                <div className={`Info-Setbar-FilterDropdown ${showFilterDropdown ? 'show' : ''}`} ref={dropdownRef}>
-                  <button className='Info-Setbar-FilterDropdownButton' onClick={toggleFilterDropdown}>
-                    <div className='FilterDropdownButton-inner'>
-                      <div className='FilterDropdownButton-innertext'>{filterText}</div>
-                      <img className='FilterDropdownButton-innerimg' src={showFilterDropdown ? expandless : expandmore} alt='필터더보기'/>
-                    </div>
-                  </button>
-                  {showFilterDropdown && (
-                    <ul className='FilterOptions'>
-                      <li
-                        className={selectedFilter === 0 ? 'active' : ''}
-                        onClick={() => handleFilterClick(0)}
-                      >
-                        문자열 차단
-                      </li>
-                      <li
-                        className={selectedFilter === 1 ? 'active' : ''}
-                        onClick={() => handleFilterClick(1)}
-                      >
-                        IP 차단
-                      </li>
-                      <li
-                        className={selectedFilter === null ? 'active' : ''}
-                        onClick={() => handleFilterClick(null)}
-                      >
-                        모든 규칙
-                      </li>
-                    </ul>
-                  )}
-                </div>
-              </div>
+          <div className='ColumnWrap'>
+            <div className={`ColumnLeft${showColumnLeft ? '' : '-hide'}`}>
+              <Sidebar />
             </div>
-            {loading ? (
-              <div className='RuleSetting'>
-                <div className='RuleListSkeleton' style={{display: 'flex', alignItems: 'center', height: '112px'}}>
-                  <div className='RuleName' style={{ display: 'inline-block', marginRight: '8px' }}>
-                    <Skeleton variant="text" height={30} width={150} />
-                  </div>
-                  <div className='RuleDescription' style={{ display: 'inline-block' }}>
-                    <Skeleton variant="text" height={20} width={250} />
+            <div className={`ColumnRight${showColumnLeft ? '' : '-hide'}`}>
+              <div className='Info'>
+                <div className='Info-Name'>
+                  설정
+                </div>
+                <div className='Info-Setbar'>
+                  <button className='Info-Setbar-AddButton' onClick={ClickedRuleAdd}>규칙 추가</button>
+                  <div className={`Info-Setbar-FilterDropdown ${showFilterDropdown ? 'show' : ''}`} ref={dropdownRef}>
+                    <button className='Info-Setbar-FilterDropdownButton' onClick={toggleFilterDropdown}>
+                      <div className='FilterDropdownButton-inner'>
+                        <div className='FilterDropdownButton-innertext'>{filterText}</div>
+                        <img className='FilterDropdownButton-innerimg' src={showFilterDropdown ? expandless : expandmore} alt='필터더보기'/>
+                      </div>
+                    </button>
+                    {showFilterDropdown && (
+                      <ul className='FilterOptions'>
+                        <li
+                          className={selectedFilter === 0 ? 'active' : ''}
+                          onClick={() => handleFilterClick(0)}
+                        >
+                          문자열 차단
+                        </li>
+                        <li
+                          className={selectedFilter === 1 ? 'active' : ''}
+                          onClick={() => handleFilterClick(1)}
+                        >
+                          IP 차단
+                        </li>
+                        <li
+                          className={selectedFilter === null ? 'active' : ''}
+                          onClick={() => handleFilterClick(null)}
+                        >
+                          모든 규칙
+                        </li>
+                      </ul>
+                    )}
                   </div>
                 </div>
               </div>
-            ) : (
-              <RuleList
-                rules={getFilteredRules()}
-                toggleSwitch={toggleSwitch}
-                showActions={showActions}
-                deleteRule={deleteRule}
-                editRule={editRule}
-                toggleDetails={toggleDetails}
-              />
-            )}
-            {showAlert && (
-              <Alert
-                ruleName={selectedRule ? selectedRule.name : ''}
-                onCancel={handleCancel}
-                onDelete={handleDelete}
-              />
-            )}
+              {loading ? (
+                <div className='RuleSetting'>
+                  <div className='RuleListSkeleton' style={{display: 'flex', alignItems: 'center', height: '112px'}}>
+                    <div className='RuleName' style={{ display: 'inline-block', marginRight: '8px' }}>
+                      <Skeleton variant="text" height={30} width={150} />
+                    </div>
+                    <div className='RuleDescription' style={{ display: 'inline-block' }}>
+                      <Skeleton variant="text" height={20} width={250} />
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <RuleList
+                  rules={getFilteredRules()}
+                  toggleSwitch={toggleSwitch}
+                  showActions={showActions}
+                  deleteRule={deleteRule}
+                  editRule={editRule}
+                  toggleDetails={toggleDetails}
+                />
+              )}
+              {showAlert && (
+                <Alert
+                  ruleName={selectedRule ? selectedRule.name : ''}
+                  onCancel={handleCancel}
+                  onDelete={handleDelete}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>

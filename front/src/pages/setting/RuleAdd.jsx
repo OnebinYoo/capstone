@@ -113,11 +113,11 @@ const RuleAdd = () => {
 
   return (
     <div className='Wrap'>
-      <div className='Header'>
-        <Topbar />
-      </div>
       <div className='Container'>
         <div className='Root'>
+          <div className='Header'>
+            <Topbar />
+          </div>
           <div className='ColumnLeft'>
             <Sidebar />
           </div>
@@ -152,15 +152,13 @@ const RuleAdd = () => {
                     />
                   </div>
                 </div>
-                <div className='inputTitle'>
+                <div className="inputTitle">
                   <label htmlFor="description">규칙 설명</label>
-                  <span id="charCount" className="charCount">({description.length}/{MAX_CHAR_LIMIT}자 (공백 포함))</span>
+                  <span id="charCount" className="charCount">
+                    ({description.length}/{MAX_CHAR_LIMIT}자 (공백 포함))
+                  </span>
                   <div className='textareaWrap'>
-                    <TextArea
-                      value={pattern}
-                      onChange={handlePatternChange}
-                      placeholder={type === 0 ? "차단할 문자열을 입력해 주세요" : "차단할 IP를 입력해 주세요"}
-                    />
+                    <TextArea value={description} onChange={setDescription} />
                   </div>
                 </div>
                 <div className='inputTitle'>

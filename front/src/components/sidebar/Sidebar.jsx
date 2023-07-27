@@ -57,10 +57,7 @@ const Sidebar = () => {
           </div>
           )}
         </Link>
-        <div className="Line" />
-
     </div>
-    
   );
 };
   

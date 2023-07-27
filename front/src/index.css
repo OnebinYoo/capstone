@@ -16,10 +16,7 @@ code {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 100%;
-  max-width: 640px;
-  margin: 0 auto;
-  padding: 0 20px;
+  width: 500px;
 
   left: 50%;
   transform: translate(-50%, 0);
@@ -102,52 +99,93 @@ input:-webkit-autofill {
 
 /* body css */
 .Wrap {
-  min-width: 1340px;
+  margin: 0 auto;
 }
 
 .Header {
-  width: 1280px;
+  width: 100%;
   margin: 0 auto;
-  padding: 10px 0px 20px 0px;
+  padding: 20px 0px;
 }
 
-@media (max-width: 1300px) {
-  .Header {
-    width: 1170px;
-  }
+.Root,
+.Container
+.ColumnWrap {
+  display: table;
+  clear: both;
+  width: fit-content;
 }
 
-.Container {
-  position: relative;
-  width: 1280px;
+.Root {
   margin: 0 auto;
   padding-bottom: 60px;
 }
 
-.ColumnLeft {
-  float: left;
-  width: 320px;
-  
+.Container {
+  position: relative;
+  width: fit-content;
+  height: auto;
+  margin: 0 auto;
+  padding-bottom: 60px;
 }
 
-@media (max-width: 1300px) {
-  .ColumnLeft {
-    width: fit-content;
-  }
+.ColumnWrap {
+  position: relative;
+  height: auto;
+}
+
+.ColumnLeft {
+  display: flex;
+  float: left;
 }
 
 .ColumnRight {
+  display: flex;
+  flex-direction: column;
   float: left;
-  width: 910px;
-  margin-left: 30px;
-  margin-bottom: 30px;
 }
 
-@media (max-width: 1300px) {
+/* FHD 미만 */
+@media (max-width: 1919px) {
+  .Root {
+    width: 1000px;
+  }
+  .ColumnWrap {
+    display: flex;
+    align-items: flex-start;
+    width: 1000px;
+  }
+  .ColumnLeft {
+    flex: 0 0 65px;
+    margin-right: 20px;
+  }
   .ColumnRight {
+    width: calc(1000px - 65px - 20px); 
+    box-sizing: border-box;
+  }
+  .ColumnRight-hide {
+    width: 1000px;
+    box-sizing: border-box;
+  }
+  .ColumnLeft-hide {
+    display: none;
+  }
+}
+
+/* FHD 이상*/
+@media (min-width: 1920px) {
+  .Root {
+    width: fit-content;
+  }
+  .ColumnLeft,
+  .ColumnLeft-hide {
     float: left;
-    width: 100vh;
-    margin-right: 10px;
-    margin-left: 10px;
+    width: 320px;
+  }
+  .ColumnRight,
+  .ColumnRight-hide {
+    float: left;
+    width: calc( 1200px - 320px );
+    margin: 0 0 20px 0;
   }
 }

@@ -1,88 +1,74 @@
-.topbar {
-    width: 100%;
-    height: 50px;
-    background-color: white;
-
-    position: sticky;
-    top: 0;
-    z-index: 999;
-}
-
-.topbarWrapper {
-    height: 100%;
-    padding: 0px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.logo {
-    font-weight: bold;
-    font-size: 30px;
-    color: darkblue;
-    cursor: pointer;
-}
-
-.topbarIconContainer {
-    position: relative;
-    margin-right: 15px;
-    color: #555;
-}
-
-.topIconBadge {
-    position: absolute;
-    top: -5px;
-    right: 5px;
-}
-
-.topIconBadge {
-    position: absolute;
-    top: -5px;
-    right: 5px;
-
-    background-color: red;
-    border-radius: 50%;
-    height: 15px;
-    width: 15px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 13px;
-    color: white;
-}
-
-.topRight {
-    display: flex;
-    align-items: center;
-}
-
 .TopList {
-    display: flex;
-    align-items: center;
-    list-style-type: none;
-    justify-content: space-between;
-    padding: 0;
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+}
+
+.toplistleft {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  column-gap: 20px;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  background-color: white;
+  border: none;
+  border-radius: 50%;
+}
+
+.menu:hover {
+  background-color: #f3f3f3;
+}
+
+.menuImg {
+  width: 30px;
+  height: auto;
+  cursor: pointer;
+}
+
+.toplistright {
+  display: flex;
+  align-items: center;
+  column-gap: 30px;
+}
+  
+.UserEmail {
+  width: fit-content;
+  max-width: 300px;
+  text-align: right;
+}
+
+/* FHD 미만 */
+@media (max-width: 1919px) {
+  .toplistleft {
     margin: 0;
-  }
-  
-  .TopListItem {
-    padding: 10px;
-    margin-right: 10px;
-  }
-  
-  /* .toplistleft {
-    margin-right: auto;
-  } */
-  
-  .toplistright {
     display: flex;
     align-items: center;
+    column-gap: 20px;
   }
-  
-  .UserEmail {
-    margin-right: 30px;
-    width: 300px;
-    text-align: right;
+  .menuWrap {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
   }
+}
+
+/* FHD 이상 */
+@media (min-width: 1920px) {
+  .toplistleft {
+    justify-content: left;
+    margin: 0;
+    column-gap: 0;
+    padding-left: 20px;
+  }
+  .menu {
+    display: none;
+  }
+} 

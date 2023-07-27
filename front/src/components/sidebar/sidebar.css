@@ -1,28 +1,11 @@
 /* sidebar css */
 .SidebarContainer {
   text-align: left;
-  overflow-y: scroll;
-}
-
-@media (max-width: 1024px) {
-  .SidebarContainer {
-    width: 90px;
-  }
-  
-  .SidebarContainer .title {
-    display: none;
-  }
 }
   
 .SidebarContainer .link {
   text-decoration: none;
   color: black;
-}
-  
-@media (max-width: 800px) {
-  .SidebarContainer {
-    display: none;
-  }
 }
   
 /* 스크롤바 * ~255 */
@@ -37,30 +20,21 @@
 }
   
 .MainMenuDiv {
-  padding: 5px 20px 5px 20px;
+  padding: 5px 20px;
   height: 40px;
   display: flex;
   align-items: center;
   cursor: pointer;
   border-radius: 15px;
+  margin: 0;
 }
   
 .MainMenuDiv:hover {
   background-color: #f3f3f3;
 }
   
-@media (max-width: 1300px) {
-  .MainMenuDiv {
-    height: 40px;
-    flex-direction: column;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-  }
-}
-  
 .MenuDiv {
-  padding: 0px 20px 0px 20px;
+  padding: 0px 20px;
   height: 40px;
   display: flex;
   align-items: center;
@@ -71,24 +45,12 @@
   background-color: #f3f3f3;
 }
   
-@media (max-width: 1300px) {
-  .MenuDiv {
-    display: none;
-  }
-}
-  
 .Icon {
   margin-right: 20px;
   height: 25px;
   align-items: center;
   display: flex;
   float: left;
-}
-  
-@media (max-width: 1300px) {
-  .Icon {
-    margin: 0;
-  }
 }
   
 .MenuSpan {
@@ -101,9 +63,39 @@
   margin-top: 14px;
   margin-bottom: 14px;
 }
+
+/* PC (FHD 미만) */
+@media (max-width: 1919px) {
+  .SidebarContainer {
+    width: fit-content;
+  }
   
-@media (max-width: 1300px) {
-  .Line {
+  .SidebarContainer .title {
     display: none;
+  }
+
+  .MainMenuDiv {
+    height: 40px;
+    width: fit-content;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .MenuDiv {
+    display: none;
+  }
+
+  .Icon {
+    margin: 0;
+  }
+}
+
+/* PC (FHD 이상) */
+@media (min-width: 1920px) {
+  .SidebarContainer {
+    width: 300px;
+    margin: 0px;
   }
 }

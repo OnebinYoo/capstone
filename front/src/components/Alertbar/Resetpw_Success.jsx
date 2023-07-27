@@ -10,7 +10,7 @@ const Resetpw_Success = () => {
       <img className='Success-content-img' src={check} alt='성공아이콘'/>
       <label className='Success-content-label' style={{ padding: '5px', color: '#1E4620', fontSize: '15px', lineHeight: '1.8'}}>
         비밀번호 재설정 메일이 전송되었습니다 <br/>
-        <Link to="/" style={{color: '#1E4620'}}>로그인 하러 가기</Link>
+        <Link to="/login" style={{color: '#1E4620'}}>로그인 하러 가기</Link>
       </label>
       </div>
     </div>

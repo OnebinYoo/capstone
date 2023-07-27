@@ -55,7 +55,7 @@ const Findpw = () => {
     <div className='loginpage'>
       <button className='PreviousPage' onClick={PreviousPage} style={{margin: '20px 0', height: '45px'}}>
         <img className='PreviousPageImg' src={chevronLeft} alt='이전화살표'/>
-        <div className='PreviousPageText'>로그인 하러 가기</div>
+        <div className='PreviousPageText'>로그인</div>
       </button>
       <div className='titleWrap'>
         비밀번호 재설정

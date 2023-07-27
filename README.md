@@ -104,6 +104,15 @@ project/
     - mui progress, skeleton 사용으로 인해 `package-lock.json`, `package.json` 업데이트
   - 코드 정리
     - `Setting`, `RuleAdd`, `RuldAdj`, `firebase`, `App`
+- 7/27
+  - `RuleAdd`의 textarea에 텍스트 입력시 발생하던 오류 수정
+  - UI 개선
+    - FHD 미만
+      - `Topbar`에 `Sidebar`를 컨트롤하는 메뉴 버튼 추가
+      - 메뉴 버튼에 의해 컨트롤 되도록 `Sidebar` 일부 수정
+    - FHD 이상
+      - 메뉴 버튼 숨겨지도록 설정
+      - `Sidebar` 항상 보여지도록 설정
 
 ## 미완료 작업
 
@@ -112,7 +121,7 @@ project/
 ## 확인된 버그
 
 - ~~`RuleAdj`에서 배열에 null 값 입력되는 현상~~ 7/17 수정 완료
-- ~~`RuleAdd`, `RuleAdj` 접속 시에는 `sidebar`의 clicked 상태가 정상적으로 작동안하던 현상~~ 7/18 수정 완료
+- ~~`RuleAdd`, `RuleAdj` 접속 시에는 `Sidebar`의 clicked 상태가 정상적으로 작동안하던 현상~~ 7/18 수정 완료
 - ~~`Setting`의 switch가 `FilterOptions` 앞에 나타나는 현상~~ 7/19 수정 완료
 - ~~규칙 상세보기에서 pattern의 정규표현식이 완벽히 제거되지 않는 현상~~ 7/19 수정 완료
 - ~~pattern 값을 정규식 및 `{}`로 감싸도록 수정되어 생기는 오류~~ 7/20 수정 완료

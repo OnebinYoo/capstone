@@ -11,17 +11,16 @@ export default function Home() {
 
     return (
         <div className='Wrap'>
-            <div className='Header'>
-                <Topbar />
-            </div>
+            
             <div className='Container'>
+                <div className='Header'>
+                    <Topbar />
+                </div>
                 <div className='Root'>
                     <div className='ColumnLeft'>
                         <Sidebar />
                     </div>
                     <div className='ColumnRight'>
-                        
-                        {/* <FeaturedInfo />  */}
                         <Chart 
                             data={userData}
                             title='새로운 로그'

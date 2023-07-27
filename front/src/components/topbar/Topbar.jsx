@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import './topbar.css';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../firebase';
+import menu from '../../assets/icon/menu.png';
 
-export default function Topbar() {
+export default function Topbar({toggleColumnLeft}) {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   let username = '';
@@ -35,11 +36,15 @@ export default function Topbar() {
     localStorage.clear();
   };
 
-
   return (
     <div className='TopList'>
       <div className='TopListItem toplistleft'>
-        관리자페이지
+        <div className='menuWrap'>
+          <button className='menu' onClick={toggleColumnLeft}>
+            <img className='menuImg' src={menu} alt='메뉴' />
+          </button>
+        </div>
+        <div className='logo'>관리자페이지</div>
       </div>
       <div className='TopListItem toplistright'>
         <div className='UserEmail'>{username}님 환영합니다</div>
