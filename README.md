@@ -43,22 +43,21 @@ project/
 - 7/17
   - 규칙 추가/수정 시 null 값 검사를 input창이 아니라 blockedItems 배열을 검사하도록 수정
   - `RuleAdj`에서 배열에 null 값 입력되는 현상 수정
-  - `RuleAdj`의 일부 컴포넌트 요소 `RuleAdd`와 일치하도록 수정
+  - `RuleAdj`의 일부 UI `RuleAdd`와 일치하도록 수정
   - 배열에 최대 5개까지만 입력되도록 수정
   - `type=0`으로 규칙 추가시 정규표현식으로 변환하여 저장되도록 수정
 - 7/18
   - 규칙 목록에 필터 기능 추가
   - `RuleAdd`, `RuleAdj` 접속 시에는 `sidebar`의 clicked 상태가 정상적으로 작동안하던 현상 수정
-  - `Setting`의 상단 부분 UI 개선
-  - `RuleAdd`의 UI 개선
-  - 삭제/수정/상세보기 버튼과 상세 정보란까지 전부 펼쳐져 있을 때 ButtonMoreVert 버튼 클릭만으로 전부 접히도록 개선
+  - `Setting`, `RuleAdd` UI 개선
+  - 삭제/수정/상세보기 버튼과 상세 정보란까지 전부 펼쳐져 있을 때 `ButtonMoreVert` 버튼 클릭만으로 전부 접히도록 개선
   - 규칙 목록에 스위치 구현
     - mui의 switch 사용
-      - 사전에 제작해 둔 switch 컴포넌트 삭제
-      - `package-lock.json`, `package.json` 업데이트
+    - 사전에 제작해 둔 switch 컴포넌트 삭제
+    - `package-lock.json`, `package.json` 업데이트
 - 7/19
   - `Setting`의 switch가 `FilterOptions` 앞에 나타나는 현상 수정
-  - `RuleAdd`, `RuldAdj` 상단 부분의 UI 개선
+  - `RuleAdd`, `RuldAdj` 상단부 UI 개선
   - 규칙 상세보기에서 pattern의 정규표현식이 완벽히 제거되지 않는 현상 수정
     - backend와 협의되지 않은 사항이라 추후 수정될 수 있음
     - 정규표현식을 제외한 pattern 값만 보여주기 위해 pattern 값을 정규표현식으로 감쌀 때 {}로 감싸도록 수정
@@ -80,7 +79,8 @@ project/
     - 3초 후 없어지도록 구현
   - `setting`, `RuleAdd`, `RuleAdj`의 console.log 제거 혹은 Alertbar로 대체
 - 7/22
-  - `PrivateRoutes`로 비로그인 상태에서는 `Login`, `Findpw` 외의 페이지 접근 시 `Login` 페이지로 리다이렉트되도록 구현
+  - `PrivateRoutes` 구현
+    - 비로그인 상태에서는 `Login`, `Findpw` 외의 페이지 접근 시 `Login` 페이지로 리다이렉트되도록 구현
     - 구현 위해 일부 주소 변경
       - `Login` : `/` => `/login`
       - `Home` : `/home` => `/`
@@ -116,6 +116,7 @@ project/
 
 ## 미완료 작업
 
+- 정규표현식으로 감싸기 삭제
 - ip 차단 추천 컴포넌트 구현
 
 ## 확인된 버그
