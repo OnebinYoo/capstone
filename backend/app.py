@@ -30,8 +30,8 @@ def log_request_info():
         'method': request.method,
         'url': request.url,
         'ip': request.remote_addr,
-        'date': current_time,
-        'data': None
+        # 'date': current_time,
+        # 'data': None
     }
     if request.method == 'POST' and request.content_type == 'application/json':
         log_data['data'] = request.get_json()
@@ -70,5 +70,4 @@ update_security_rules()
 app.route('/logs', methods=['GET'])(log.get_logs)
 
 if __name__ == '__main__':
-    # initialize_rules()
     app.run(host='0.0.0.0', debug=True, port=8000)
