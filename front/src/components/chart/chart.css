@@ -1,15 +1,14 @@
-.chart {
-    margin: 20px;
-    padding: 20px;
-    
-    outline: 3px solid;
-    outline-color: #f3f3f3;
+.Chart-Today-Wrap {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    column-gap: 30px;
+    width: 100%;
     border-radius: 30px;
-
-    /* -webkit-box-shadow: 0px 0px 12px -1px #000000; */
-    /* box-shadow: 0px 0px 12px -1px #000000; */
+    background-color: #f3f3f3;
 }
 
-.chartTitle {
-    margin-bottom: 30px;
+.Chart-Today-Info-Detail1,
+.Chart-Today-Info-Detail2 {
+    font-size: 30px;
 }
