@@ -48,13 +48,7 @@ const RuleSwitch = styled(Switch)(({ theme }) => ({
 const RuleList = ({ rules, toggleSwitch, showActions, deleteRule, editRule, toggleDetails }) => {
 
   const getFormattedPattern = (pattern, type) => {
-    if (type === 0) {
-      const extractedItems = pattern.match(/{([^}]+)}/g);
-      if (extractedItems) {
-        const formattedItems = extractedItems.map((item) => item.substring(1, item.length - 1));
-        return formattedItems.join(', ');
-      }
-    } else if (type === 1) {
+    if (type===0 || type===1) {
       return pattern.replace(/\|/g, ', ');
     }
     return pattern;

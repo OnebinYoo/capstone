@@ -39,16 +39,16 @@ function RuleAdj() {
           setName(fetchedRule.name);
           setDescription(fetchedRule.description);
           setType(fetchedRule.type);
-          if (fetchedRule.type === 0) {
-            const patternValues = fetchedRule.pattern.match(/\{(.*?)\}/g);
-            if (patternValues) {
-              const extractedItems = patternValues.map((pattern) => pattern.slice(1, -1));
-              setBlockedItems(extractedItems);
-            }
-          } else {
+          // if (fetchedRule.type === 0) {
+          //   const patternValues = fetchedRule.pattern.match(/\{(.*?)\}/g);
+          //   if (patternValues) {
+          //     const extractedItems = patternValues.map((pattern) => pattern.slice(1, -1));
+          //     setBlockedItems(extractedItems);
+          //   }
+          // } else {
             const patternValues = fetchedRule.pattern.split('|');
             setBlockedItems(patternValues);
-          }
+          // }
         }
       });
     }
@@ -113,19 +113,11 @@ function RuleAdj() {
       return;
     }
   
-    let transformedItems = blockedItems.map((item) => item);
-  
-    if (type === 0) {
-      transformedItems = blockedItems.map((item) => `(?im)^(?=.*\\b{${item}}\\b).*`);
-    }
-  
-    const concatenatedItems = transformedItems.join('|');
-  
     const updatedItem = {
       description,
       enabled: true,
       name,
-      pattern: type === 0 ? concatenatedItems : blockedItems.join('|'),
+      pattern: blockedItems.join('|'),
       type,
     };
   
@@ -134,7 +126,6 @@ function RuleAdj() {
         ...updatedItem,
         id: ruleId,
       };
-  
       updateItemInFirebase(ruleId, updatedItemWithId)
         .then(() => {
           navigate('/setting?success=2');
@@ -225,7 +216,7 @@ function RuleAdj() {
                     {blockedItems.map((item, index) => (
                       <div className='blockedItem' key={index}>
                         <span className="blockedItemContent">
-                          {type === 0 ? `${item}` : item}
+                          {item}
                           <button className="RemoveButton" onClick={() => handleRemoveItem(index)}>
                             <img className="ImgRemove" src={close} alt="삭제" />
                           </button>

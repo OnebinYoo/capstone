@@ -80,22 +80,14 @@ const RuleAdd = () => {
       return;
     }
 
-    let transformedItems = blockedItems.map((item) => item);
-
-    if (type === 0) {
-      transformedItems = blockedItems.map((item) => `(?im)^(?=.*\\b{${item}}\\b).*`);
-    }
-
-    const concatenatedItems = transformedItems.join('|');
-
     const newItem = {
       description,
       enabled: true,
       name,
-      pattern: concatenatedItems,
+      pattern: blockedItems.join('|'),
       type,
     };
-
+    
     addItemToFirebase(newItem)
       .then(() => {
         setName('');
