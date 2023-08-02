@@ -18,6 +18,10 @@ def get_security_rules():
             patterns = rule['pattern'].split('|')
             modified_patterns = [f"^{re.escape(pattern)}$" for pattern in patterns]
             rule['pattern'] = '|'.join(modified_patterns)
+        if rule['type'] == 0:
+            patterns = rule['pattern'].split('|')
+            modified_patterns = [f"(?im)^(?=.*\\b{re.escape(pattern)}\\b).*" for pattern in patterns]
+            rule['pattern'] = '|'.join(modified_patterns)
 
     type_1_rules = {key: rule for key, rule in security_rules.items() if rule['type'] == 1}
     print("ip 주소 정규표현식(^$) :", type_1_rules)
