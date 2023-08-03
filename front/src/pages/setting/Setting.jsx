@@ -289,12 +289,12 @@ const Setting = () => {
               </div>
               {loading ? (
                 <div className='RuleSetting'>
-                  <div className='RuleListSkeleton' style={{display: 'flex', alignItems: 'center', height: '112px'}}>
+                  <div className='RuleListSkeleton' style={{display: 'flex', width: '100%', alignItems: 'center', height: '112px'}}>
                     <div className='RuleName' style={{ display: 'inline-block', marginRight: '8px' }}>
-                      <Skeleton variant="text" height={30} width={150} />
+                      <Skeleton variant="text" height={40} width={180} />
                     </div>
                     <div className='RuleDescription' style={{ display: 'inline-block' }}>
-                      <Skeleton variant="text" height={20} width={250} />
+                      <Skeleton variant="text" height={20} width={350} />
                     </div>
                   </div>
                 </div>

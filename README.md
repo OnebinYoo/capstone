@@ -15,7 +15,7 @@ project/
 ```
 
 - package-lock.json, package.json 업데이트 필요
-  - 7/23 부로 업데이트(자세한 사항은 `업데이트 내역` 참조)
+  - 8/2 부로 업데이트(자세한 사항은 `업데이트 내역` 참조)
 - realtime firebase 주소
   - https://capstone*dab03*default*rtdb.asia*southeast1.firebasedatabase.app
 
@@ -116,18 +116,19 @@ project/
 - 8/2
   - 7/19 버전의 `pattern 값을 정규표현식으로 감쌀 때 {}로 감싸도록 수정`을 다시 원래대로 수정
   - 차트 수정(`TodayLog`)
-    - 시스템 날짜 = 로그 date인 로그만 추출해 status_code 별로 구분하여 보여지도록 구현
+    - mui pie 차트 사용으로 인해 `package-lock.json`, `package.json` 업데이트
+    - 시스템 날짜(10초마다 업데이트) = 로그 date인 로그만 추출해 status_code 별로 구분하여 보여지도록 구현
     - 3초마다 업데이트
   - `Log`에서 로그가 보이지 않던 현상 수정
+- 8/3
+  - backedn off 시 에러 메시지 출력되도록 수정
+  - `TodayLog` 로딩 UI 개선
+  - `WeekLog` 추가
+    - `WeekLog_bak`: 개발용(개발 끝나면 삭제 예정)
 
 ## 미완료 작업
 
-- `TodayLog`의 logs.length=0일 때 UI 개선
-- ip 차단 추천 기능 구현
-  - backend 코드 수정 필요 시 파기
-  - 1분간 동일한 ip에서 403 로그가 5개 초과 발생 시
-  - 이메일 전송
-  - `Home` 상단에 알림 => 추가 버튼 클릭 하면 `RuleAdd` 거치지 않고 바로 규칙 저장되어 실행되도록
+- `WeekLog`의 pie 차트를 bar 차트로 변환
 
 ## 확인된 버그
 
@@ -138,4 +139,4 @@ project/
 - ~~pattern 값을 정규식 및 `{}`로 감싸도록 수정되어 생기는 오류~~ 7/20 수정 완료
 - ~~규칙 추가/수정의 description textarea 높이가 줄 수에 맞게 동적으로 변하지 않는 현상~~ 7/23 수정 완료
 - ~~`Log`에서 로그가 보이지 않는 현상~~ 8/2 수정 완료
-- backend 종료 상태에서 `Log` 접속 시 `Cannot read properties of undefined (reading 'length')` 에러 발생
+- ~~backend 종료 상태에서 `Log` 접속 시 `Cannot read properties of undefined (reading 'length')` 에러 발생~~ 8/3 수정 완료

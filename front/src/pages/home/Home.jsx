@@ -4,6 +4,7 @@ import './home.css';
 
 import Topbar from '../../components/topbar/Topbar';
 import Sidebar from '../../components/sidebar/Sidebar';
+import WeekLog from '../../components/chart/WeekLog';
 
 export default function Home() {
   return (
@@ -17,8 +18,9 @@ export default function Home() {
             <Sidebar />
           </div>
           <div className='ColumnRight'>
-            <div className='Chart-Today'>
+            <div className='Chart'>
               <TodayLog />
+              <WeekLog />
             </div>
           </div>
         </div>
