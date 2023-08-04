@@ -3,6 +3,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    min-height: 400px;
     border-radius: 30px;
     background-color: #f3f3f3;
 }
@@ -20,9 +21,5 @@
     flex-direction: column;
     row-gap: 10px;
     margin-left: 50px;
-}
-
-.Chart-Info-Detail1,
-.Chart-Info-Detail2 {
     font-size: 30px;
 }

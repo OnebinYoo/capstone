@@ -1,7 +1,7 @@
 // 일주일 로그 계산 및 차트 랜더링 => 완벽하게 작동하는 코드 백업
 import React, { Suspense, useEffect, useState } from 'react';
 import axios from 'axios';
-import { PieChart, pieArcLabelClasses } from '@mui/x-charts';
+import { PieChart, pieArcLabelClasses } from '@mui/x-charts/PieChart';
 import Skeleton from '@mui/material/Skeleton';
 import LoginError from '../Alertbar/LoginError';
 import './chart.css';

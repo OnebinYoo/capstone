@@ -22,73 +22,80 @@ project/
 ## 업데이트 내역
 
 - 7/7
-  - 파이어베이스 기반 규칙 목록 구현
-    - 규칙 목록에서 `ButtonMoreVert` 버튼 클릭 시 삭제/수정/더보기 버튼 나타나도록 구현
-  - 규칙 추가 기능 구현
-    - `문자열 차단`, `ip 차단`에 따른 type 자동 변경되어 추가되도록 구현
-    - 배열에 null 값 입력 안되도록 구현
-    - null 값 존재 시 에러 메시지 나타나도록 구현
+  - 규칙을 firebase 기반으로 수정
+  - `Setting` 수정
+    - `RuleList` 컴포넌트화
+      - 규칙 목록에서 `ButtonMoreVert` 버튼 클릭 시 삭제/수정/상세보기 버튼 생성
+  - 규칙 추가 기능 추가 (`RuleAdd`)
+    - `문자열 차단`, `ip 차단`에 따른 type 자동 변경
 - 7/12
-  - 규칙 추가 기능 수정
-    - 배열(blockedItems) 사용하여 여러 문자열/ip 추가 가능하도록 수정
-  - 규칙 삭제 기능 구현
-    - 규칙 삭제 시 alert 창으로 한 번 더 확인하도록 구현
-  - 규칙 수정 초기 화면은 기존 데이터 값 그대로 보여주도록 구현
+  - `RuleAdd` 수정
+    - 배열(blockedItems) 사용하여 여러 문자열/ip 추가 가능
+    - 배열에 null 값 입력 차단
+    - null 값 존재 시 에러 메시지 생성
+  - 규칙 삭제 기능 추가
+    - 규칙 삭제 시 `Alert`으로 한 번 더 확인
+  - 규칙 수정 기능 추가 (`RuleAdj`)
+    - 초기화면은 기존 데이터 출력
 - 7/13
-  - 규칙 더보기 기능 구현
-    - type, name, pattern 보여주도록 구현
-  - 규칙 수정 기능 구현
-    - 배열에 null 값 입력 안되도록 구현
-    - null 값 존재 시 에러 메시지 나타나도록 구현
+  - 규칙 더보기 기능 추가
+    - type, name, pattern 출력
+  - `RuleAdj` 수정
+    - 배열에 null 값 입력 차단
+    - null 값 존재 시 에러 메시지 생성
 - 7/17
-  - 규칙 추가/수정 시 null 값 검사를 input창이 아니라 blockedItems 배열을 검사하도록 수정
-  - `RuleAdj`에서 배열에 null 값 입력되는 현상 수정
-  - `RuleAdj`의 일부 UI `RuleAdd`와 일치하도록 수정
-  - 배열에 최대 5개까지만 입력되도록 수정
-  - `type=0`으로 규칙 추가시 정규표현식으로 변환하여 저장되도록 수정
+  - `RuleAdd`, `RuleAdj` 수정
+    - (공통) 차단 문자열/ip 항목은 null 값 검사를 배열을 검사
+    - (공통) 배열에 최대 5개까지만 추가 가능
+    - ~~(`RuleAdd`) `type=0`은 규칙 추가시 정규표현식으로 변환~~
+    - (`RuleAdj`) 배열에 null 값 입력 불가
+    - (`RuleAdj`) UI 일부 개선
 - 7/18
-  - 규칙 목록에 필터 기능 추가
-  - `RuleAdd`, `RuleAdj` 접속 시에는 `sidebar`의 clicked 상태가 정상적으로 작동안하던 현상 수정
-  - `Setting`, `RuleAdd` UI 개선
-  - 삭제/수정/상세보기 버튼과 상세 정보란까지 전부 펼쳐져 있을 때 `ButtonMoreVert` 버튼 클릭만으로 전부 접히도록 개선
-  - 규칙 목록에 스위치 구현
-    - mui의 switch 사용
-    - 사전에 제작해 둔 switch 컴포넌트 삭제
-    - `package-lock.json`, `package.json` 업데이트
+  - `Setting` 수정
+    - 필터 기능 추가
+  - `RuleList` 수정
+    - 삭제/수정/상세보기 버튼과 상세 정보란까지 전부 펼쳐져 있을 때 `ButtonMoreVert` 클릭만으로 전부 접기 가능
+    - 스위치 개선
+      - mui swith 사용 (`package-lock.json`, `package.json` 업데이트)
+  - `Sidebar` 수정
+    - `RuleAdd`, `RuleAdj` 접속 시 clicked 상태 정상 작동
+  - UI 개선 (`Setting`, `RuleAdd`)
 - 7/19
-  - `Setting`의 switch가 `FilterOptions` 앞에 나타나는 현상 수정
-  - `RuleAdd`, `RuldAdj` 상단부 UI 개선
-  - ~~규칙 상세보기에서 pattern의 정규표현식이 완벽히 제거되지 않는 현상 수정~~
-    - ~~backend와 협의되지 않은 사항이라 추후 수정될 수 있음~~
+  - `Setting` 수정
+    - switch가 `FilterOptions` 앞에 나타나는 현상 수정
+  - UI 개선 (`RuleAdd`, `RuldAdj` 상단부)
+  - ~~정규표현식 관련 로직 수정~~
+    - ~~규칙 상세보기에서 pattern의 정규표현식이 완벽히 제거되지 않는 현상 수정~~
     - ~~정규표현식을 제외한 pattern 값만 보여주기 위해 pattern 값을 정규표현식으로 감쌀 때 {}로 감싸도록 수정~~
       - ~~기존: `admin -> (?im)^(?=.*\badmin\b).*`~~
       - ~~수정: `admin -> (?im)^(?=.*\b{admin}\b).*` (admin 앞뒤로 {} 추가됨)~~
-  - ~~`RuleAdj`에서 pattern 값 보여줄 때 정규표현식 제거하고 보여지도록 수정~~
-  - `RuleAdd`와 `RuleAdj`의 pattern 입력 시 입력값 검증 추가
-    - (공통) 띄어쓰기 허용하지 않도록 구현
-    - (type=1) ip 입력 시 `숫자`, `.`, `/`만 허용하도록 구현
-    - (공통) 허용하지 않은 값 입력 시 2초간 에러 메시지 발생하도록 구현
-  - `ErrorPage` 초안 작성
-    - `App`에서 지정하지 않은 주소로 접근 시 `ErrorPage`로 라우팅되도록 수정
+    - ~~`RuleAdj`에서 pattern 값 보여줄 때 정규표현식 제거하고 보여지도록 수정~~
+  - `RuleAdd`, `RuleAdj` 수정
+    - pattern 입력 시 입력값 검증 추가
+      - (공통) 띄어쓰기 불가
+      - (type=1) ip 입력 시 `숫자`, `.`, `/`만 허용
+      - (공통) 허용하지 않은 값 입력 시 2초간 에러 메시지 발생
+  - `ErrorPage` 추가
+    - `App`에서 지정하지 않은 주소로 접근 시 `ErrorPage`로 라우팅
 - 7/20
-  - ~~pattern 값을 정규식 및 `{}`로 감싸도록 수정되어 생기는 오류 수정~~
+  - ~~정규표현식 관련 로직 수정~~
     - ~~`RuleAdj`에서 기존 값 외에 새로운 값 추가 시 배열에서 `{}`를 읽어오지 못해 생기는 오류 수정~~
     - ~~기존 값이 수정 후 이중으로 정규식으로 감싸지는 현상 수정~~
   - `Alert`, `Alertbar` UI 개선
-  - 규칙 추가/수정/삭제 완료 시 Alertbar 보이도록 구현
-    - 3초 후 없어지도록 구현
-  - `setting`, `RuleAdd`, `RuleAdj`의 console.log 제거 혹은 Alertbar로 대체
+  - 규칙 추가/수정/삭제 완료 시 Alertbar 출력 기능 추가
+    - 3초간 출력
+  - console.log 정리
+    - `setting`, `RuleAdd`, `RuleAdj`의 console.log 제거 혹은 `Alertbar`로 대체
 - 7/22
-  - `PrivateRoutes` 구현
-    - 비로그인 상태에서는 `Login`, `Findpw` 외의 페이지 접근 시 `Login` 페이지로 리다이렉트되도록 구현
+  - `PrivateRoutes` 추가
+    - 미인증 상태에서는 `Login`, `Findpw` 외 페이지 접근 시 `Login`으로 리다이렉트
     - 구현 위해 일부 주소 변경
       - `Login` : `/` => `/login`
       - `Home` : `/home` => `/`
-      - 주소 변경으로 인해 sidebar, topbar, login 일부 수정
-  - `ErrorPage` 완성
-  - `RuleAdj` UI 수정
-  - 규칙 목록 보여주는 방식 개선
-    - 매번 `Setting` 접속 혹은 새로고침 때마다 firebase에서 데이터를 가져오는 방식에서 생기는 로딩 시간을 개선하기 위해 수정
+      - 주소 변경으로 `Sidebar`, `Topbar`, `Login` navigate 수정
+  - UI 개선 (`ErrorPage`, `RuleAdj`)
+  - 규칙 목록 출력 방식 개선
+    - 매번 `Setting` 접속 혹은 새로고침 때마다 firebase에서 데이터를 가져오는 방식에서 생기는 로딩 시간을 개선
     - firebase에서 가져온 데이터를 로컬 저장소에 저장
     - 관찰자를 두어 firebase 데이터에 수정 사항 발생 시 firebase에서 데이터를 다시 불러와 로컬 저장소에 다시 저장
     - 로그아웃 시 로컬 저장소 비움
@@ -101,34 +108,40 @@ project/
   - 로딩 UI 개선
     - `Log`: mui progress 사용
     - `Setting`: mui skeleton 사용
-    - mui progress, skeleton 사용으로 인해 `package-lock.json`, `package.json` 업데이트
+    - `package-lock.json`, `package.json` 업데이트
   - 코드 정리
     - `Setting`, `RuleAdd`, `RuldAdj`, `firebase`, `App`
 - 7/27
-  - `RuleAdd`의 textarea에 텍스트 입력시 발생하던 오류 수정
+  - `RuleAdd` 수정
+    - textarea에 텍스트 입력시 발생하던 오류 수정
   - UI 개선
     - FHD 미만
-      - `Topbar`에 `Sidebar`를 컨트롤하는 메뉴 버튼 추가
-      - 메뉴 버튼에 의해 컨트롤 되도록 `Sidebar` 일부 수정
+      - `Topbar`에 `Sidebar`를 컨트롤하는 `menu` 버튼 추가
     - FHD 이상
-      - 메뉴 버튼 숨겨지도록 설정
+      - `menu` 숨겨지도록 설정
       - `Sidebar` 항상 보여지도록 설정
 - 8/2
-  - 7/19 버전의 `pattern 값을 정규표현식으로 감쌀 때 {}로 감싸도록 수정`을 다시 원래대로 수정
-  - 차트 수정(`TodayLog`)
-    - mui pie 차트 사용으로 인해 `package-lock.json`, `package.json` 업데이트
-    - 시스템 날짜(10초마다 업데이트) = 로그 date인 로그만 추출해 status_code 별로 구분하여 보여지도록 구현
-    - 3초마다 업데이트
-  - `Log`에서 로그가 보이지 않던 현상 수정
+  - 정규표현식 관련 로직 삭제
+  - `Chart` 수정
+    - 이름 변경: `Chart` -> `TodayLog`
+    - 당일(시스템시간 기준) 발생한 로그의 status_code별 개수
+    - mui pie 차트 사용 (`package-lock.json`, `package.json` 업데이트)
+  - `Log` 수정
+    - 로그가 보이지 않던 현상 수정
 - 8/3
-  - backedn off 시 에러 메시지 출력되도록 수정
-  - `TodayLog` 로딩 UI 개선
+  - 차트 로딩 UI 추가
   - `WeekLog` 추가
+    - 날짜별 로그 개수(시스템시간 기준 당일 포함 7일간)
     - `WeekLog_bak`: 개발용(개발 끝나면 삭제 예정)
+  - backend off 시 에러 메시지 출력되도록 수정
+    - `TodayLog`, `WeekLog`, `Log`
+- 8/4
+  - `WeekLog` 수정
+    - pie 차트에서 bar 차트로 수정
 
 ## 미완료 작업
 
-- `WeekLog`의 pie 차트를 bar 차트로 변환
+-
 
 ## 확인된 버그
 
