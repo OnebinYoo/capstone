@@ -4,14 +4,12 @@
 
 ## 프로젝트 알림사항
 
-- 반드시 `.env`파일을 아래와 같이 위치시켜야함
+- `.env`파일을 /front 아래에 위치시켜야함
 
 ```
 project/
-
 - front/
-- backend/
-- .env
+  - .env
 ```
 
 - package-lock.json, package.json 업데이트 필요
