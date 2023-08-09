@@ -1,15 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getDatabase, ref, update, remove, onValue } from 'firebase/database';
+import Skeleton from '@mui/material/Skeleton';
 import Topbar from '../../components/topbar/Topbar';
 import Sidebar from '../../components/sidebar/Sidebar';
 import RuleList from '../../components/rulelist/RuleList';
 import Alert from '../../components/alert/Alert';
 import SettingSuccess from '../../components/Alertbar/SettingSuccess';
 import SettingError from '../../components/Alertbar/SettingError';
+import error from '../../assets/icon/error.png';
+import warning from '../../assets/icon/warning.png';
+import check from '../../assets/icon/check.png';
 import expandmore from '../../assets/icon/expandMore.png';
 import expandless from '../../assets/icon/expandLess.png';
-import Skeleton from '@mui/material/Skeleton';
 import './setting.css';
 
 const Setting = () => {
@@ -237,6 +240,11 @@ const Setting = () => {
     setShowColumnLeft((prev) => !prev);
   };
 
+  // 이미지 프리로딩
+  const ImgPreloader = ({ src, alt }) => (
+    <img src={src} alt={alt} style={{ display: 'none' }} />
+  )
+
   return (
     <div className='Wrap'>
       <div className='Container'>
@@ -319,8 +327,13 @@ const Setting = () => {
           </div>
         </div>
       </div>
+      
       {SuccessMessage && <SettingSuccess message={SuccessMessage}/>}
       {ErrorMessage && <SettingError message={ErrorMessage}/>}
+
+      <ImgPreloader src={error} alt='에러아이콘'/>
+      <ImgPreloader src={check} alt='성공아이콘'/>
+      <ImgPreloader src={warning} alt='경고아이콘'/>
     </div>
   );
 };

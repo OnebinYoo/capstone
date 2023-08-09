@@ -136,10 +136,14 @@ project/
 - 8/4
   - `WeekLog` 수정
     - pie 차트에서 bar 차트로 수정
+- 8/9
+  - `TodayLog`, `WeekLog` 수정
+    - 에러 메시지 출력 후 app.py 실행 시 차트 안보이던 현상 수정
+  - topbar 버튼의 sidebar 컨트롤 기능 수정
+    - `Setting`에서만 적용되던 현상 수정
+  - 이미지 프리로드 추가
 
 ## 미완료 작업
-
--
 
 ## 확인된 버그
 

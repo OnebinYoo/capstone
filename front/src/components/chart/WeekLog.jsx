@@ -17,6 +17,7 @@ const WeekLog = () => {
       axios.get('http://localhost:8000/logs')
         .then(response => {
           processLogs(response.data.logs);
+          setError(false);
           setLoading(false);
         })
         .catch(error => {

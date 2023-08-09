@@ -104,8 +104,7 @@ input:-webkit-autofill {
 
 .Header {
   width: 100%;
-  margin: 0 auto;
-  padding: 20px 0px;
+  margin: 20px 0px;
 }
 
 .Root,
@@ -114,11 +113,6 @@ input:-webkit-autofill {
   display: table;
   clear: both;
   width: fit-content;
-}
-
-.Root {
-  margin: 0 auto;
-  padding-bottom: 60px;
 }
 
 .Container {

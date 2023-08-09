@@ -10,12 +10,14 @@ import LoginError from '../../components/Alertbar/LoginError';
 const LogTable = () => {
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchLogs = async () => {
       try {
         const response = await axios.get('http://localhost:8000/logs');
         setLogs(response.data);
+        setError(false);
       } catch (error) {
         setLogs([]);
       } finally {
@@ -54,21 +56,33 @@ const LogTable = () => {
     },
   ];
 
+  // 사이드바 토글
+  const [showColumnLeft, setShowColumnLeft] = useState(true);
+  const toggleColumnLeft = () => {
+    setShowColumnLeft((prev) => !prev);
+  };
+
   return (
     <div className='Wrap'>
       <div className='Container'>
-        <div className='Root'>
         <div className='Header'>
-        <Topbar />
-      </div>
-          <div className='ColumnLeft'>
+          <Topbar toggleColumnLeft={toggleColumnLeft} />
+        </div>
+        <div className='Root'>
+          <div className={`ColumnLeft${showColumnLeft ? '' : '-hide'}`}>
             <Sidebar />
           </div>
-          <div className='ColumnRight'>
+          <div className={`ColumnRight${showColumnLeft ? '' : '-hide'}`}>
             {loading ? (
               <div className='ProgressWrap'>
                 <div className='Progress'>
                   <CircularProgress style={{ color: '#9e30f4' }} />
+                </div>
+              </div>
+            ) : error ? (
+              <div className='NoLog'>
+                <div className='NoLog-AlertBar'>
+                  <LoginError message={'로그를 불러올 수 없습니다'} />
                 </div>
               </div>
             ) : (
@@ -77,7 +91,7 @@ const LogTable = () => {
               ) : (
                 <div className='NoLog'>
                   <div className='NoLog-AlertBar'>
-                    <LoginError message={'로그를 불러올 수 없습니다'}/>
+                    <LoginError message={'로그를 불러올 수 없습니다'} />
                   </div>
                 </div>
               )

@@ -11,6 +11,7 @@ import './setting.css';
 
 import add from '../../assets/icon/add.png';
 import close from '../../assets/icon/close.png';
+import error from '../../assets/icon/error.png';
 import chevronLeft from '../../assets/icon/chevronLeft.png';
 
 function RuleAdj() {
@@ -39,16 +40,8 @@ function RuleAdj() {
           setName(fetchedRule.name);
           setDescription(fetchedRule.description);
           setType(fetchedRule.type);
-          // if (fetchedRule.type === 0) {
-          //   const patternValues = fetchedRule.pattern.match(/\{(.*?)\}/g);
-          //   if (patternValues) {
-          //     const extractedItems = patternValues.map((pattern) => pattern.slice(1, -1));
-          //     setBlockedItems(extractedItems);
-          //   }
-          // } else {
-            const patternValues = fetchedRule.pattern.split('|');
-            setBlockedItems(patternValues);
-          // }
+          const patternValues = fetchedRule.pattern.split('|');
+          setBlockedItems(patternValues);
         }
       });
     }
@@ -139,17 +132,28 @@ function RuleAdj() {
     }
   };
 
+  // 사이드바 토글
+  const [showColumnLeft, setShowColumnLeft] = useState(true);
+  const toggleColumnLeft = () => {
+    setShowColumnLeft((prev) => !prev);
+  };
+
+  // 이미지 프리로딩
+  const ImgPreloader = ({ src, alt }) => (
+    <img src={src} alt={alt} style={{ display: 'none' }} />
+  )
+
   return (
     <div className="Wrap">
       <div className="Container">
         <div className="Root">
           <div className="Header">
-            <Topbar />
+            <Topbar toggleColumnLeft={toggleColumnLeft} />
           </div>
-          <div className="ColumnLeft">
+          <div className={`ColumnLeft${showColumnLeft ? '' : '-hide'}`}>
             <Sidebar />
           </div>
-          <div className="ColumnRight">
+          <div className={`ColumnRight${showColumnLeft ? '' : '-hide'}`}>
             <div>
               <div className="RuleAddWrap">
                 <button className='PreviousPage' onClick={PreviousPage}>
@@ -237,6 +241,7 @@ function RuleAdj() {
                 </div>
               </div>
             </div>
+            <ImgPreloader src={error} alt='에러아이콘'/>
           </div>
         </div>
       </div>

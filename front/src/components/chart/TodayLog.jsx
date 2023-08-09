@@ -16,6 +16,7 @@ const TodayLog = () => {
       try {
         const response = await axios.get('http://localhost:8000/logs');
         setLogs(response.data.logs);
+        setError(false);
         setLoading(false);
       } catch (error) {
         setErrorMessage('로그를 불러올 수 없습니다');
