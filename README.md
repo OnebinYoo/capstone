@@ -25,7 +25,6 @@ graph TD;
     C -->|Get server's logs| H(Front - admin page);
     I[firebase] --> H;
     I --> A;
-    A -->|If some logic make problem. I'll add.| D;
 ```
 
 1. secrutiy_rules에서 보안규칙 초기에 받아오고 최신화가 security_rules.py내부에서 발생.
