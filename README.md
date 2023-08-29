@@ -142,6 +142,10 @@ project/
   - topbar 버튼의 sidebar 컨트롤 기능 수정
     - `Setting`에서만 적용되던 현상 수정
   - 이미지 프리로드 추가
+- 8/29
+  - 패키지 의존성 문제 수정
+    - `Log`의 `@material-ui/core` 패키지가 react 18 버전과 호환이 안되어 `@mui/material` 패키지로 수정
+  - 패키지 업데이트
 
 ## 미완료 작업
 
