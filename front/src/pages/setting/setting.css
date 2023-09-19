@@ -1,42 +1,256 @@
-.RuleSetting {
-    margin-top: 16px;
+.RuleAddWrap {
+    background-color: #f3f3f3;
     border-radius: 30px;
-    outline: 3px solid;
-    outline-color: #f3f3f3;
-    display: flex; /* Flexbox를 사용하여 자식 요소들을 정렬합니다 */
-    align-items: center; /* 세로 중앙 정렬 */
-    justify-content: space-between; /* 좌우 간격을 최대한 확보하여 요소들을 배치합니다 */
-  }
-  
-  .RuleSettingLeft {
-    margin-left: 30px;
-    outline: 3px solid;
-    outline-color: black;
-  }
-  
-  .RuleSettingSwitch {
-    margin-right: 30px; /* 필요한 경우 위 여백을 조정합니다 */
-    display: flex;
-  }
-
-  .Name {
-  font-size: 1.5em;
+    padding: 30px;
 }
 
-  .SecurityRuleContent {
+.PreviousPage {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    height: 40px;
+    font-size: 14px;
+    padding-left: 10px;
+    border: none;
+    border-radius: 50px;
+    background-color: inherit;
+    cursor: pointer;
+}
+
+.PreviousPage:hover {
+    background-color: #d1cdcd;
+}
+
+.PreviousPageImg {
+    display: flex;
+    justify-content: center;
+    width: 25px;
+    height: auto;
+}
+
+.PreviousPageText {
+    display: flex;
+    justify-content: center;
+    margin: 0 10px;
+}
+
+.RuleAddTitle {
+    padding: 50px 0;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.charCount {
+    margin-left: 5px;
+}
+
+.textareaWrap {
+    display: flex;
+    position: relative;
+    background-color: white;
+    border: 1px solid #e2e0e0;
+    margin-top: 8px;
+    border-radius: 30px;
+    padding: 3px 14px;
+    overflow: hidden;
+}
+.textareaWrap:focus-within {
+    border: 1px solid #9e30f4;
+}
+
+.description-textarea {
+    width: 100%;
+    outline: none;
+    border: none;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: inherit;
+    padding-top: 7px;
+    line-height: 1.5;
+    /* 자동 크기 조정 위한 css */
+    resize: none;
+    overflow-y: hidden;
+    height: auto;
+}
+  
+.description-textarea::placeholder {
+    color: #dadada;
+}
+
+.blockedItems {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.blockedItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+    height: 35px;
+    border: none;
+    border-radius: 20px;
+    background-color: #e2e0e0;
+    margin: 0 10px 10px 0;
+}
+
+.blockedItemContent {
+    display: flex;
+    align-items: center;
+    width: auto;
+    padding: 0 5px 0 15px;
+}
+
+.ItemAddButton {
+    height: 100%;
+    width: 40px;
+    margin-top: auto;
+    margin-bottom: auto;
+    overflow: hidden;
+    border: none;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.ImgAdd {
+    width: 35px;
+    height: auto;
+}
+
+.AddButton {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.RemoveButton {
+    display: flex;
+    justify-content: center;
+    margin-left: 10px;
+    border-radius: 100%;
+    padding:3px;
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+}
+
+.RemoveButton:hover {
+    background-color: #d1cdcd;
+}
+
+.ImgRemove {
+    width: 20px;
+    height: auto;
+}
+
+.error-border {
+    border-color: #EF5350;
+}
+
+/* dropdown css */
+.Info {
+    background-color: #f3f3f3;
+    border-radius: 30px;
+}
+
+.Info-Name {
+    padding: 60px 30px;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+.Info-Setbar {
+    padding: 30px;
+    padding-top: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid #000;
-    border-radius: 10px;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
+}
   
-  .RuleInfo {
-    flex: 1;
-  }
+.Info-Setbar-AddButton {
+    width: 140px;
+    height: 50px;
+    border: none;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 50px;
+    background-color: #9e30f4;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+}
   
-  .ToggleSwitchContainer {
-    margin-left: 20px;
-  }
+.Info-Setbar-FilterDropdown {
+    width: 160px;
+    position: relative;
+}
+
+.Info-Setbar-FilterDropdownButton {
+    width: 100%;
+    height: 50px;
+    border-radius: 50px;
+    padding: 0;
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+}
+
+.Info-Setbar-FilterDropdownButton:hover {
+    background-color: #d1cdcd;
+}
+
+.FilterDropdownButton-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    padding: 0 20px 0 20px;
+}
+
+.FilterDropdownButton-innertext {
+    font-size: 15px;
+}
+
+.FilterDropdownButton-innerimg {
+    width: 25px;
+    height: auto;
+}
+
+.FilterOptions {
+    position: absolute;
+    width: 160px;
+    top: 100%;
+    left: 0;
+    border: 1px solid #ddd;
+    background-color: white;
+    border-radius: 20px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1;
+}
+  
+.FilterOptions li {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    align-items: center;
+    padding: 0 20px;
+    cursor: pointer;
+}
+
+.FilterOptions li.active {
+    background-color: #f3f3f3;
+}
+
+.FilterOptions li:hover {
+    background-color: #f3f3f3;
+}
+
+.FilterOptions label {
+    display: block;
+}

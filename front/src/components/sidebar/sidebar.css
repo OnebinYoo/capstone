@@ -1,110 +1,101 @@
 /* sidebar css */
-
 .SidebarContainer {
-    text-align: left;
-    overflow-y: scroll;
-  }
+  text-align: left;
+}
   
-  @media (max-width: 1300px) {
-    .SidebarContainer {
-      width: 90px;
-    }
+.SidebarContainer .link {
+  text-decoration: none;
+  color: black;
+}
   
-    .SidebarContainer .title {
-      display: none;
-    }
-  }
+/* 스크롤바 * ~255 */
+.SidebarContainer::-webkit-scrollbar {
+  border: none;
+  -webkit-appearance: none;
+}
   
-  .SidebarContainer .link {
-    text-decoration: none;
-    color: black;
-  }
+.SidebarContainer::-webkit-scrollbar-thumb {
+  background: darkgrey;
+  border-radius: 8px;
+}
   
-  @media (max-width: 800px) {
-    .SidebarContainer {
-      display: none;
-    }
-  }
+.MainMenuDiv {
+  padding: 5px 20px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 15px;
+  margin: 0;
+}
   
-  /* 스크롤바 * ~255 */
-  .SidebarContainer::-webkit-scrollbar {
-    border: none;
-    -webkit-appearance: none;
-  }
+.MainMenuDiv:hover {
+  background-color: #f3f3f3;
+}
   
-  .SidebarContainer::-webkit-scrollbar-thumb {
-    background: darkgrey;
-    border-radius: 8px;
-  }
+.MenuDiv {
+  padding: 0px 20px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
   
-  .MainMenuDiv {
-    padding: 5px 20px 5px 20px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    border-radius: 15px;
-  }
+.MenuDiv:hover {
+  background-color: #f3f3f3;
+}
   
-  .MainMenuDiv:hover {
-    background-color: #f3f3f3;
-  }
+.Icon {
+  margin-right: 20px;
+  height: 25px;
+  align-items: center;
+  display: flex;
+  float: left;
+}
   
-  @media (max-width: 1300px) {
-    .MainMenuDiv {
-      height: 90px;
-      flex-direction: column;
-      gap: 10px;
-      justify-content: center;
-      align-items: center;
-    }
-  }
-  
-  .MenuDiv {
-    padding: 0px 20px 0px 20px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
-  
-  .MenuDiv:hover {
-    background-color: #f3f3f3;
-  }
-  
-  @media (max-width: 1300px) {
-    .MenuDiv {
-      display: none;
-    }
-  }
-  
-  .Icon {
-    margin-right: 20px;
-    height: 25px;
-    align-items: center;
-    display: flex;
-    float: left;
-  }
-  
-  @media (max-width: 1300px) {
-    .Icon {
-      margin: 0;
-    }
-  }
-  
-  .MenuSpan {
+.MenuSpan {
   font-size: 15px;
+}
+  
+.Line {
+  height: 1px;
+  background: #dedede;
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+
+/* PC (FHD 미만) */
+@media (max-width: 1919px) {
+  .SidebarContainer {
+    width: fit-content;
   }
   
-  .Line {
-    height: 1px;
-    background: #dedede;
-    margin-top: 14px;
-    margin-bottom: 14px;
+  .SidebarContainer .title {
+    display: none;
   }
-  
-  @media (max-width: 1300px) {
-    .Line {
-      display: none;
-    }
+
+  .MainMenuDiv {
+    height: 40px;
+    width: fit-content;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
   }
+
+  .MenuDiv {
+    display: none;
+  }
+
+  .Icon {
+    margin: 0;
+  }
+}
+
+/* PC (FHD 이상) */
+@media (min-width: 1920px) {
+  .SidebarContainer {
+    width: 300px;
+    margin: 0px;
+  }
+}

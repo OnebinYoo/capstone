@@ -1,5 +1,3 @@
-// Login.jsx
-
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { auth, signInWithEmailAndPassword } from '../../firebase';
@@ -33,14 +31,16 @@ const Login = () => {
 
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        navigate('/home');
+        navigate('/');
       })
       .catch((error) => {
         const errorMessage = error.message;
-        if (errorMessage === 'Firebase: Error (auth/invalid-email).' || errorMessage === 'Firebase: Error (auth/wrong-password).' || errorMessage === 'Firebase: Error (auth/user-not-found).') {
+        if (errorMessage === 'Firebase: Error (auth/invalid-email).' || errorMessage === 'Firebase: Error (auth/wrong-password).'|| errorMessage === 'Firebase: Error (auth/user-not-found).') {
           setErrorMessage('계정을 정확하게 입력해 주세요.');
+        } else if (errorMessage === 'Firebase: Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. (auth/too-many-requests).') {
+          setErrorMessage('계정에 여러번의 로그인 시도가 있었습니다. 잠시후 다시 시도해 주세요.');
         } else {
-          setErrorMessage(errorMessage);
+          setErrorMessage('로그인 중 에러가 발생했습니다.');
         }
       }
     );

@@ -1,0 +1,97 @@
+.RuleSetting {
+  height: fit-content;
+  width: 100%;
+  margin-top: 15px;
+  padding: 15px 0;
+  border: 3px solid #f3f3f3;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+.RuleWrap {
+  display: flex;
+  align-items: center;
+}
+  
+.RuleName {
+  width: 26%;
+  text-align: left;
+  margin: 0 20px 0 30px;
+  font-size: 1.8em;
+}
+      
+.RuleDescription {
+  width: 52%;
+  text-align: left;
+  padding-right: 20px;
+}
+      
+.RuleSwitch {
+  width: 7%;
+  text-align: center;
+}
+
+.RuleToggleActions {
+  width: fit-content;
+  justify-content: center;
+  text-align: center;
+}
+  
+.ButtonMoreVert {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  height: 100%;
+  padding: 5px;
+  margin-left: 10px;
+  overflow: hidden;
+  border: none;
+  border-radius: 50%;
+  background-color: #ffffff;
+}
+
+.ButtonMoreVert:hover {
+  cursor: pointer;
+  background-color: #f3f3f3;
+}
+
+.ImgMoreVert {
+  width: 30px;
+  height: auto;
+}
+
+.RuleActions {
+  width: 100%;
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.RuleDetails {
+  width: 100%;
+  margin: 15px 20px 0 20px;
+  background-color: #f3f3f3;
+  border-radius: 22px;
+}
+
+.RuleDetails.hidden {
+  margin: 0px;
+}
+
+.RuleDetailsContent {
+  margin: 0 20px 0 20px;
+}
+
+@media (max-width: 1919px) {
+  .RuleDescription {
+    width: 54%;
+  }
+  .ButtonMoreVert {
+    margin: 0;
+  }
+}
