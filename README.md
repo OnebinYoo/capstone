@@ -13,7 +13,7 @@ project/
 ```
 
 - package-lock.json, package.json 업데이트 필요
-  - 8/2 부로 업데이트(자세한 사항은 `업데이트 내역` 참조)
+  - 9/19 부로 업데이트(자세한 사항은 `업데이트 내역` 참조)
 - realtime firebase 주소
   - https://capstone*dab03*default*rtdb.asia*southeast1.firebasedatabase.app
 
