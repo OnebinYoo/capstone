@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@adobe/css-tools": "^4.3.1",
         "@emotion/react": "^11.11.0",
         "@emotion/styled": "^11.11.0",
         "@mui/icons-material": "^5.11.16",
@@ -15,12 +16,15 @@
         "axios": "^1.4.0",
         "firebase": "^9.22.2",
         "material-react-table": "^1.13.1",
+        "nth-check": "^2.1.1",
+        "protobufjs": "^7.2.5",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.11.2",
         "react-scripts": "5.0.1",
         "recharts": "^2.6.2",
-        "web-vitals": "^2.1.4"
+        "web-vitals": "^2.1.4",
+        "word-wrap": "^1.2.5"
     },
     "scripts": {
         "start": "react-scripts start",
