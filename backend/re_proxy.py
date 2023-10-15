@@ -12,12 +12,11 @@ initialize_app(cred, {
 
 # Firebase Realtime Database에서 보안 규칙 가져오기
 ref = db.reference('/rule')
+#받아온 보안규칙 저장
 security_rules = ref.get()
 
-#받아온 보안규칙 저장
-app.security_rules = security_rules
 
-SITE_URL = 'http://localhost/'
+SITE_URL = 'http://192.168.0.56/'
 
 def log_and_block():
     print('액세스가 거부되었습니다. 페이로드에 의심스러운 내용이 포함되어 있습니다.')
@@ -27,8 +26,9 @@ def configure_proxy_routes(app):
 
     def handle_rule_change(event):
         # 보안 규칙이 변경될 때마다 호출되는 함수
-        app.security_rules = ref.get()
-        print('보안 규칙이 변경되었습니다 :', app.security_rules)
+        global security_rules
+        security_rules = ref.get()
+        print('보안 규칙이 변경되었습니다 :', security_rules)
 
     def initialize_rules():
         ref.listen(handle_rule_change)
@@ -39,7 +39,7 @@ def configure_proxy_routes(app):
     def proxy(path):
         global SITE_URL
         if request.method == 'GET':
-            for rule in app.security_rules:
+            for rule in security_rules.values():
                 if rule['enabled']:
                     pattern = re.compile(rule['pattern'])
                     for key, value in request.args.items():
@@ -51,7 +51,7 @@ def configure_proxy_routes(app):
             response = Response(resp.content, resp.status_code, headers)
             return response
         elif request.method == 'POST':
-            for rule in app.security_rules:
+            for rule in security_rules.values():
                 if rule['enabled']:
                     pattern = re.compile(rule['pattern'])
                     if request.form:
