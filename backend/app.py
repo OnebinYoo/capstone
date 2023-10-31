@@ -2,7 +2,8 @@ from flask import Flask, redirect, request, Response, render_template
 from re_proxy import configure_proxy_routes
 import log
 from logging_utils import save_log
-from security_rules import Shared_rules
+from security_rules import Shared_rules_singleton
+from security_rules import *
 from flask_cors import CORS
 import uuid
 import datetime
@@ -16,13 +17,13 @@ def log_and_block():
     print('액세스가 거부되었습니다. IP 차단 정책에 의해 차단되었습니다.')
     return Response(render_template('access_denied_ip.html'), status=403)
 
-Shared_rules = SharedRules.getInstance()
+Shared_rules_singleton = SharedRules.getInstance()
 
 #flask의 before_request 데코레이터를 사용. 요청이 처리되기 전에 동작
 @app.before_request
 def log_request_info():
     global Shared_rules
-    security_rules = Shared_rules.get_rules()
+    security_rules = Shared_rules_singleton.get_rules()
     current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     log_data = {
         'method': request.method,
@@ -61,7 +62,7 @@ def log_response_info(response):
 def index():
     return redirect('/web_project/')
 
-configure_proxy_routes(app, Shared_rules.get_rules())
+configure_proxy_routes(app, Shared_rules_singleton.get_rules())
 
 app.route('/logs', methods=['GET'])(log.get_logs)
 

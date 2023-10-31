@@ -8,7 +8,7 @@ initialize_app(cred, {
 
 """싱글톤 구현 - 파이썬
 https://velog.io/@kimsehwan96/%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EC%8B%B1%EA%B8%80%ED%84%B4-%ED%8C%A8%ED%84%B4
-https://wikidocs.net/3693  <- 초기호 ㅏ하는거 이사람꺼 보기 cls어쩌구
+https://wikidocs.net/3693  <- 초기화하는거 이사람꺼 보기 cls어쩌구
 https://jroomstudio.tistory.com/41
 -에러처리-
 https://blockdmask.tistory.com/538
@@ -22,12 +22,12 @@ class SharedRules:
             SharedRules()
         return SharedRules._instance
 
-    def __new__(self):     # 싱글톤 구현중 self 인자값 추가 // 파이썬은 new 안된다고 블로그에서 봄.// 증명은 안해봄
+    def __init__(self):     # 싱글톤 구현중 self 인자값 추가 // 파이썬은 new 안된다고 블로그에서 봄.// 증명은 안해봄 // 썅 new로 하니깐 에러나서 init으로 함
         if SharedRules._instance != None:
             raise Exception("이 클래스는 이미 싱글턴입니다.")  # 싱글턴은 하나의 인스턴스이므로 이미 생성될 경우의 예외 처리
         else:
             SharedRules._instance = self
-            self.security_rules = self.get_security_rules # 인스턴스에 앞으로 여러파일에서 사용할 변수 선언
+            self.security_rules = self.get_security_rules() # 인스턴스에 앞으로 여러파일에서 사용할 변수 선언
                     # 싱글톤 인스턴스 구현 끝
 
     # 여기 아래부터는 싱글톤에서 만든 self 인자값만 추가해주면됨 // 맨아래 싱글톤 객체 생성 제외
@@ -58,8 +58,8 @@ class SharedRules:
         # 변경 사항을 감지하는 함수
         def handle_rule_change(event):
             global security_rules
-            security_rules = self.get_security_rules()
-            print('보안 규칙이 변경되었습니다:', security_rules)
+            self.security_rules = self.get_security_rules()
+            print('보안 규칙이 변경되었습니다:', self.security_rules)
 
         # 리스너 등록
         ref.listen(handle_rule_change)
@@ -69,5 +69,5 @@ class SharedRules:
         return self.security_rules
     
 # 싱글톤 객체 생성
-Shared_rules = SharedRules.getInstance()
-Shared_rules.listen_for_rule_changes()
+Shared_rules_singleton = SharedRules.getInstance()
+Shared_rules_singleton.listen_for_rule_changes()
