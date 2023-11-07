@@ -6,14 +6,6 @@ initialize_app(cred, {
     'databaseURL': 'https://capstone-dab03-default-rtdb.asia-southeast1.firebasedatabase.app'
 })
 
-"""싱글톤 구현 - 파이썬
-https://velog.io/@kimsehwan96/%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EC%8B%B1%EA%B8%80%ED%84%B4-%ED%8C%A8%ED%84%B4
-https://wikidocs.net/3693  <- 초기화하는거 이사람꺼 보기 cls어쩌구
-https://jroomstudio.tistory.com/41
--에러처리-
-https://blockdmask.tistory.com/538
-"""
-
 class SharedRules:
     _instance = None # 1. 인스탠스를 None으로 초기화 해줌
 
@@ -66,7 +58,7 @@ class SharedRules:
         print("Firebase 리스너가 규칙 변경을 감지 중...")
 
     def get_rules(self):
-        return self.security_rules
+        return self.get_security_rules()
     
 # 싱글톤 객체 생성
 Shared_rules_singleton = SharedRules.getInstance()

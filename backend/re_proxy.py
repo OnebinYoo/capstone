@@ -1,23 +1,25 @@
 from flask import Flask, request, redirect, Response, render_template
 import requests, re
+from security_rules import Shared_rules_singleton
 
 app = Flask(__name__)
 
 # SITE_URL = 'http://localhost/'
 
-SITE_URLS = ['http://192.168.0.56/', 'http://192.168.0.56/']
+SITE_URLS = ['http://192.168.0.56/', 'http://192.168.0.57/']
 current_site_index = 0
 
 def log_and_block():
     print('액세스가 거부되었습니다. 페이로드에 의심스러운 내용이 포함되어 있습니다.')
     return Response(render_template('access_denied.html'), status=403)
 
-def configure_proxy_routes(app, security_rules):
+def configure_proxy_routes(app):
     @app.route('/<path:path>', methods=['GET', 'POST', 'DELETE'])
     def proxy(path):
         global SITE_URLS, current_site_index
         current_server = SITE_URLS[current_site_index]
         current_site_index = (current_site_index + 1) % len(SITE_URLS)
+        security_rules = Shared_rules_singleton.get_rules()
         
         if request.method == 'GET':
             print(f"요청이 오는 서버: {current_server}, IP 주소: {request.remote_addr}")

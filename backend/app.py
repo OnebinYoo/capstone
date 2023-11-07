@@ -62,7 +62,7 @@ def log_response_info(response):
 def index():
     return redirect('/web_project/')
 
-configure_proxy_routes(app, Shared_rules_singleton.get_rules())
+configure_proxy_routes(app)
 
 app.route('/logs', methods=['GET'])(log.get_logs)
 
