@@ -7,22 +7,22 @@ initialize_app(cred, {
 })
 
 class SharedRules:
-    _instance = None # 1. 인스탠스를 None으로 초기화 해줌
+    _instance = None #인스탠스를 None으로 초기화
 
-    def getInstance(): # 위에서 만든 인스탠스 None 확인? 아래랑 구현 위치 상관 없음
-        if SharedRules._instance == None:  # None인지 확인후 생성한 class인 SharedRules를 동작?? 몰루
+    def getInstance(): # 위에서 만든 인스탠스 None 확인 아래랑 구현 위치 상관 없음
+        if SharedRules._instance == None:  # None인지 확인후 생성한 class인 SharedRules를 동작
             SharedRules()
         return SharedRules._instance
 
-    def __init__(self):     # 싱글톤 구현중 self 인자값 추가 // 파이썬은 new 안된다고 블로그에서 봄.// 증명은 안해봄 // 썅 new로 하니깐 에러나서 init으로 함
+    def __init__(self):     # 싱글톤 구현중 self 인자값 추가
         if SharedRules._instance != None:
             raise Exception("이 클래스는 이미 싱글턴입니다.")  # 싱글턴은 하나의 인스턴스이므로 이미 생성될 경우의 예외 처리
         else:
             SharedRules._instance = self
             self.security_rules = self.get_security_rules() # 인스턴스에 앞으로 여러파일에서 사용할 변수 선언
-                    # 싱글톤 인스턴스 구현 끝
+    # 싱글톤 인스턴스 선언 끝
 
-    # 여기 아래부터는 싱글톤에서 만든 self 인자값만 추가해주면됨 // 맨아래 싱글톤 객체 생성 제외
+    # 여기 아래부터 싱글톤에서 만든 self 인자값 추가
 
     def get_security_rules(self):
         ref = db.reference('/rules')

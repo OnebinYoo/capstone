@@ -4,9 +4,7 @@ from security_rules import Shared_rules_singleton
 
 app = Flask(__name__)
 
-# SITE_URL = 'http://localhost/'
-
-SITE_URLS = ['http://192.168.0.56/', 'http://192.168.0.57/']
+SITE_URLS = ['http://192.168.0.57/', 'http://192.168.0.56/']
 current_site_index = 0
 
 def log_and_block():
