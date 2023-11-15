@@ -18,7 +18,7 @@ graph TD;
     A[security_ruels.py]-->|Get rules| B{app.py};
     B --> |Leave a log| C(log.py);
     B --> |Check banned ip| E;
-    B --> |Give rules and infromations| D(re_proxy.py);
+    A --> |Get rules| D(re_proxy.py);
     D --> |Check payload| E[access_denied.html];
     D --> |After load balancing| F[web_pages];
     G[Client] --> |Request 'web_pages'| B;
@@ -88,7 +88,7 @@ python app.py
 python3 app.py
 ```
 
-## 업데이트 내역
+## 개발 내역
 
 * 0.0.1
     * 추가: 리버스 프록시 역할 수행
@@ -117,17 +117,16 @@ python3 app.py
     * 추가: 보안규칙 형식에 `type`추가 (저장및 불러오기시 구분 목적. 규칙 적용에는 상관없음)
 * 0.1.2
     * 수정 : `firebase`에 저장된 배열의 키값이 정수 나열(`0,1,2....`)이 아닐경우에도 받아오도록 수정
-* 0.1.3 (main branch에는 깔끔하게 업로드)
+* 0.1.3 
    * 추가 : `security_rules`에 보안규칙 받아오는 함수 작성
    * 추가 : `app.py`의 `@app.before_request`에 ip 검사로직 추가, 로깅도 정상 작동
    * 수정 : `security_rules`의 함수를 `app.py`와 `re_proxy.py`가 사용해서 규칙을 받아옴
-   * 에러 : 보안규칙은 받아지는데, 분리된 로직에서 최신화 못받아옴
+   * 에러 : 보안규칙은 받아지는데 `security_rules.py`안에서만 최신화
 
-* 0.1.4 (main branch에는 깔끔하게 업로드)
+* 0.1.4
    * 추가 : 로드밸런싱을 위해 라운드 로빈 알고리즘 채택. `security_rules`랑 충돌로 따로 관리중
-   * 서버의 dbms가 존재하면 문제 없지만 이 프로젝트 특성상 가상머신 2개를 웹서버로 운영중이고, 각 가상머신에 웹서버와 db가 존재한다.
-   * 이에 라운드 로빈 알고리즘은 단순히 2개의 서버중 하나를 선택해 분산해 주는것이기 때문에 다른 알고리즘을 선택해야될 수도 있음.
-   * A,B서버중 하나로 보내준후 client의 request 마다 서버를 선택하기 때문에 `dbms`동기화 없이는 아래와 같은 문제가 발생할수 있다.
+   * 참고 : A,B서버중 하나로 보내준후 client의 request 마다 서버를 선택하기 때문에 `dbms`동기화 없이는 아래와 같은 문제가 발생할수 있다.
+   * 참고 : 프로젝트의 특성상 라운드로빈을 보여주기 위에 다른 두개의 서버를 사용
         1. client가 request 요청
         2. A서버 추천으로 접속
         3. 게시판 클릭
@@ -142,7 +141,7 @@ python3 app.py
     * 에러 : 회의후 라운드 로빈 알고리즘이 한 요청에 A,B서버를 둘다 응답처리하는 에러
     * 수정 예정 : ip차단시 뒤로각 제거하기
 * 0.1.7
-    * 추가 : 싱글톤 구현
+    * 추가 : 싱글톤 패턴을 사용한 보안규칙 객체화 `
     * 에러 : 계속 규칙 적용 안됌. 졸려서 그냥 구현만 함
 * 0.2.0
     * 수정 : 싱글톤 적용, security_rules에서 구현 / app,re_proxy에서 받아옴
