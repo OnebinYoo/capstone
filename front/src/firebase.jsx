@@ -1,23 +1,50 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword, browserSessionPersistence } from 'firebase/auth';
+import { getDatabase, ref, set, push, remove } from 'firebase/database';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDVheOkbRXZU-eXaJ8OXRWfZtBelLsjFnQ",//process.env.REACT_APP_FIREBASE_API_KEY,
-    authDomain: "capstone-dab03.firebaseapp.com",//process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-    projectId: "capstone-dab03",//process.env.REACT_APP_FIREBASE_PROJECT_ID,
-    storageBucket: "capstone-dab03.appspot.com",//process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: "292620228796",//process.env.REACT_APP_FIREBASE_SENDER_ID,
-    appId: "1:292620228796:web:8c33719b97efd619c158b9",//process.env.REACT_APP_FIREBASE_APP_ID,
-    measurementId: "G-9PK1LK8PZQ"//process.env.REACT_APP_FIREBASE_MEASURMENT_ID
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID,
+    appId: process.env.REACT_APP_FIREBASE_APP_ID,
+    measurementId: process.env.REACT_APP_FIREBASE_MEASURMENT_ID
 };
 
-// Firebase 앱 초기화
 const app = initializeApp(firebaseConfig);
-
-// Auth 인스턴스 생성
 const auth = getAuth(app);
 
-// 세션 지속성을 '세션'으로 설정
-auth.setPersistence(browserSessionPersistence);
+auth.setPersistence(browserSessionPersistence);// 세션 지속성을 '세션'으로 설정
 
-export { auth, signInWithEmailAndPassword };
+const database = getDatabase();// 데이터베이스 인스턴스 생성
+
+const addItemToFirebase = async (item) => {
+  const rulesRef = ref(database, 'rule');
+  const newRuleRef = push(rulesRef);
+  const ruleId = newRuleRef.key;
+  
+  const newItem = {
+    ...item,
+    id: ruleId, // 새로운 룰의 ID 자동 할당
+  };
+  
+  await set(newRuleRef, newItem);
+};
+
+const updateItemInFirebase = async (itemId, item) => {
+  const ruleRef = ref(database, `rule/${itemId}`);
+  await set(ruleRef, item);
+};
+
+const deleteItemFromFirebase = async (ruleId) => {
+  try {
+    const ruleRef = ref(database, `rule/${ruleId}`);
+    await remove(ruleRef);
+  } catch (error) {
+    console.error('Error deleting data from Firebase:', error);
+  }
+};
+ 
+export { auth, signInWithEmailAndPassword, addItemToFirebase, updateItemInFirebase, deleteItemFromFirebase };

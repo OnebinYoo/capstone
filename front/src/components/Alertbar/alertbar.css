@@ -1,0 +1,81 @@
+.AlertBar-Error {
+    display: flex;
+    height: 23px;
+    border-radius: 50px;
+    padding: 16px;
+    margin-top: 8px;
+    background-color: #FDEDED;
+}
+
+.AlertBar-Error label {
+    font-weight: bold;
+    font-size: 15px;
+    color: #5F2120;
+}
+  
+.AlertBar-Success {
+    display: flex;
+    height: max-content;
+    border-radius: 50px;
+    padding: 20px;
+    margin-top: 8px;
+    background-color: #EDF7ED;
+}
+
+.AlertBar-SettingSuccess,
+.AlertBar-SettingError {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 100px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 100px;
+    padding: 25px 30px 25px 25px;
+}
+
+.AlertBar-SettingSuccess {
+    background-color: #EDF7ED;
+}
+
+.Success-content {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+  }
+
+.Success-content-img {
+    width: 26px;
+    height: auto;
+}
+
+.Success-content-label {
+    font-weight: bold;
+    font-size: 20px;
+    color: #1E4620;
+}
+
+.AlertBar-SettingError {
+    background-color: #FDEDED;
+}
+
+.Error-content {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+  }
+
+.Error-content-img {
+    width: 26px;
+    height: auto;
+}
+
+.Error-content-label {
+    font-weight: bold;
+    font-size: 20px;
+    color: #5F2120;
+}
