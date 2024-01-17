@@ -160,9 +160,9 @@ python3 app.py
 
 ## 참여 인원 정보
 
-유원빈(백엔드) – ywb000218@gmail.com
-권용휘(프론트) - 990225yh@gmail.com
-신민철(프론트) - doublemaxx@naver.com
+유원빈(백엔드) – ywb000218@gmail.com  
+권용휘(프론트) - 990225yh@gmail.com  
+신민철(프론트) - doublemaxx@naver.com  
 
 ## 기여 방법
 
