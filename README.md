@@ -52,6 +52,14 @@ firebase admin 이용을 위한 모듈:
 ```sh
 pip install firebase-admin
 ```
+## 설치 방법-frontend
+
+npm을 이용하여 react 실행
+
+```sh
+npm install
+npm start
+```
 
 ## 사용 방법  
 
@@ -67,6 +75,10 @@ pip install firebase-admin
 
 7번째줄에 운영중인 웹서버 주소 적어주기. 
 두개 이상의 서버로 로드밸런싱 사용시 ip주소가 큰서버를 앞 배열에 위치
+
+`firebase realtime database 설정`
+
+firebase에 접속하여 -> 프로젝트 설정 -> 내앱 -> sdk 생성( npm, python ) 후 백엔드와 프론트 파일 교체
 
 _더 많은 사용법은 하단의 정보로 문의주세요._
 
@@ -148,7 +160,9 @@ python3 app.py
 
 ## 참여 인원 정보
 
-유원빈 – ywb000218@gmail.com
+유원빈(백엔드) – ywb000218@gmail.com
+권용휘(프론트) - 990225yh@gmail.com
+신민철(프론트) - doublemaxx@naver.com
 
 ## 기여 방법
 
