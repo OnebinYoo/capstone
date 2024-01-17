@@ -1,6 +1,3 @@
-#please install follow things  
+## 앞서 설명한 것 이외에도 firebase의 realtime database 설정 별도로 필요
 
-#pip install request  
-  #안되면 pip install requests
-#pip install flask  
-#pip install cors(정확히 기억 안남)
+# backend / firebase 설정파일 위치후 security_rules.py에서 파일명 기입
